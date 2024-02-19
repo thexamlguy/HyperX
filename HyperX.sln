@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.WiFi", "HyperX.WiFi\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.WiFi.Avalonia", "HyperX.WiFi.Avalonia\HyperX.WiFi.Avalonia.csproj", "{A703DF54-C758-4B97-A9FC-8B911F4F4BB6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.Settings", "HyperX.Settings\HyperX.Settings.csproj", "{6AEFD577-5223-454B-ADC1-52BF229A028E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.Settings.Avalonia", "HyperX.Settings.Avalonia\HyperX.Settings.Avalonia.csproj", "{697B00D6-6DE1-416D-8252-C8A141C5C97D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +85,14 @@ Global
 		{A703DF54-C758-4B97-A9FC-8B911F4F4BB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A703DF54-C758-4B97-A9FC-8B911F4F4BB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A703DF54-C758-4B97-A9FC-8B911F4F4BB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AEFD577-5223-454B-ADC1-52BF229A028E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AEFD577-5223-454B-ADC1-52BF229A028E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AEFD577-5223-454B-ADC1-52BF229A028E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AEFD577-5223-454B-ADC1-52BF229A028E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{697B00D6-6DE1-416D-8252-C8A141C5C97D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{697B00D6-6DE1-416D-8252-C8A141C5C97D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{697B00D6-6DE1-416D-8252-C8A141C5C97D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{697B00D6-6DE1-416D-8252-C8A141C5C97D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
