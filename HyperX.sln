@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.Launcher.Avalonia.De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.Spotify.Avalonia", "HyperX.Spotify.Avalonia\HyperX.Spotify.Avalonia.csproj", "{74C6A74F-35C6-4CC3-A2FB-D7528FD1170A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.UI.Controls.Avalonia", "HyperX.UI.Controls.Avalonia\HyperX.UI.Controls.Avalonia.csproj", "{92C114E4-1E94-4BB3-B71E-CEC952C7A3CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{74C6A74F-35C6-4CC3-A2FB-D7528FD1170A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74C6A74F-35C6-4CC3-A2FB-D7528FD1170A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74C6A74F-35C6-4CC3-A2FB-D7528FD1170A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92C114E4-1E94-4BB3-B71E-CEC952C7A3CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92C114E4-1E94-4BB3-B71E-CEC952C7A3CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92C114E4-1E94-4BB3-B71E-CEC952C7A3CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92C114E4-1E94-4BB3-B71E-CEC952C7A3CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

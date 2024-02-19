@@ -3,7 +3,8 @@ using Avalonia.Controls.Primitives;
 
 namespace HyperX.Avalonia;
 
-public class ContentControlHandler(IViewModelContentBinder binder) : INavigationHandler<ContentControl>
+public class ContentControlHandler(IViewModelContentBinder binder) : 
+    INavigationHandler<ContentControl>
 {
     public Task Handle(Navigate<ContentControl> args,
         CancellationToken cancellationToken)

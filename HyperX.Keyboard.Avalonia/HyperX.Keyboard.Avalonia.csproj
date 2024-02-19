@@ -12,6 +12,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\HyperX.Keyboard\HyperX.Keyboard.csproj" />
 		<ProjectReference Include="..\HyperX.UI.Avalonia\HyperX.UI.Avalonia.csproj" />
+		<ProjectReference Include="..\HyperX.UI.Controls.Avalonia\HyperX.UI.Controls.Avalonia.csproj" />
 		<ProjectReference Include="..\HyperX\HyperX.csproj" />
 	</ItemGroup>
 </Project>

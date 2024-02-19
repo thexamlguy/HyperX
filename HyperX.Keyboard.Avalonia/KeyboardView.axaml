@@ -19,6 +19,6 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-        <ContentControl x:Name="KeyboardLayout" Grid.Row="2" />
+        <Frame x:Name="KeyboardLayout" Grid.Row="2" />
     </Grid>
 </UserControl>

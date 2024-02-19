@@ -16,6 +16,7 @@ public static class IServiceCollectionExtensions
         services.AddNavigationHandler<ClassicDesktopStyleApplicationHandler>();
         services.AddNavigationHandler<SingleViewApplicationHandler>();
         services.AddNavigationHandler<ContentControlHandler>();
+        services.AddNavigationHandler<FrameHandler>();
 
         services.AddSingleton<INavigationContextCollection, NavigationContextCollection>(provider => new NavigationContextCollection
         {
@@ -34,6 +35,7 @@ public static class IServiceCollectionExtensions
                 services.AddTransient<IViewModelContentBinder, ViewModelContentBinder>();
 
                 services.AddNavigationHandler<ContentControlHandler>();
+                services.AddNavigationHandler<FrameHandler>();
             })));
 
         return services;

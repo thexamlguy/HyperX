@@ -2,7 +2,15 @@
     x:Class="HyperX.Keyboard.Avalonia.KeyboardButtonView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="ButtonHeight">44</x:Double>
+            <x:Double x:Key="ButtonWidth">44</x:Double>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Button
+        Width="{DynamicResource ButtonWidth}"
+        Height="{DynamicResource ButtonHeight}"
         Command="{Binding ClickCommand}"
         Content="{Binding Character}"
         Focusable="False" />
