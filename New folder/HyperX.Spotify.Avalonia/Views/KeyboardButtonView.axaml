@@ -1,9 +1,0 @@
-<UserControl
-    x:Class="HyperX.Spotify.Avalonia.KeyboardButtonView"
-    xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Button
-        Command="{Binding ClickCommand}"
-        Content="{Binding Character}"
-        Focusable="False" />
-</UserControl>
