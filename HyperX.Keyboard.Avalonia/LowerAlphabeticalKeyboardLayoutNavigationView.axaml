@@ -1,0 +1,17 @@
+<RadioButton
+    x:Class="HyperX.Keyboard.Avalonia.LowerAlphabeticalKeyboardLayoutNavigationView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Content="abc"
+    Focusable="False"
+    GroupName="KeyboardLayout"
+    IsChecked="True">
+    <Interaction.Behaviors>
+        <EventTriggerBehavior EventName="Click">
+            <NavigateAction
+                Name="LowerAlphabeticalKeyboardLayout"
+                Context="KeyboardLayout"
+                Scope="KeyboardComponent" />
+        </EventTriggerBehavior>
+    </Interaction.Behaviors>
+</RadioButton>

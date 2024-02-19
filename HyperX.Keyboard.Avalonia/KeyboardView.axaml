@@ -1,0 +1,24 @@
+<UserControl
+    x:Class="HyperX.Keyboard.Avalonia.KeyboardView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="24" RowDefinitions="Auto, Auto, *">
+        <TextBox
+            Grid.Row="0"
+            CaretIndex="{Binding Position}"
+            IsReadOnly="True"
+            Text="{Binding Text}" />
+        <ItemsControl
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            ItemTemplate="{Binding Template}"
+            ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <ContentControl x:Name="KeyboardLayout" Grid.Row="2" />
+    </Grid>
+</UserControl>

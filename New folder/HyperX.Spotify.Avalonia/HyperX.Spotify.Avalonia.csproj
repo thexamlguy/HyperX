@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+	<ItemGroup>
+		<AvaloniaResource Include="Assets\**" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Assets\splash.json" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Labs.Lottie" Version="11.0.3" />
+		<PackageReference Include="Avalonia.Labs.Panels" Version="11.0.3" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0-preview.1.24080.9" />
+		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.0.6" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\HyperX.Avalonia\HyperX.Avalonia.csproj" />
+		<ProjectReference Include="..\HyperX.Spotify\HyperX.Spotify.csproj" />
+		<ProjectReference Include="..\HyperX.UI.Avalonia\HyperX.UI.Avalonia.csproj" />
+		<ProjectReference Include="..\HyperX\HyperX.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Views\ConnectView.axaml.cs">
+	    <DependentUpon>ConnectView.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+</Project>

@@ -1,0 +1,16 @@
+<RadioButton
+    x:Class="HyperX.Keyboard.Avalonia.NumericalKeyboardLayoutNavigationView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Content="123"
+    Focusable="False"
+    GroupName="KeyboardLayout">
+    <Interaction.Behaviors>
+        <EventTriggerBehavior EventName="Click">
+            <NavigateAction
+                Name="NumericalKeyboardLayout"
+                Context="KeyboardLayout"
+                Scope="KeyboardComponent" />
+        </EventTriggerBehavior>
+    </Interaction.Behaviors>
+</RadioButton>

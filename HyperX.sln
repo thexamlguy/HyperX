@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX", "HyperX\HyperX.csproj", "{947D9905-02B2-423E-A58B-F762F73BBA49}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.Spotify", "HyperX.Spotify\HyperX.Spotify.csproj", "{6800B3F2-6939-4C2E-AEB5-18AA67FA492D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.Avalonia", "HyperX.Avalonia\HyperX.Avalonia.csproj", "{3B4976FE-A0A4-4990-A74E-A84A28B78A3B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.UI.Avalonia", "HyperX.UI.Avalonia\HyperX.UI.Avalonia.csproj", "{6610B2D0-A8CC-40C0-9364-6EAE08462813}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.Keyboard", "HyperX.Keyboard\HyperX.Keyboard.csproj", "{1FE24BD7-72C3-4892-B344-865F2A6F2F2B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.Keyboard.Avalonia", "HyperX.Keyboard.Avalonia\HyperX.Keyboard.Avalonia.csproj", "{A7D1B545-0A68-464E-9506-ACBFB443399B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.Launcher.Avalonia", "HyperX.Launcher.Avalonia\HyperX.Launcher.Avalonia.csproj", "{2068B86F-4891-441D-8D61-222A58971E6E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.Launcher.Avalonia.Desktop", "HyperX.Launcher.Avalonia.Desktop\HyperX.Launcher.Avalonia.Desktop.csproj", "{EC1F3C05-B191-48F9-A6B2-DBEEACE09308}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.Spotify.Avalonia", "HyperX.Spotify.Avalonia\HyperX.Spotify.Avalonia.csproj", "{74C6A74F-35C6-4CC3-A2FB-D7528FD1170A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{947D9905-02B2-423E-A58B-F762F73BBA49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{947D9905-02B2-423E-A58B-F762F73BBA49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{947D9905-02B2-423E-A58B-F762F73BBA49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{947D9905-02B2-423E-A58B-F762F73BBA49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6800B3F2-6939-4C2E-AEB5-18AA67FA492D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6800B3F2-6939-4C2E-AEB5-18AA67FA492D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6800B3F2-6939-4C2E-AEB5-18AA67FA492D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6800B3F2-6939-4C2E-AEB5-18AA67FA492D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B4976FE-A0A4-4990-A74E-A84A28B78A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B4976FE-A0A4-4990-A74E-A84A28B78A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B4976FE-A0A4-4990-A74E-A84A28B78A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B4976FE-A0A4-4990-A74E-A84A28B78A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6610B2D0-A8CC-40C0-9364-6EAE08462813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6610B2D0-A8CC-40C0-9364-6EAE08462813}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6610B2D0-A8CC-40C0-9364-6EAE08462813}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6610B2D0-A8CC-40C0-9364-6EAE08462813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FE24BD7-72C3-4892-B344-865F2A6F2F2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FE24BD7-72C3-4892-B344-865F2A6F2F2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FE24BD7-72C3-4892-B344-865F2A6F2F2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FE24BD7-72C3-4892-B344-865F2A6F2F2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7D1B545-0A68-464E-9506-ACBFB443399B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7D1B545-0A68-464E-9506-ACBFB443399B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7D1B545-0A68-464E-9506-ACBFB443399B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7D1B545-0A68-464E-9506-ACBFB443399B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2068B86F-4891-441D-8D61-222A58971E6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2068B86F-4891-441D-8D61-222A58971E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2068B86F-4891-441D-8D61-222A58971E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2068B86F-4891-441D-8D61-222A58971E6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC1F3C05-B191-48F9-A6B2-DBEEACE09308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC1F3C05-B191-48F9-A6B2-DBEEACE09308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC1F3C05-B191-48F9-A6B2-DBEEACE09308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC1F3C05-B191-48F9-A6B2-DBEEACE09308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74C6A74F-35C6-4CC3-A2FB-D7528FD1170A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74C6A74F-35C6-4CC3-A2FB-D7528FD1170A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74C6A74F-35C6-4CC3-A2FB-D7528FD1170A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74C6A74F-35C6-4CC3-A2FB-D7528FD1170A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E52A659-B80A-46E3-A7CC-B21B924294AB}
+	EndGlobalSection
+EndGlobal
