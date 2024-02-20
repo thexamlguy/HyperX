@@ -7,8 +7,16 @@ public partial class KeyboardFunctionLayoutViewModel :
         IServiceFactory serviceFactory,
         IPublisher publisher, 
         ISubscriber subscriber,
-        IDisposer disposer) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+        IDisposer disposer,
+        IViewModelTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
+        Template = template;
 
+        Add<KeyboardDeleteButtonViewModel>(0, async () => await Publisher.PublishUIAsync(new Keyboard<Delete>()));
+        Add<KeyboardSpaceButtonViewModel>(1, async () => await Publisher.PublishUIAsync(new Keyboard<Space>()));
+        Add<KeyboardPreviousButtonViewModel>(2, async () => await Publisher.PublishUIAsync(new Keyboard<Previous>()));
+        Add<KeyboardNextButtonViewModel>(3, async () => await Publisher.PublishUIAsync(new Keyboard<Next>()));
     }
+
+    public IViewModelTemplate Template { get; }
 }

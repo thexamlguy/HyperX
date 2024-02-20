@@ -15,4 +15,9 @@
 		<ProjectReference Include="..\HyperX.UI.Controls.Avalonia\HyperX.UI.Controls.Avalonia.csproj" />
 		<ProjectReference Include="..\HyperX\HyperX.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="KeyboardCharacterButtonView.axaml.cs">
+	    <DependentUpon>KeyboardCharacterButtonView.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
 </Project>

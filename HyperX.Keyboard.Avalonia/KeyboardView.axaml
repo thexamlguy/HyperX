@@ -2,6 +2,12 @@
     x:Class="HyperX.Keyboard.Avalonia.KeyboardView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="ButtonHeight">44</x:Double>
+            <x:Double x:Key="ButtonWidth">44</x:Double>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid Margin="24" RowDefinitions="Auto, *">
         <TextBox
             Grid.Row="0"
@@ -12,6 +18,12 @@
             Grid.Row="1"
             HorizontalAlignment="Center"
             ItemTemplate="{Binding Template}"
-            ItemsSource="{Binding}" />
+            ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" Spacing="8" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
     </Grid>
 </UserControl>

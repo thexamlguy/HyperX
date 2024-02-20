@@ -11,32 +11,32 @@ public class LowerAlphabeticalKeyboardLayoutViewModel : KeyboardLayoutViewModel
     {
         Template = template;
 
-        Add<KeyboardKeyButtonViewModel>('a');
-        Add<KeyboardKeyButtonViewModel>('b');
-        Add<KeyboardKeyButtonViewModel>('c');
-        Add<KeyboardKeyButtonViewModel>('d');
-        Add<KeyboardKeyButtonViewModel>('e');
-        Add<KeyboardKeyButtonViewModel>('f');
-        Add<KeyboardKeyButtonViewModel>('g');
-        Add<KeyboardKeyButtonViewModel>('h');
-        Add<KeyboardKeyButtonViewModel>('i');
-        Add<KeyboardKeyButtonViewModel>('j');
-        Add<KeyboardKeyButtonViewModel>('k');
-        Add<KeyboardKeyButtonViewModel>('l');
-        Add<KeyboardKeyButtonViewModel>('m');
-        Add<KeyboardKeyButtonViewModel>('n');
-        Add<KeyboardKeyButtonViewModel>('o');
-        Add<KeyboardKeyButtonViewModel>('p');
-        Add<KeyboardKeyButtonViewModel>('q');
-        Add<KeyboardKeyButtonViewModel>('r');
-        Add<KeyboardKeyButtonViewModel>('s');
-        Add<KeyboardKeyButtonViewModel>('t');
-        Add<KeyboardKeyButtonViewModel>('u');
-        Add<KeyboardKeyButtonViewModel>('v');
-        Add<KeyboardKeyButtonViewModel>('w');
-        Add<KeyboardKeyButtonViewModel>('x');
-        Add<KeyboardKeyButtonViewModel>('y');
-        Add<KeyboardKeyButtonViewModel>('z');
+        Add<KeyboardCharacterButtonViewModel>('a');
+        Add<KeyboardCharacterButtonViewModel>('b');
+        Add<KeyboardCharacterButtonViewModel>('c');
+        Add<KeyboardCharacterButtonViewModel>('d');
+        Add<KeyboardCharacterButtonViewModel>('e');
+        Add<KeyboardCharacterButtonViewModel>('f');
+        Add<KeyboardCharacterButtonViewModel>('g');
+        Add<KeyboardCharacterButtonViewModel>('h');
+        Add<KeyboardCharacterButtonViewModel>('i');
+        Add<KeyboardCharacterButtonViewModel>('j');
+        Add<KeyboardCharacterButtonViewModel>('k');
+        Add<KeyboardCharacterButtonViewModel>('l');
+        Add<KeyboardCharacterButtonViewModel>('m');
+        Add<KeyboardCharacterButtonViewModel>('n');
+        Add<KeyboardCharacterButtonViewModel>('o');
+        Add<KeyboardCharacterButtonViewModel>('p');
+        Add<KeyboardCharacterButtonViewModel>('q');
+        Add<KeyboardCharacterButtonViewModel>('r');
+        Add<KeyboardCharacterButtonViewModel>('s');
+        Add<KeyboardCharacterButtonViewModel>('t');
+        Add<KeyboardCharacterButtonViewModel>('u');
+        Add<KeyboardCharacterButtonViewModel>('v');
+        Add<KeyboardCharacterButtonViewModel>('w');
+        Add<KeyboardCharacterButtonViewModel>('x');
+        Add<KeyboardCharacterButtonViewModel>('y');
+        Add<KeyboardCharacterButtonViewModel>('z');
     }
 
     public IViewModelTemplate Template { get; }

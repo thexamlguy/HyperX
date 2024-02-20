@@ -14,6 +14,9 @@ public class KeyboardComponent :
                 services.AddViewModelTemplate<KeyboardCharacterLayoutViewModel,
                     KeyboardCharacterLayoutView>();
 
+                services.AddViewModelTemplate<KeyboardFunctionLayoutViewModel,
+                    KeyboardFunctionLayoutView>();
+
                 services.AddViewModelTemplate<LowerAlphabeticalKeyboardLayoutNavigationViewModel,
                     LowerAlphabeticalKeyboardLayoutNavigationView>();
 
@@ -32,7 +35,19 @@ public class KeyboardComponent :
                 services.AddViewModelTemplate<NumericalKeyboardLayoutViewModel,
                     NumericalKeyboardLayoutView>("NumericalKeyboardLayout");
 
-                services.AddViewModelTemplate<KeyboardKeyButtonViewModel,
-                    KeyboardButtonView>();
+                services.AddViewModelTemplate<KeyboardCharacterButtonViewModel,
+                    KeyboardCharacterButtonView>();
+
+                services.AddViewModelTemplate<KeyboardDeleteButtonViewModel,
+                    KeyboardDeleteButtonView>();
+
+                services.AddViewModelTemplate<KeyboardSpaceButtonViewModel,
+                    KeyboardSpaceButtonView>();
+
+                services.AddViewModelTemplate<KeyboardPreviousButtonViewModel,
+                    KeyboardPreviousButtonView>();
+
+                services.AddViewModelTemplate<KeyboardNextButtonViewModel,
+                    KeyboardNextButtonView>();
             });
 }

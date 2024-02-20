@@ -2,7 +2,7 @@
 
 namespace HyperX.Keyboard;
 
-public partial class KeyboardKeyButtonViewModel(IServiceProvider serviceProvider,
+public partial class KeyboardCharacterButtonViewModel(IServiceProvider serviceProvider,
     IServiceFactory serviceFactory,
     IPublisher publisher,
     ISubscriber subscriber,
@@ -14,5 +14,5 @@ public partial class KeyboardKeyButtonViewModel(IServiceProvider serviceProvider
     private char character = character;
 
     protected override async Task OnClickAsync() =>
-        await Publisher.PublishUIAsync(new Keyboard<Key>(new Key(Character)));
+        await Publisher.PublishUIAsync(new Keyboard<char>(Character));
 }
