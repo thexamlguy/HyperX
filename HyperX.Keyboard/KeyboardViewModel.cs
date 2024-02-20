@@ -3,8 +3,8 @@
 namespace HyperX.Keyboard;
 
 public partial class KeyboardViewModel :
-    ObservableCollectionViewModel<KeyboardLayoutNavigationViewModel>,
-    INotificationHandler<Create<KeyboardButtonInput>>
+    ObservableCollectionViewModel<KeyboardLayoutViewModel>,
+    INotificationHandler<Keyboard<Key>>
 {
     [ObservableProperty]
     private string? text;
@@ -21,17 +21,16 @@ public partial class KeyboardViewModel :
     {
         Template = template;
 
-        Add<LowerAlphabeticalKeyboardLayoutNavigationViewModel>();
-        Add<UpperAlphabeticalKeyboardLayoutNavigationViewModel>();
-        Add<NumericalKeyboardLayoutNavigationViewModel>();
+        Add<KeyboardCharacterLayoutViewModel>();
+        Add<KeyboardFunctionLayoutViewModel>();
     }
 
     public IViewModelTemplate Template { get; }
 
-    public Task Handle(Create<KeyboardButtonInput> args, 
+    public Task Handle(Keyboard<Key> args, 
         CancellationToken cancellationToken = default)
     {
-        if (args.Value is KeyboardButtonInput value)
+        if (args.Value is Key value)
         {
             Text += value.Character;
             Position = Text.Length;

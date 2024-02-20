@@ -1,0 +1,28 @@
+<UserControl
+    x:Class="HyperX.Keyboard.Avalonia.KeyboardCharacterLayoutView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid RowDefinitions="Auto, *">
+        <ItemsControl
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            ItemTemplate="{Binding Template}"
+            ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        <Frame x:Name="KeyboardLayout" Grid.Row="1">
+            <Interaction.Behaviors>
+                <EventTriggerBehavior EventName="Loaded">
+                    <NavigateAction
+                        Name="LowerAlphabeticalKeyboardLayout"
+                        Context="KeyboardLayout"
+                        Scope="KeyboardComponent" />
+                </EventTriggerBehavior>
+            </Interaction.Behaviors>
+        </Frame>
+    </Grid>
+</UserControl>

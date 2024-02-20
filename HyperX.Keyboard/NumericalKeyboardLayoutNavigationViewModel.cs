@@ -5,4 +5,4 @@ public class NumericalKeyboardLayoutNavigationViewModel(IServiceProvider service
     IPublisher publisher,
     ISubscriber subscriber,
     IDisposer disposer) :
-    KeyboardLayoutNavigationViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer);
+    KeyboardButtonViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer);

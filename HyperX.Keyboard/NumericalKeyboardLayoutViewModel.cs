@@ -12,16 +12,16 @@ public class NumericalKeyboardLayoutViewModel :
     {
         Template = template;
 
-        Add<KeyboardButtonViewModel>('1');
-        Add<KeyboardButtonViewModel>('2');
-        Add<KeyboardButtonViewModel>('3');
-        Add<KeyboardButtonViewModel>('4');
-        Add<KeyboardButtonViewModel>('5');
-        Add<KeyboardButtonViewModel>('6');
-        Add<KeyboardButtonViewModel>('7');
-        Add<KeyboardButtonViewModel>('8');
-        Add<KeyboardButtonViewModel>('9');
-        Add<KeyboardButtonViewModel>('0');
+        Add<KeyboardKeyButtonViewModel>('1');
+        Add<KeyboardKeyButtonViewModel>('2');
+        Add<KeyboardKeyButtonViewModel>('3');
+        Add<KeyboardKeyButtonViewModel>('4');
+        Add<KeyboardKeyButtonViewModel>('5');
+        Add<KeyboardKeyButtonViewModel>('6');
+        Add<KeyboardKeyButtonViewModel>('7');
+        Add<KeyboardKeyButtonViewModel>('8');
+        Add<KeyboardKeyButtonViewModel>('9');
+        Add<KeyboardKeyButtonViewModel>('0');
     }
 
     public IViewModelTemplate Template { get; }

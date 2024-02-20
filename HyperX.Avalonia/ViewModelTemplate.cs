@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,9 +20,14 @@ public class ViewModelTemplate :
                 {
                     if (viewModelTemplateProvider.Get(item.GetType()) is IViewModelTemplateDescriptor descriptor)
                     {
-                        if (descriptor.GetView() is Control view)
+                        if (provider.GetService<IViewModelContentBinder>()
+                            is IViewModelContentBinder viewModelContentBinder)
                         {
-                            return view;
+                            if (descriptor.GetView() is TemplatedControl view)
+                            {
+                                viewModelContentBinder.Bind(view, view);
+                                return view;
+                            }
                         }
                     }
                 }
