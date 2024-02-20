@@ -1,0 +1,9 @@
+<UserControl
+    x:Class="HyperX.Spotify.Avalonia.SpotifyView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Image Width="200" Source="avares://HyperX.Spotify.Avalonia/Assets/1666890621426.jpg" />
+        <TextBlock>Spotify placeholder</TextBlock>
+    </StackPanel>
+</UserControl>

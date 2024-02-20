@@ -5,10 +5,17 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Assets\1666890621426.jpg" />
+	</ItemGroup>
+	<ItemGroup>
+	  <AvaloniaResource Include="Assets\1666890621426.jpg" />
+	</ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
 		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.0.6" />
 	</ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\HyperX.Spotify\HyperX.Spotify.csproj" />
 		<ProjectReference Include="..\HyperX.UI.Avalonia\HyperX.UI.Avalonia.csproj" />
 		<ProjectReference Include="..\HyperX\HyperX.csproj" />
 	</ItemGroup>

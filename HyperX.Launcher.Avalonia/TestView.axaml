@@ -3,7 +3,10 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel Margin="24" Spacing="8">
-        <TextBlock HorizontalAlignment="Center" Text="Component tests" />
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Text="Component tests" />
         <Button HorizontalAlignment="Stretch" Content="Open keyboard">
             <Interaction.Behaviors>
                 <EventTriggerBehavior EventName="Click">
@@ -18,9 +21,9 @@
             <Interaction.Behaviors>
                 <EventTriggerBehavior EventName="Click">
                     <NavigateAction
-                        Name="Keyboard"
+                        Name="WiFi"
                         Context="Root"
-                        Scope="KeyboardComponent" />
+                        Scope="WiFiComponent" />
                 </EventTriggerBehavior>
             </Interaction.Behaviors>
         </Button>
@@ -28,9 +31,9 @@
             <Interaction.Behaviors>
                 <EventTriggerBehavior EventName="Click">
                     <NavigateAction
-                        Name="Keyboard"
+                        Name="Spotify"
                         Context="Root"
-                        Scope="KeyboardComponent" />
+                        Scope="SpotifyComponent" />
                 </EventTriggerBehavior>
             </Interaction.Behaviors>
         </Button>
