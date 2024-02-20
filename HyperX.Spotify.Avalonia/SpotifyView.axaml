@@ -3,7 +3,17 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Image Width="200" Source="avares://HyperX.Spotify.Avalonia/Assets/1666890621426.jpg" />
-        <TextBlock>Spotify placeholder</TextBlock>
+        <Image Width="120" Source="avares://HyperX.Spotify.Avalonia/Assets/1666890621426.jpg" />
+        <TextBlock HorizontalAlignment="Center">Spotify placeholder</TextBlock>
+        <Button Content="Open keyboard">
+            <Interaction.Behaviors>
+                <EventTriggerBehavior EventName="Click">
+                    <NavigateAction
+                        Name="Keyboard"
+                        Context="Root"
+                        Scope="KeyboardComponent" />
+                </EventTriggerBehavior>
+            </Interaction.Behaviors>
+        </Button>
     </StackPanel>
 </UserControl>
