@@ -36,55 +36,40 @@ public partial class KeyboardViewModel :
     {
         if (args.Value is char value)
         {
-            Text = Text.Insert(Position, $"{value}");
-            Position = Position == Text.Length ? Position : Position + 1;
+            InsertCharacter(value);
         }
 
         return Task.CompletedTask;
     }
 
-    public Task Handle(Keyboard<Delete> args, 
+    public Task Handle(Keyboard<Delete> args,
         CancellationToken cancellationToken = default)
     {
-        if (Text is { Length: > 0 } && Position > 0)
+        if (Text.Length > 0 && Position > 0)
         {
             Text = Text.Remove(Position - 1, 1);
-
-            int position = --Position;
-            if (position >= 0 && position <= Text.Length)
-            {
-                Position = position;
-            }
+            MoveCursorLeft();
         }
 
         return Task.CompletedTask;
     }
 
-    public Task Handle(Keyboard<Previous> args, 
-        CancellationToken cancellationToken = default)
+    public Task Handle(Keyboard<Previous> args, CancellationToken cancellationToken = default)
     {
-        if (Text is { Length: > 0 })
+        if (Text.Length > 0)
         {
-            int position = Position - 1;
-            if (position >= 0 && position <= Text.Length)
-            {
-                Position = position;
-            }
+            MoveCursorLeft();
         }
 
         return Task.CompletedTask;
     }
 
-    public Task Handle(Keyboard<Next> args, 
+    public Task Handle(Keyboard<Next> args,
         CancellationToken cancellationToken = default)
     {
-        if (Text is { Length: > 0 })
+        if (Text.Length > 0)
         {
-            int position = Position + 1;
-            if (position >= 0 && position <= Text.Length)
-            {
-                Position = position;
-            }
+            MoveCursorRight();
         }
 
         return Task.CompletedTask;
@@ -93,9 +78,19 @@ public partial class KeyboardViewModel :
     public Task Handle(Keyboard<Space> args, 
         CancellationToken cancellationToken = default)
     {
-        Text = Text.Insert(Position, " ");
-        Position = Position == Text.Length ? Position : Position + 1;
-
+        InsertCharacter(' ');
         return Task.CompletedTask;
     }
+
+    private void InsertCharacter(char character)
+    {
+        Text = Text.Insert(Position, character.ToString());
+        MoveCursorRight();
+    }
+
+    private void MoveCursorLeft() => 
+        Position = Math.Max(Position - 1, 0);
+
+    private void MoveCursorRight() => 
+        Position = Math.Min(Position + 1, Text.Length);
 }
