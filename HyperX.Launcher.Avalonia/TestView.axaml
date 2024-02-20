@@ -1,0 +1,38 @@
+<UserControl
+    x:Class="HyperX.Launcher.Avalonia.TestView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Margin="24" Spacing="8">
+        <TextBlock HorizontalAlignment="Center" Text="Component tests" />
+        <Button HorizontalAlignment="Stretch" Content="Open keyboard">
+            <Interaction.Behaviors>
+                <EventTriggerBehavior EventName="Click">
+                    <NavigateAction
+                        Name="Keyboard"
+                        Context="Root"
+                        Scope="KeyboardComponent" />
+                </EventTriggerBehavior>
+            </Interaction.Behaviors>
+        </Button>
+        <Button HorizontalAlignment="Stretch" Content="Open WiFi">
+            <Interaction.Behaviors>
+                <EventTriggerBehavior EventName="Click">
+                    <NavigateAction
+                        Name="Keyboard"
+                        Context="Root"
+                        Scope="KeyboardComponent" />
+                </EventTriggerBehavior>
+            </Interaction.Behaviors>
+        </Button>
+        <Button HorizontalAlignment="Stretch" Content="Open Spotify">
+            <Interaction.Behaviors>
+                <EventTriggerBehavior EventName="Click">
+                    <NavigateAction
+                        Name="Keyboard"
+                        Context="Root"
+                        Scope="KeyboardComponent" />
+                </EventTriggerBehavior>
+            </Interaction.Behaviors>
+        </Button>
+    </StackPanel>
+</UserControl>

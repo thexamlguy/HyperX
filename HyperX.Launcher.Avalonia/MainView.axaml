@@ -2,14 +2,17 @@
     x:Class="HyperX.Launcher.Avalonia.MainView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ContentControl x:Name="Root">
-        <Interaction.Behaviors>
-            <EventTriggerBehavior EventName="Loaded">
-                <NavigateAction
-                    Name="Keyboard"
-                    Context="Root"
-                    Scope="KeyboardComponent" />
-            </EventTriggerBehavior>
-        </Interaction.Behaviors>
-    </ContentControl>
+    <Grid>
+        <Button
+            VerticalAlignment="Top"
+            Content="Back"
+            IsEnabled="{Binding #Root.CanGoBack}" />
+        <Frame x:Name="Root">
+            <Interaction.Behaviors>
+                <EventTriggerBehavior EventName="Loaded">
+                    <NavigateAction Name="Test" Context="Root" />
+                </EventTriggerBehavior>
+            </Interaction.Behaviors>
+        </Frame>
+    </Grid>
 </UserControl>

@@ -29,6 +29,8 @@ public partial class App :
                 }
 
                 services.AddViewModelTemplate<MainViewModel, MainView>("Main");
+                services.AddViewModelTemplate<TestViewModel, TestView>("Test");
+
             })
         .Build();
 
