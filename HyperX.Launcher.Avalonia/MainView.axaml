@@ -6,7 +6,13 @@
         <Button
             VerticalAlignment="Top"
             Content="Back"
-            IsEnabled="{Binding #Root.CanGoBack}" />
+            IsEnabled="{Binding #Root.CanGoBack}">
+            <Interaction.Behaviors>
+                <EventTriggerBehavior EventName="Click">
+                    <CallMethodAction MethodName="GoBack" TargetObject="{Binding #Root}" />
+                </EventTriggerBehavior>
+            </Interaction.Behaviors>
+        </Button>
         <Frame x:Name="Root">
             <Interaction.Behaviors>
                 <EventTriggerBehavior EventName="Loaded">
