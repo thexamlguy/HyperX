@@ -19,6 +19,15 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-        <Frame x:Name="KeyboardLayout" Grid.Row="2" />
+        <Frame x:Name="KeyboardLayout" Grid.Row="2">
+            <Interaction.Behaviors>
+                <EventTriggerBehavior EventName="Loaded">
+                    <NavigateAction
+                        Name="LowerAlphabeticalKeyboardLayout"
+                        Context="KeyboardLayout"
+                        Scope="KeyboardComponent" />                
+                </EventTriggerBehavior>
+            </Interaction.Behaviors>
+        </Frame>
     </Grid>
 </UserControl>
