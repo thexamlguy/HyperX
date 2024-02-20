@@ -54,7 +54,8 @@ public partial class KeyboardViewModel :
         return Task.CompletedTask;
     }
 
-    public Task Handle(Keyboard<Previous> args, CancellationToken cancellationToken = default)
+    public Task Handle(Keyboard<Previous> args, 
+        CancellationToken cancellationToken = default)
     {
         if (Text.Length > 0)
         {
