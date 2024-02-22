@@ -25,8 +25,8 @@ public partial class KeyboardViewModel :
     {
         Template = template;
 
-        Add<KeyboardCharacterLayoutViewModel>();
-        Add<KeyboardFunctionLayoutViewModel>();
+        Add<CharacterLayoutViewModel>();
+        Add<FunctionLayoutViewModel>();
     }
 
     public IViewModelTemplate Template { get; }

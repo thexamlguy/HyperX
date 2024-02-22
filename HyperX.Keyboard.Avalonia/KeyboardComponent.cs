@@ -11,43 +11,43 @@ public class KeyboardComponent :
                 services.AddViewModelTemplate<KeyboardViewModel,
                     KeyboardView>("Keyboard");
 
-                services.AddViewModelTemplate<KeyboardCharacterLayoutViewModel,
-                    KeyboardCharacterLayoutView>();
+                services.AddViewModelTemplate<CharacterLayoutViewModel,
+                    CharacterLayoutView>();
 
-                services.AddViewModelTemplate<KeyboardFunctionLayoutViewModel,
-                    KeyboardFunctionLayoutView>();
+                services.AddViewModelTemplate<FunctionLayoutViewModel,
+                    FunctionLayoutView>();
 
-                services.AddViewModelTemplate<LowerAlphabeticalKeyboardLayoutNavigationViewModel,
-                    LowerAlphabeticalKeyboardLayoutNavigationView>();
+                services.AddViewModelTemplate<LowerAlphabeticalLayoutNavigationViewModel,
+                    LowerAlphabeticalLayoutNavigationView>();
 
-                services.AddViewModelTemplate<LowerAlphabeticalKeyboardLayoutViewModel,
-                    LowerAlphabeticalKeyboardLayoutView>("LowerAlphabeticalKeyboardLayout");
+                services.AddViewModelTemplate<LowerAlphabeticalLayoutViewModel,
+                    LowerAlphabeticalLayoutView>("LowerAlphabeticalLayout");
 
-                services.AddViewModelTemplate<UpperAlphabeticalKeyboardLayoutNavigationViewModel, 
-                    UpperAlphabeticalKeyboardLayoutNavigationView>();
+                services.AddViewModelTemplate<UpperAlphabeticalLayoutNavigationViewModel, 
+                    UpperAlphabeticalLayoutNavigationView>();
 
-                services.AddViewModelTemplate<UpperAlphabeticalKeyboardLayoutViewModel, 
-                    UpperAlphabeticalKeyboardLayoutView>("UpperAlphabeticalKeyboardLayout");
+                services.AddViewModelTemplate<UpperAlphabeticalLayoutViewModel, 
+                    UpperAlphabeticalLayoutView>("UpperAlphabeticalLayout");
 
-                services.AddViewModelTemplate<NumericalKeyboardLayoutNavigationViewModel,
-                    NumericalKeyboardLayoutNavigationView>();
+                services.AddViewModelTemplate<NumericalLayoutNavigationViewModel,
+                    NumericalLayoutNavigationView>();
 
-                services.AddViewModelTemplate<NumericalKeyboardLayoutViewModel,
-                    NumericalKeyboardLayoutView>("NumericalKeyboardLayout");
+                services.AddViewModelTemplate<NumericalLayoutViewModel,
+                    NumericalLayoutView>("NumericalLayout");
 
-                services.AddViewModelTemplate<KeyboardCharacterButtonViewModel,
-                    KeyboardCharacterButtonView>();
+                services.AddViewModelTemplate<CharacterButtonViewModel,
+                    CharacterButtonView>();
 
-                services.AddViewModelTemplate<KeyboardDeleteButtonViewModel,
-                    KeyboardDeleteButtonView>();
+                services.AddViewModelTemplate<DeleteButtonViewModel,
+                    DeleteButtonView>();
 
-                services.AddViewModelTemplate<KeyboardSpaceButtonViewModel,
-                    KeyboardSpaceButtonView>();
+                services.AddViewModelTemplate<SpaceButtonViewModel,
+                    SpaceButtonView>();
 
-                services.AddViewModelTemplate<KeyboardPreviousButtonViewModel,
-                    KeyboardPreviousButtonView>();
+                services.AddViewModelTemplate<PreviousButtonViewModel,
+                    PreviousButtonView>();
 
-                services.AddViewModelTemplate<KeyboardNextButtonViewModel,
-                    KeyboardNextButtonView>();
+                services.AddViewModelTemplate<NextButtonViewModel,
+                    NextButtonView>();
             });
 }

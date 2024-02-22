@@ -13,5 +13,11 @@ public class WiFiComponent :
             {
                 services.AddViewModelTemplate<WiFiViewModel,
                     WiFiView>("WiFi");
+
+                services.AddViewModelTemplate<WiFiConnectionViewModel,
+                    WiFiConnectionView>();
+
+                services.AddViewModelTemplate<WiFiConnectionInformationViewModel,
+                    WiFiConnectionInformationView>("WiFiConnectionInformation");
             });
 }

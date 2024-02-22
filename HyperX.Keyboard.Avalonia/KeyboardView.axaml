@@ -16,7 +16,6 @@
             Text="{Binding Text}" />
         <ItemsControl
             Grid.Row="1"
-            HorizontalAlignment="Center"
             ItemTemplate="{Binding Template}"
             ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>

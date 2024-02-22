@@ -2,5 +2,13 @@
     x:Class="HyperX.WiFi.Avalonia.WiFiView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">WiFI placeholder</TextBlock>
+    <ScrollViewer Grid.Row="1" Padding="24">
+        <ItemsControl ItemTemplate="{Binding Template}" ItemsSource="{Binding}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" Spacing="4" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </ScrollViewer>
 </UserControl>

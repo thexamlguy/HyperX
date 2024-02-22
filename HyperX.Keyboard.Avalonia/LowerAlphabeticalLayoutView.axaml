@@ -1,0 +1,13 @@
+<UserControl
+    x:Class="HyperX.Keyboard.Avalonia.LowerAlphabeticalLayoutView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:panels="clr-namespace:Avalonia.Labs.Panels;assembly=Avalonia.Labs.Panels">
+    <ItemsControl ItemTemplate="{Binding Template}" ItemsSource="{Binding}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <panels:FlexPanel ColumnSpacing="4" RowSpacing="4" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+    </ItemsControl>
+</UserControl>

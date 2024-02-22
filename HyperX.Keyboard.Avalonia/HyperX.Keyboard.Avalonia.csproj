@@ -16,8 +16,44 @@
 		<ProjectReference Include="..\HyperX\HyperX.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Update="KeyboardCharacterButtonView.axaml.cs">
-	    <DependentUpon>KeyboardCharacterButtonView.axaml</DependentUpon>
+	  <Compile Update="CharacterButtonView.axaml.cs">
+	    <DependentUpon>CharacterButtonView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="FunctionLayoutView.axaml.cs">
+	    <DependentUpon>FunctionLayoutView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="CharacterLayoutView.axaml.cs">
+	    <DependentUpon>CharacterLayoutView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="DeleteButtonView.axaml.cs">
+	    <DependentUpon>DeleteButtonView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="PreviousButtonView.axaml.cs">
+	    <DependentUpon>PreviousButtonView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="SpaceButtonView.axaml.cs">
+	    <DependentUpon>SpaceButtonView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="LowerAlphabeticalLayoutNavigationView.axaml.cs">
+	    <DependentUpon>LowerAlphabeticalLayoutNavigationView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="LowerAlphabeticalLayoutView.axaml.cs">
+	    <DependentUpon>LowerAlphabeticalLayoutView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="NextButtonView.axaml.cs">
+	    <DependentUpon>NextButtonView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="NumericalLayoutView.axaml.cs">
+	    <DependentUpon>NumericalLayoutView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="NumericalLayoutNavigationView.axaml.cs">
+	    <DependentUpon>NumericalLayoutNavigationView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="UpperAlphabeticalLayoutView.axaml.cs">
+	    <DependentUpon>UpperAlphabeticalLayoutView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="UpperAlphabeticalLayoutNavigationView.axaml.cs">
+	    <DependentUpon>UpperAlphabeticalLayoutNavigationView.axaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 </Project>

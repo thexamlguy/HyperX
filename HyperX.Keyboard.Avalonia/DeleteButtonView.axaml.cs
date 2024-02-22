@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace HyperX.Keyboard.Avalonia;
 
-public partial class KeyboardView : 
+public partial class DeleteButtonView : 
     UserControl
 {
-    public KeyboardView() => 
+    public DeleteButtonView() => 
         InitializeComponent();
 }
