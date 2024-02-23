@@ -17,7 +17,7 @@ public class KeyboardComponent :
                 services.AddViewModelTemplate<FunctionLayoutViewModel,
                     FunctionLayoutView>();
 
-                services.AddViewModelTemplate<LowerAlphabeticalLayoutViewModel,
+                services.AddViewModelTemplate<LowerCharacterLayoutViewModel,
                     LowerAlphabeticalLayoutView>("LowerAlphabeticalLayout");
 
                 services.AddViewModelTemplate<UpperAlphabeticalLayoutViewModel, 

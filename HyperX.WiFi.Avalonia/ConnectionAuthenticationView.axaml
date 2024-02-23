@@ -6,7 +6,7 @@
         <ItemsControl ItemTemplate="{Binding Template}" ItemsSource="{Binding}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical" Spacing="4" />
+                    <StackPanel Orientation="Vertical" Spacing="18" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>

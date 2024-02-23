@@ -13,6 +13,7 @@ public class ConnectionAuthenticationViewModel :
         Template = template;
 
         Add<ConnectionPasswordViewModel>();
+        Add<ConnectViewModel>();
     }
 
     public IViewModelTemplate Template { get; }

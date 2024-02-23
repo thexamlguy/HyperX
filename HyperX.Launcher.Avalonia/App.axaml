@@ -3,11 +3,39 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:sty="using:FluentAvalonia.Styling"
-    RequestedThemeVariant="Default">
+    xmlns:ui="using:FluentAvalonia.UI.Controls"
+    RequestedThemeVariant="Dark">
     <Application.Styles>
         <sty:FluentAvaloniaTheme />
+        <Style Selector="ui|SettingsExpanderItem">
+            <Style Selector="^ /template/ Expander#Expander">
+                <Setter Property="IsVisible" Value="False" />
+            </Style>
+            <Style Selector="^:footerBottom /template/ ContentPresenter#FooterPresenter">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+            </Style>
+        </Style>
+        <Style Selector="ui|SettingsExpander /template/ Expander#Expander ToggleButton">
+            <Setter Property="CornerRadius" Value="{DynamicResource OverlayCornerRadius}" />
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="CornerRadius" Value="{DynamicResource OverlayCornerRadius}" />
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="BorderThickness" Value="0 0 0 2" />
+            <Style Selector="^:focus">
+                <Style Selector="^ /template/ Border#PART_BorderElement">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0 0 0 2" />
+                </Style>
+            </Style>
+        </Style>
     </Application.Styles>
     <Application.Resources>
+        <Thickness x:Key="TextControlThemePadding">0,5,6,6</Thickness>
         <FontFamily x:Key="SymbolFontFamily">avares://HyperX.Launcher.Avalonia/Assets/SegoeIcons.ttf#Segoe Fluent Icons</FontFamily>
+        <StaticResource x:Key="TextControlBackground" ResourceKey="ControlFillColorTransparentBrush" />
+        <StaticResource x:Key="TextControlBackgroundPointerOver" ResourceKey="ControlFillColorTransparentBrush" />
     </Application.Resources>
 </Application>

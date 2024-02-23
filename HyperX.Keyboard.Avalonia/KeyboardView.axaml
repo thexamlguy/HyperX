@@ -19,20 +19,7 @@
             Background="Transparent"
             CaretIndex="{Binding Position}"
             IsReadOnly="True"
-            Text="{Binding Text}">
-            <TextBox.Styles>
-                <Style Selector="TextBox">
-                    <Setter Property="CornerRadius" Value="0" />
-                    <Style Selector="^:focus">
-                        <Style Selector="^ /template/ Border#PART_BorderElement">
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="BorderBrush" Value="{DynamicResource AccentFillColorDefaultBrush}" />
-                            <Setter Property="BorderThickness" Value="0 0 0 2" />
-                        </Style>
-                    </Style>
-                </Style>
-            </TextBox.Styles>
-        </TextBox>
+            Text="{Binding Text}" />
         <ItemsControl
             Grid.Row="2"
             HorizontalAlignment="Center"

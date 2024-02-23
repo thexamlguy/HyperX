@@ -28,5 +28,8 @@ public class WiFiComponent :
 
                 services.AddViewModelTemplate<ConnectionPasswordViewModel,
                     ConnectionPasswordView>();
+
+                services.AddViewModelTemplate<ConnectViewModel,
+                    ConnectView>();
             });
 }
