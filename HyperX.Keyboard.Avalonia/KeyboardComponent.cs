@@ -18,10 +18,10 @@ public class KeyboardComponent :
                     FunctionLayoutView>();
 
                 services.AddViewModelTemplate<LowerCharacterLayoutViewModel,
-                    LowerAlphabeticalLayoutView>("LowerAlphabeticalLayout");
+                    LowerCharacterLayoutView>("LowerCharacterLayout");
 
-                services.AddViewModelTemplate<UpperAlphabeticalLayoutViewModel, 
-                    UpperAlphabeticalLayoutView>("UpperAlphabeticalLayout");
+                services.AddViewModelTemplate<UpperCharacterLayoutViewModel, 
+                    UpperCharacterLayoutView>("UpperCharacterLayout");
 
                 services.AddViewModelTemplate<NumericalLayoutViewModel,
                     NumericalLayoutView>();

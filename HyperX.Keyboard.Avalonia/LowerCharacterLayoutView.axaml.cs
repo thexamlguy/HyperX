@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace HyperX.Keyboard.Avalonia;
 
-public partial class UpperAlphabeticalLayoutView : 
+public partial class LowerCharacterLayoutView : 
     UserControl
 {
-    public UpperAlphabeticalLayoutView() => 
+    public LowerCharacterLayoutView() => 
         InitializeComponent();
 }

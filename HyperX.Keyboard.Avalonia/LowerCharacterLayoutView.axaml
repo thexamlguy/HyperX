@@ -1,5 +1,5 @@
 <UserControl
-    x:Class="HyperX.Keyboard.Avalonia.LowerAlphabeticalLayoutView"
+    x:Class="HyperX.Keyboard.Avalonia.LowerCharacterLayoutView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:panels="clr-namespace:Avalonia.Labs.Panels;assembly=Avalonia.Labs.Panels">

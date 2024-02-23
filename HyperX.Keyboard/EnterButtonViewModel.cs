@@ -1,6 +1,7 @@
-﻿namespace HyperX.Keyboard;
+﻿
+namespace HyperX.Keyboard;
 
-public partial class NextButtonViewModel(IServiceProvider serviceProvider,
+public partial class EnterButtonViewModel(IServiceProvider serviceProvider,
     IServiceFactory serviceFactory,
     IPublisher publisher,
     ISubscriber subscriber,

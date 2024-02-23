@@ -1,9 +1,9 @@
 ﻿namespace HyperX.Keyboard;
 
-public class UpperAlphabeticalLayoutViewModel : 
+public class UpperCharacterLayoutViewModel : 
     KeyboardLayoutViewModel
 {
-    public UpperAlphabeticalLayoutViewModel(IServiceProvider serviceProvider,
+    public UpperCharacterLayoutViewModel(IServiceProvider serviceProvider,
         IServiceFactory serviceFactory,
         IPublisher publisher,
         ISubscriber subscriber,
