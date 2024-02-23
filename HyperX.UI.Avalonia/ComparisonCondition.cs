@@ -33,8 +33,6 @@ public class ComparisonCondition :
         set => SetValue(OperatorProperty, value);
     }
 
-    public bool Evaluate()
-    {
-        return ComparisonLogic.Evaluate(this.LeftOperand, this.Operator, this.RightOperand);
-    }
+    public bool Evaluate() => ComparisonLogic.Evaluate(LeftOperand,
+            Operator, RightOperand);
 }

@@ -7,7 +7,14 @@
     <ContentControl x:Name="Window">
         <Interaction.Behaviors>
             <EventTriggerBehavior EventName="Loaded">
-                <NavigateAction Name="Main" Context="Window" />
+                <ConditionAction>
+                    <ConditionAction.Condition>
+                        <ConditionalExpression>
+                            <ComparisonCondition LeftOperand="0" RightOperand="0" />
+                        </ConditionalExpression>
+                    </ConditionAction.Condition>
+                    <NavigateAction Name="Main" Context="Window" />
+                </ConditionAction>
             </EventTriggerBehavior>
         </Interaction.Behaviors>
     </ContentControl>

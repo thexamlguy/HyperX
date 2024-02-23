@@ -1,6 +1,8 @@
 ﻿using Avalonia;
 using Avalonia.Metadata;
+using Avalonia.Xaml.Interactions.Core;
 using Avalonia.Xaml.Interactivity;
+using System;
 
 namespace HyperX.UI.Avalonia;
 
@@ -8,20 +10,17 @@ public class ConditionAction :
     AvaloniaObject,
     IAction
 {
+    public static readonly DirectProperty<ConditionAction, ActionCollection> ActionsProperty =
+        AvaloniaProperty.RegisterDirect<ConditionAction, ActionCollection>(nameof(Actions),
+            t => t.Actions);
+
     public static readonly StyledProperty<ICondition> ConditionProperty =
         AvaloniaProperty.Register<ConditionAction, ICondition>(nameof(Condition));
 
-    public static readonly StyledProperty<ActionCollection> ActionsProperty =
-        AvaloniaProperty.Register<ConditionAction, ActionCollection>(nameof(Actions));
-
-    private ActionCollection? _actions;
+    private ActionCollection? actions;
 
     [Content]
-    public ActionCollection Actions
-    {
-        get => GetValue(ActionsProperty);
-        set => SetValue(ActionsProperty, value);
-    }
+    public ActionCollection Actions => actions ??= [];
 
     public ICondition Condition
     {
@@ -31,8 +30,12 @@ public class ConditionAction :
 
     public object? Execute(object? sender, object? parameter)
     {
-        Condition?.Evaluate();
+        bool? result = Condition?.Evaluate();
+        if (result is true)
+        {
+            Interaction.ExecuteActions(sender, Actions, parameter);
+        }
 
-        throw new NotImplementedException();
+        return true;
     }
 }
