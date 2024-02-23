@@ -38,6 +38,10 @@ public class UpperAlphabeticalLayoutViewModel :
         Add<CharacterButtonViewModel>('X');
         Add<CharacterButtonViewModel>('Y');
         Add<CharacterButtonViewModel>('Z');
+        Add<CharacterButtonViewModel>('@');
+        Add<CharacterButtonViewModel>('<');
+        Add<CharacterButtonViewModel>('>');
+        Add<CharacterButtonViewModel>('/');
     }
 
     public IViewModelTemplate Template { get; }
