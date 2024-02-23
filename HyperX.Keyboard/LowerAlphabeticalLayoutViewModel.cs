@@ -37,6 +37,10 @@ public class LowerAlphabeticalLayoutViewModel : KeyboardLayoutViewModel
         Add<CharacterButtonViewModel>('x');
         Add<CharacterButtonViewModel>('y');
         Add<CharacterButtonViewModel>('z');
+        Add<CharacterButtonViewModel>(',');
+        Add<CharacterButtonViewModel>('\'');
+        Add<CharacterButtonViewModel>('.');
+        Add<CharacterButtonViewModel>('?');
     }
 
     public IViewModelTemplate Template { get; }

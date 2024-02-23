@@ -33,10 +33,13 @@ public class KeyboardComponent :
                     NumericalLayoutNavigationView>();
 
                 services.AddViewModelTemplate<NumericalLayoutViewModel,
-                    NumericalLayoutView>("NumericalLayout");
+                    NumericalLayoutView>();
 
                 services.AddViewModelTemplate<CharacterButtonViewModel,
                     CharacterButtonView>();
+
+                services.AddViewModelTemplate<ShiftButtonViewModel,
+                    ShiftButtonView>();
 
                 services.AddViewModelTemplate<DeleteButtonViewModel,
                     DeleteButtonView>();

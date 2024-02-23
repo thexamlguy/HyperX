@@ -5,6 +5,7 @@ using HyperX.Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using HyperX.Keyboard.Avalonia;
 using HyperX.Spotify.Avalonia;
+using HyperX.WiFi.Avalonia;
 
 namespace HyperX.Launcher.Avalonia;
 

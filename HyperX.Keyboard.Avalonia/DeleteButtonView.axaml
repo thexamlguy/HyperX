@@ -2,10 +2,11 @@
     x:Class="HyperX.Keyboard.Avalonia.DeleteButtonView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Button
+    <RepeatButton
         Width="{DynamicResource ButtonWidth}"
         Height="{DynamicResource ButtonHeight}"
         Command="{Binding ClickCommand}"
-        Content="del"
-        Focusable="False" />
+        Content="&#xE750;"
+        Focusable="False"
+        FontFamily="{DynamicResource SymbolFontFamily}" />
 </UserControl>

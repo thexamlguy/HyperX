@@ -1,0 +1,17 @@
+<SettingsExpander
+    x:Class="HyperX.WiFi.Avalonia.SecuredConnectionView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Description="Secured"
+    Header="Connection name"
+    IsClickEnabled="True">
+    <Interaction.Behaviors>
+        <EventTriggerBehavior EventName="Click">
+            <NavigateAction
+                Name="ConnectionAuthentication"
+                Context="Root"
+                Scope="WiFiComponent" />
+        </EventTriggerBehavior>
+    </Interaction.Behaviors>
+</SettingsExpander>
+

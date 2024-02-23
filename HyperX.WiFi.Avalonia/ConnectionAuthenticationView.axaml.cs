@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace HyperX.WiFi.Avalonia;
 
-public partial class WiFiView : 
+public partial class ConnectionAuthenticationView : 
     UserControl
 {
-    public WiFiView() => 
+    public ConnectionAuthenticationView() => 
         InitializeComponent();
 }

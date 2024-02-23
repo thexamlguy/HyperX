@@ -14,4 +14,15 @@
 		<ProjectReference Include="..\HyperX.WiFi\HyperX.WiFi.csproj" />
 		<ProjectReference Include="..\HyperX\HyperX.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="ConnectionInformationView.axaml.cs">
+	    <DependentUpon>ConnectionInformationView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="ConnectionPasswordView.axaml.cs">
+	    <DependentUpon>ConnectionPasswordView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="ConnectedConnectionView.axaml.cs">
+	    <DependentUpon>ConnectedConnectionView.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
 </Project>

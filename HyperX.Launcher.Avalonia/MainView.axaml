@@ -2,23 +2,29 @@
     x:Class="HyperX.Launcher.Avalonia.MainView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid>
-        <Button
-            VerticalAlignment="Top"
-            Content="Back"
-            IsEnabled="{Binding #Root.CanGoBack}">
-            <Interaction.Behaviors>
-                <EventTriggerBehavior EventName="Click">
-                    <CallMethodAction MethodName="GoBack" TargetObject="{Binding #Root}" />
-                </EventTriggerBehavior>
-            </Interaction.Behaviors>
-        </Button>
-        <Frame x:Name="Root">
-            <Interaction.Behaviors>
-                <EventTriggerBehavior EventName="Loaded">
-                    <NavigateAction Name="Test" Context="Root" />
-                </EventTriggerBehavior>
-            </Interaction.Behaviors>
-        </Frame>
-    </Grid>
+    <LayoutTransformControl>
+        <LayoutTransformControl.LayoutTransform>
+            <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+        </LayoutTransformControl.LayoutTransform>
+        <Grid RowDefinitions="Auto, *">
+            <Button
+                Grid.Row="0"
+                VerticalAlignment="Top"
+                Content="Back"
+                IsEnabled="{Binding #Root.CanGoBack}">
+                <Interaction.Behaviors>
+                    <EventTriggerBehavior EventName="Click">
+                        <CallMethodAction MethodName="GoBack" TargetObject="{Binding #Root}" />
+                    </EventTriggerBehavior>
+                </Interaction.Behaviors>
+            </Button>
+            <Frame x:Name="Root" Grid.Row="1">
+                <Interaction.Behaviors>
+                    <EventTriggerBehavior EventName="Loaded">
+                        <NavigateAction Name="Test" Context="Root" />
+                    </EventTriggerBehavior>
+                </Interaction.Behaviors>
+            </Frame>
+        </Grid>
+    </LayoutTransformControl>
 </UserControl>

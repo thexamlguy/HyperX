@@ -1,12 +1,13 @@
 <UserControl
-    x:Class="HyperX.Keyboard.Avalonia.PreviousButtonView"
+    x:Class="HyperX.Keyboard.Avalonia.ShiftButtonView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <RepeatButton
+    <ToggleButton
         Width="{DynamicResource ButtonWidth}"
         Height="{DynamicResource ButtonHeight}"
         Command="{Binding ClickCommand}"
-        Content="&#xE76B;"
+        Content="&#xE752;"
         Focusable="False"
         FontFamily="{DynamicResource SymbolFontFamily}" />
 </UserControl>
+

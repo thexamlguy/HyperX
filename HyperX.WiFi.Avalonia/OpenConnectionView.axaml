@@ -1,0 +1,17 @@
+<SettingsExpander
+    x:Class="HyperX.WiFi.Avalonia.OpenConnectionView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Description="Open"
+    Header="Connection name"
+    IsClickEnabled="True">
+    <Interaction.Behaviors>
+        <EventTriggerBehavior EventName="Click">
+            <NavigateAction
+                Name="WiFiConnectionInformation"
+                Context="Root"
+                Scope="WiFiComponent" />
+        </EventTriggerBehavior>
+    </Interaction.Behaviors>
+</SettingsExpander>
+

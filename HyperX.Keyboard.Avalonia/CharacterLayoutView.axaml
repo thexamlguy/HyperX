@@ -3,7 +3,7 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid RowDefinitions="Auto, *">
-        <ItemsControl
+        <!--<ItemsControl
             Grid.Row="0"
             HorizontalAlignment="Center"
             ItemTemplate="{Binding Template}"
@@ -13,7 +13,7 @@
                     <StackPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-        </ItemsControl>
+        </ItemsControl>-->
         <Frame x:Name="KeyboardLayout" Grid.Row="1">
             <Interaction.Behaviors>
                 <EventTriggerBehavior EventName="Loaded">

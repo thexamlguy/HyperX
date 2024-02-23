@@ -8,6 +8,7 @@
 		<AvaloniaResource Include="Assets\**" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Remove="Assets\SegoeIcons.ttf" />
 		<None Remove="Assets\splash.json" />
 	</ItemGroup>
 	<ItemGroup>

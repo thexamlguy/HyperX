@@ -1,10 +1,11 @@
 ﻿using Avalonia;
 using Avalonia.Controls.Primitives;
+using Avalonia.Xaml.Interactions.Core;
 using Avalonia.Xaml.Interactivity;
 
 namespace HyperX.UI.Avalonia;
 
-public sealed class NavigateAction :
+public class NavigateAction :
     AvaloniaObject,
     IAction
 {

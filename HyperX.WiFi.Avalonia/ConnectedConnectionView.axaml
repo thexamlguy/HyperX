@@ -1,8 +1,8 @@
 <SettingsExpander
-    x:Class="HyperX.WiFi.Avalonia.WiFiConnectionView"
+    x:Class="HyperX.WiFi.Avalonia.ConnectedConnectionView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Description="Connection placeholder"
+    Description="Connected"
     Header="Connection name"
     IsClickEnabled="True">
     <Interaction.Behaviors>

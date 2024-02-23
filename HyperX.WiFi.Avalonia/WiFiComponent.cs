@@ -1,7 +1,4 @@
-﻿using HyperX.WiFi;
-using HyperX.WiFi.Avalonia;
-
-namespace HyperX.Keyboard.Avalonia;
+﻿namespace HyperX.WiFi.Avalonia;
 
 [ViewModelTemplateRoot("WiFi")]
 public class WiFiComponent : 
@@ -14,10 +11,22 @@ public class WiFiComponent :
                 services.AddViewModelTemplate<WiFiViewModel,
                     WiFiView>("WiFi");
 
-                services.AddViewModelTemplate<WiFiConnectionViewModel,
-                    WiFiConnectionView>();
+                services.AddViewModelTemplate<ConnectedConnectionViewModel,
+                    ConnectedConnectionView>();
 
-                services.AddViewModelTemplate<WiFiConnectionInformationViewModel,
-                    WiFiConnectionInformationView>("WiFiConnectionInformation");
+                services.AddViewModelTemplate<SecuredConnectionViewModel,
+                    SecuredConnectionView>();
+
+                services.AddViewModelTemplate<OpenConnectionViewModel,
+                    OpenConnectionView>();
+
+                services.AddViewModelTemplate<ConnectionAuthenticationViewModel,
+                    ConnectionAuthenticationView>("ConnectionAuthentication");
+
+                services.AddViewModelTemplate<ConnectionInformationViewModel,
+                    ConnectionInformationView>("ConnectionInformation");
+
+                services.AddViewModelTemplate<ConnectionPasswordViewModel,
+                    ConnectionPasswordView>();
             });
 }

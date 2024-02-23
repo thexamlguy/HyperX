@@ -1,5 +1,4 @@
-﻿
-namespace HyperX.Keyboard;
+﻿namespace HyperX.Keyboard;
 
 public partial class DeleteButtonViewModel(IServiceProvider serviceProvider,
     IServiceFactory serviceFactory,

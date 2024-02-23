@@ -1,7 +1,7 @@
 ﻿namespace HyperX.WiFi;
 
 public class WiFiViewModel : 
-    ObservableCollectionViewModel<WiFiConnectionViewModel>
+    ObservableCollectionViewModel<ConnectionViewModel>
 {
     public WiFiViewModel(IServiceProvider serviceProvider, 
         IServiceFactory serviceFactory,
@@ -12,12 +12,12 @@ public class WiFiViewModel :
     {
         Template = template;
 
-        Add<WiFiConnectionViewModel>();
-        Add<WiFiConnectionViewModel>();
-        Add<WiFiConnectionViewModel>();
-        Add<WiFiConnectionViewModel>();
-        Add<WiFiConnectionViewModel>();
-        Add<WiFiConnectionViewModel>();
+        Add<ConnectedConnectionViewModel>();
+        Add<SecuredConnectionViewModel>();
+        Add<SecuredConnectionViewModel>();
+        Add<OpenConnectionViewModel>();
+        Add<OpenConnectionViewModel>();
+        Add<OpenConnectionViewModel>();
     }
 
     public IViewModelTemplate Template { get; }

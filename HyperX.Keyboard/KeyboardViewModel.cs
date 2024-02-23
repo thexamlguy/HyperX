@@ -25,6 +25,7 @@ public partial class KeyboardViewModel :
     {
         Template = template;
 
+        Add<NumericalLayoutViewModel>();
         Add<CharacterLayoutViewModel>();
         Add<FunctionLayoutViewModel>();
     }

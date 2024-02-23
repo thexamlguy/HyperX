@@ -12,10 +12,11 @@ public partial class FunctionLayoutViewModel :
     {
         Template = template;
 
-        Add<DeleteButtonViewModel>(0, async () => await Publisher.PublishUIAsync(new Keyboard<Delete>()));
+        Add<ShiftButtonViewModel>(0, async () => await Publisher.PublishUIAsync(new Keyboard<Delete>()));
         Add<SpaceButtonViewModel>(1, async () => await Publisher.PublishUIAsync(new Keyboard<Space>()));
-        Add<PreviousButtonViewModel>(2, async () => await Publisher.PublishUIAsync(new Keyboard<Previous>()));
-        Add<NextButtonViewModel>(3, async () => await Publisher.PublishUIAsync(new Keyboard<Next>()));
+        Add<DeleteButtonViewModel>(2, async () => await Publisher.PublishUIAsync(new Keyboard<Delete>()));
+        Add<PreviousButtonViewModel>(3, async () => await Publisher.PublishUIAsync(new Keyboard<Previous>()));
+        Add<NextButtonViewModel>(4, async () => await Publisher.PublishUIAsync(new Keyboard<Next>()));
     }
 
     public IViewModelTemplate Template { get; }

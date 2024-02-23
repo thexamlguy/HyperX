@@ -1,9 +1,9 @@
 ﻿namespace HyperX.WiFi;
 
-public class WiFiConnectionViewModel :
-    ObservableViewModel
+public class ConnectedConnectionViewModel :
+    ConnectionViewModel
 {
-    public WiFiConnectionViewModel(IServiceProvider serviceProvider,
+    public ConnectedConnectionViewModel(IServiceProvider serviceProvider,
         IServiceFactory serviceFactory, 
         IPublisher publisher, 
         ISubscriber subscriber, 

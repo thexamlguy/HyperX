@@ -10,7 +10,7 @@
     <ItemsControl ItemTemplate="{Binding Template}" ItemsSource="{Binding}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <SpacedGrid ColumnDefinitions="Auto, *, Auto, Auto" ColumnSpacing="4" />
+                <SpacedGrid ColumnDefinitions="Auto, *, Auto, Auto, Auto" ColumnSpacing="4" />
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
     </ItemsControl>
