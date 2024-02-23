@@ -30,6 +30,7 @@ public class FrameHandler(IViewModelContentBinder binder) :
     {
         if (args.Context is Frame frame)
         {
+            frame.GoBack();
         }
 
         return Task.CompletedTask;

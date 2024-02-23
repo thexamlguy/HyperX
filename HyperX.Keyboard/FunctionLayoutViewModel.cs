@@ -17,6 +17,7 @@ public partial class FunctionLayoutViewModel :
         Add<DeleteButtonViewModel>(2, async () => await Publisher.PublishUIAsync(new Keyboard<Delete>()));
         Add<PreviousButtonViewModel>(3, async () => await Publisher.PublishUIAsync(new Keyboard<Previous>()));
         Add<NextButtonViewModel>(4, async () => await Publisher.PublishUIAsync(new Keyboard<Next>()));
+        Add<EnterButtonViewModel>(5);
     }
 
     public IViewModelTemplate Template { get; }

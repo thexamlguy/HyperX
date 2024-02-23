@@ -1,7 +1,7 @@
 ﻿namespace HyperX.Keyboard.Avalonia;
 
 [ViewModelTemplateRoot("Keyboard")]
-public class KeyboardComponent : 
+public class KeyboardComponent :
     IComponent
 {
     public IComponentBuilder Create() =>
@@ -20,7 +20,7 @@ public class KeyboardComponent :
                 services.AddViewModelTemplate<LowerCharacterLayoutViewModel,
                     LowerCharacterLayoutView>("LowerCharacterLayout");
 
-                services.AddViewModelTemplate<UpperCharacterLayoutViewModel, 
+                services.AddViewModelTemplate<UpperCharacterLayoutViewModel,
                     UpperCharacterLayoutView>("UpperCharacterLayout");
 
                 services.AddViewModelTemplate<NumericalLayoutViewModel,
@@ -43,5 +43,8 @@ public class KeyboardComponent :
 
                 services.AddViewModelTemplate<NextButtonViewModel,
                     NextButtonView>();
+
+                services.AddViewModelTemplate<EnterButtonViewModel,
+                    EnterButtonView>();
             });
 }

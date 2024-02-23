@@ -1,0 +1,17 @@
+<UserControl
+    x:Class="HyperX.Keyboard.Avalonia.EnterButtonView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Button
+        Width="{DynamicResource ButtonWidth}"
+        Height="{DynamicResource ButtonHeight}"
+        Content="&#xE751;"
+        Focusable="False"
+        FontFamily="{DynamicResource SymbolFontFamily}">
+        <Interaction.Behaviors>
+            <EventTriggerBehavior EventName="Click">
+                <NavigateBackAction Context="Root" Scope="KeyboardComponent" />
+            </EventTriggerBehavior>
+        </Interaction.Behaviors>
+    </Button>
+</UserControl>

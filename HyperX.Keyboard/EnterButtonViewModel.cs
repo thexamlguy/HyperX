@@ -6,6 +6,5 @@ public partial class EnterButtonViewModel(IServiceProvider serviceProvider,
     IPublisher publisher,
     ISubscriber subscriber,
     IDisposer disposer,
-    int index,
-    Func<Task> function) :
-    FunctionButtonViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer, index, function);
+    int index) :
+    FunctionButtonViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer, index);
