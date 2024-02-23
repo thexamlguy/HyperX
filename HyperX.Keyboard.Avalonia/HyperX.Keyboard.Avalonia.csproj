@@ -34,9 +34,6 @@
 	  <Compile Update="SpaceButtonView.axaml.cs">
 	    <DependentUpon>SpaceButtonView.axaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="LowerAlphabeticalLayoutNavigationView.axaml.cs">
-	    <DependentUpon>LowerAlphabeticalLayoutNavigationView.axaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="LowerAlphabeticalLayoutView.axaml.cs">
 	    <DependentUpon>LowerAlphabeticalLayoutView.axaml</DependentUpon>
 	  </Compile>
@@ -46,14 +43,8 @@
 	  <Compile Update="NumericalLayoutView.axaml.cs">
 	    <DependentUpon>NumericalLayoutView.axaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="NumericalLayoutNavigationView.axaml.cs">
-	    <DependentUpon>NumericalLayoutNavigationView.axaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="UpperAlphabeticalLayoutView.axaml.cs">
 	    <DependentUpon>UpperAlphabeticalLayoutView.axaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="UpperAlphabeticalLayoutNavigationView.axaml.cs">
-	    <DependentUpon>UpperAlphabeticalLayoutNavigationView.axaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 </Project>

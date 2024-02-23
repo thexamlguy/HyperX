@@ -11,10 +11,6 @@ public partial class CharacterLayoutViewModel :
         IViewModelTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
         Template = template;
-
-        Add<LowerAlphabeticalLayoutNavigationViewModel>();
-        Add<UpperAlphabeticalLayoutNavigationViewModel>();
-        Add<NumericalLayoutNavigationViewModel>();
     }
 
     public IViewModelTemplate Template { get; }

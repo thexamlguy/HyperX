@@ -5,9 +5,35 @@
     <ToggleButton
         Width="{DynamicResource ButtonWidth}"
         Height="{DynamicResource ButtonHeight}"
-        Command="{Binding ClickCommand}"
         Content="&#xE752;"
         Focusable="False"
-        FontFamily="{DynamicResource SymbolFontFamily}" />
+        FontFamily="{DynamicResource SymbolFontFamily}">
+        <Interaction.Behaviors>
+            <EventTriggerBehavior EventName="Click">
+                <ConditionAction>
+                    <ConditionAction.Condition>
+                        <ConditionalExpression>
+                            <ComparisonCondition LeftOperand="{Binding $self.IsChecked}" RightOperand="False" />
+                        </ConditionalExpression>
+                    </ConditionAction.Condition>
+                    <NavigateAction
+                        Name="LowerAlphabeticalLayout"
+                        Context="KeyboardLayout"
+                        Scope="KeyboardComponent" />
+                </ConditionAction>
+                <ConditionAction>
+                    <ConditionAction.Condition>
+                        <ConditionalExpression>
+                            <ComparisonCondition LeftOperand="{Binding $self.IsChecked}" RightOperand="True" />
+                        </ConditionalExpression>
+                    </ConditionAction.Condition>
+                    <NavigateAction
+                        Name="UpperAlphabeticalLayout"
+                        Context="KeyboardLayout"
+                        Scope="KeyboardComponent" />
+                </ConditionAction>
+            </EventTriggerBehavior>
+        </Interaction.Behaviors>
+    </ToggleButton>
 </UserControl>
 

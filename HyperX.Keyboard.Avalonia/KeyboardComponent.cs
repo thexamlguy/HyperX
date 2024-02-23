@@ -17,20 +17,11 @@ public class KeyboardComponent :
                 services.AddViewModelTemplate<FunctionLayoutViewModel,
                     FunctionLayoutView>();
 
-                services.AddViewModelTemplate<LowerAlphabeticalLayoutNavigationViewModel,
-                    LowerAlphabeticalLayoutNavigationView>();
-
                 services.AddViewModelTemplate<LowerAlphabeticalLayoutViewModel,
                     LowerAlphabeticalLayoutView>("LowerAlphabeticalLayout");
 
-                services.AddViewModelTemplate<UpperAlphabeticalLayoutNavigationViewModel, 
-                    UpperAlphabeticalLayoutNavigationView>();
-
                 services.AddViewModelTemplate<UpperAlphabeticalLayoutViewModel, 
                     UpperAlphabeticalLayoutView>("UpperAlphabeticalLayout");
-
-                services.AddViewModelTemplate<NumericalLayoutNavigationViewModel,
-                    NumericalLayoutNavigationView>();
 
                 services.AddViewModelTemplate<NumericalLayoutViewModel,
                     NumericalLayoutView>();
