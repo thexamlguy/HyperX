@@ -39,5 +39,27 @@ public class NavigationScope(IPublisher publisher,
             }
         }
     }
+
+    public async Task NavigateBackAsync(object? context, 
+        CancellationToken cancellationToken = default)
+    {
+        if (context is not null)
+        {
+            navigationContextProvider.TryGet(context, out context);
+        }
+
+        if (context is not null)
+        {
+            if (navigationProvider.Get(context is Type type ? type : context.GetType())
+                is INavigation navigation)
+            {
+                Type navigateType = typeof(NavigateBack<>).MakeGenericType(navigation.Type);
+                if (Activator.CreateInstance(navigateType, [context]) is object navigate)
+                {
+                    await publisher.PublishAsync(navigate, cancellationToken);
+                }
+            }
+        }
+    }
 }
 

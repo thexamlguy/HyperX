@@ -195,19 +195,22 @@ public static class IServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddNavigationHandler<THandler>(this IServiceCollection services)
-        where THandler : INavigationHandler, 
+    public static IServiceCollection AddNavigateHandler<THandler>(this IServiceCollection services)
+        where THandler : INavigateHandler, 
         IHandler
     {
-        Type? contract = typeof(THandler).GetInterfaces()
-            .FirstOrDefault(t => t.Name == typeof(INavigationHandler<>).Name);
+        IEnumerable<Type> contracts = typeof(THandler).GetInterfaces()
+            .Where(x => x.Name == typeof(INavigateHandler<>).Name || x.Name == typeof(INavigateBackHandler<>).Name);
 
-        if (contract?.GetGenericArguments() is { Length: 1 } arguments)
+        foreach (Type contract in contracts)
         {
-            services.AddTransient<INavigation>(provider => new Navigation
+            if (contract.GetGenericArguments() is { Length: 1 } arguments)
             {
-                Type = arguments[0]
-            });
+                services.AddTransient<INavigation>(provider => new Navigation
+                {
+                    Type = arguments[0]
+                });
+            }
         }
 
         services.AddHandler<THandler>();

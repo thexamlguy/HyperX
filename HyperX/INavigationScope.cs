@@ -4,5 +4,8 @@ public interface INavigationScope
 {
     Task NavigateAsync(object key, object? context,
         CancellationToken cancellationToken = default);
+
+    Task NavigateBackAsync(object? context,
+        CancellationToken cancellationToken = default);
 }
 

@@ -53,7 +53,8 @@ public class DefaultBuilder : HostBuilder
                             services.AddTransient<INavigationScopeProvider, NavigationScopeProvider>();
 
                             services.AddHandler<NavigateHandler>();
-                            
+                            services.AddHandler<NavigateBackHandler>();
+
                             services.AddInitializer<ComponentInitializer>();
                             services.AddHostedService<AppService>();
                         });

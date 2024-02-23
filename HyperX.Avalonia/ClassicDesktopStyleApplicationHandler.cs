@@ -5,7 +5,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 namespace HyperX.Avalonia;
 
 public class ClassicDesktopStyleApplicationHandler(IViewModelContentBinder binder) :
-    INavigationHandler<IClassicDesktopStyleApplicationLifetime>
+    INavigateHandler<IClassicDesktopStyleApplicationLifetime>
 {
     public Task Handle(Navigate<IClassicDesktopStyleApplicationLifetime> args,
         CancellationToken cancellationToken = default)

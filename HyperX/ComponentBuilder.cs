@@ -43,6 +43,8 @@ public class ComponentBuilder :
                 services.AddTransient<INavigationContextProvider, NavigationContextProvider>();
 
                 services.AddHandler<NavigateHandler>();
+                services.AddHandler<NavigateBackHandler>();
+
             });
     }
 

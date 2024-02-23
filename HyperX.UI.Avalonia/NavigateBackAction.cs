@@ -4,29 +4,20 @@ using Avalonia.Xaml.Interactivity;
 
 namespace HyperX.UI.Avalonia;
 
-public class NavigateAction :
+public class NavigateBackAction :
     AvaloniaObject,
     IAction
 {
     public static readonly StyledProperty<string> ContextProperty =
-        AvaloniaProperty.Register<NavigateAction, string>(nameof(Context));
-
-    public static readonly StyledProperty<string> NameProperty =
-        AvaloniaProperty.Register<NavigateAction, string>(nameof(Name));
+        AvaloniaProperty.Register<NavigateBackAction, string>(nameof(Context));
 
     public static readonly StyledProperty<string> ScopeProperty =
-        AvaloniaProperty.Register<NavigateAction, string>(nameof(Scope));
+        AvaloniaProperty.Register<NavigateBackAction, string>(nameof(Scope));
 
     public string Context
     {
         get => GetValue(ContextProperty);
         set => SetValue(ContextProperty, value);
-    }
-
-    public string Name
-    {
-        get => GetValue(NameProperty);
-        set => SetValue(NameProperty, value);
     }
 
     public string Scope
@@ -42,7 +33,7 @@ public class NavigateAction :
         {
             if (control.DataContext is IObservableViewModel observableViewModel)
             {
-                observableViewModel.Publisher.PublishAsync(new Navigate(Name, Context 
+                observableViewModel.Publisher.PublishAsync(new NavigateBack(Context
                     ?? null, Scope ?? null)).GetAwaiter().GetResult();
             }
         }

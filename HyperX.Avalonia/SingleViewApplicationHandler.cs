@@ -3,7 +3,7 @@
 namespace HyperX.Avalonia;
 
 public class SingleViewApplicationHandler :
-    INavigationHandler<ISingleViewApplicationLifetime>
+    INavigateHandler<ISingleViewApplicationLifetime>
 {
     public Task Handle(Navigate<ISingleViewApplicationLifetime> args,
         CancellationToken cancellationToken = default)

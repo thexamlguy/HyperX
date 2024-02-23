@@ -13,10 +13,10 @@ public static class IServiceCollectionExtensions
         services.AddTransient<IViewModelTemplate, ViewModelTemplate>();
         services.AddTransient<IViewModelContentBinder, ViewModelContentBinder>();
 
-        services.AddNavigationHandler<ClassicDesktopStyleApplicationHandler>();
-        services.AddNavigationHandler<SingleViewApplicationHandler>();
-        services.AddNavigationHandler<ContentControlHandler>();
-        services.AddNavigationHandler<FrameHandler>();
+        services.AddNavigateHandler<ClassicDesktopStyleApplicationHandler>();
+        services.AddNavigateHandler<SingleViewApplicationHandler>();
+        services.AddNavigateHandler<ContentControlHandler>();
+        services.AddNavigateHandler<FrameHandler>();
 
         services.AddSingleton<INavigationContextCollection, NavigationContextCollection>(provider => new NavigationContextCollection
         {
@@ -34,8 +34,8 @@ public static class IServiceCollectionExtensions
 
                 services.AddTransient<IViewModelContentBinder, ViewModelContentBinder>();
 
-                services.AddNavigationHandler<ContentControlHandler>();
-                services.AddNavigationHandler<FrameHandler>();
+                services.AddNavigateHandler<ContentControlHandler>();
+                services.AddNavigateHandler<FrameHandler>();
             })));
 
         return services;

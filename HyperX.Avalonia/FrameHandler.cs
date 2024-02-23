@@ -4,7 +4,8 @@ using HyperX.UI.Controls.Avalonia;
 namespace HyperX.Avalonia;
 
 public class FrameHandler(IViewModelContentBinder binder) : 
-    INavigationHandler<Frame>
+    INavigateHandler<Frame>,
+    INavigateBackHandler<Frame>
 {
     public Task Handle(Navigate<Frame> args,
         CancellationToken cancellationToken)
@@ -19,6 +20,16 @@ public class FrameHandler(IViewModelContentBinder binder) :
 
                 binder.Bind(content, content);
             }
+        }
+
+        return Task.CompletedTask;
+    }
+
+    public Task Handle(NavigateBack<Frame> args,
+        CancellationToken cancellationToken = default)
+    {
+        if (args.Context is Frame frame)
+        {
         }
 
         return Task.CompletedTask;

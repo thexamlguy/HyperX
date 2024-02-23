@@ -12,4 +12,3 @@ public class NavigateHandler(INavigationScopeProvider provider) :
         }
     }
 }
-
