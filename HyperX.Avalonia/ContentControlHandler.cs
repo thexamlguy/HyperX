@@ -16,7 +16,7 @@ public class ContentControlHandler(IViewModelContentBinder binder) :
                 contentControl.Content = content;
                 contentControl.DataContext = args.ViewModel;
 
-                binder.Bind(content, content);
+                binder.Bind(content);
             }
         }
 

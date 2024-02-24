@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls.Primitives;
+using FluentAvalonia.UI.Navigation;
 using HyperX.UI.Controls.Avalonia;
 
 namespace HyperX.Avalonia;
@@ -15,10 +16,30 @@ public class FrameHandler(IViewModelContentBinder binder) :
             frame.NavigationPageFactory ??= new NavigationPageFactory();
             if (args.View is TemplatedControl content)
             {
-                content.DataContext = args.ViewModel;
-                frame.NavigateFromObject(content);
+                async void HandleNavigating(object sender, NavigatingCancelEventArgs args)
+                {
+                    frame.Navigating -= HandleNavigating;
+                    if (frame.Content is TemplatedControl content)
+                    {
+                        if (content.DataContext is IConfirmNavigation confirmNavigation)
+                        {
+                            if (!await confirmNavigation.ConfirmNavigationAsync())
+                            {
+                                args.Cancel = true;
+                            }
+                        }
+                        else
+                        {
 
-                binder.Bind(content, content);
+                        }
+                    }
+                }
+
+                content.DataContext = args.ViewModel;
+                binder.Bind(content);
+
+                frame.Navigating += HandleNavigating;
+                frame.NavigateFromObject(content);
             }
         }
 
@@ -30,6 +51,38 @@ public class FrameHandler(IViewModelContentBinder binder) :
     {
         if (args.Context is Frame frame)
         {
+            async void HandleNavigated(object sender, NavigationEventArgs args)
+            {
+                frame.Navigated -= HandleNavigated;
+                if (frame.Content is TemplatedControl content)
+                {
+                    if (content.DataContext is INavigatedFrom navigatedFrom) 
+                    {
+                       //await navigatedFrom.NavigatedFromAsync();
+                    }
+                }
+            }
+
+            async void HandleNavigating(object sender, NavigatingCancelEventArgs args)
+            {
+                frame.Navigating -= HandleNavigating;
+                if (frame.Content is TemplatedControl content)
+                {
+                    if (content.DataContext is IConfirmNavigation confirmNavigation)
+                    {
+                        if (await confirmNavigation.ConfirmNavigationAsync())
+                        {
+                            frame.Navigated += HandleNavigated;
+                        }
+                    }
+                    else
+                    {
+                        frame.Navigated += HandleNavigated;
+                    }
+                }
+            }
+
+            frame.Navigating += HandleNavigating;
             frame.GoBack();
         }
 

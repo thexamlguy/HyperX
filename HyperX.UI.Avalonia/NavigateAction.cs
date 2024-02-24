@@ -43,7 +43,7 @@ public class NavigateAction :
             if (control.DataContext is IObservableViewModel observableViewModel)
             {
                 observableViewModel.Publisher.PublishAsync(new Navigate(Name, Context 
-                    ?? null, Scope ?? null)).GetAwaiter().GetResult();
+                    ?? null, Scope ?? null, sender)).GetAwaiter().GetResult();
             }
         }
 

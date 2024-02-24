@@ -6,7 +6,7 @@ public class NavigationScope(IPublisher publisher,
     IViewModelTemplateProvider viewModelTemplateProvider) : 
     INavigationScope
 {
-    public async Task NavigateAsync(object key, object? context, 
+    public async Task NavigateAsync(object key, object? sender, object? context, 
         CancellationToken cancellationToken = default)
     {
         if (viewModelTemplateProvider.Get(key)

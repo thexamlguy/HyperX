@@ -4,6 +4,5 @@ namespace HyperX.Avalonia;
 
 public interface IViewModelContentBinder
 {
-    void Bind(TemplatedControl view,
-        object context);
+    void Bind(TemplatedControl view);
 }

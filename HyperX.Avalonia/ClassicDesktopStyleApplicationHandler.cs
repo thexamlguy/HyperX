@@ -18,7 +18,7 @@ public class ClassicDesktopStyleApplicationHandler(IViewModelContentBinder binde
                 lifeTime.MainWindow = window;
                 window.DataContext = args.ViewModel;
 
-                binder.Bind(window, window);
+                binder.Bind(window);
             }
         }
 

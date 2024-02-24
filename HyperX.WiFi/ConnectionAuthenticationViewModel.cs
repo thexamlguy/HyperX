@@ -17,4 +17,5 @@ public class ConnectionAuthenticationViewModel :
     }
 
     public IViewModelTemplate Template { get; }
+
 }

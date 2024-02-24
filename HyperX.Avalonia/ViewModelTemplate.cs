@@ -25,7 +25,7 @@ public class ViewModelTemplate :
                         {
                             if (descriptor.GetView() is TemplatedControl view)
                             {
-                                viewModelContentBinder.Bind(view, view);
+                                viewModelContentBinder.Bind(view);
                                 return view;
                             }
                         }

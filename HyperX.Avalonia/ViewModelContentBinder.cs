@@ -9,10 +9,9 @@ namespace HyperX.Avalonia;
 public class ViewModelContentBinder(INavigationContextCollection contexts) :
     IViewModelContentBinder
 {
-    public void Bind(TemplatedControl view,
-        object context)
+    public void Bind(TemplatedControl view)
     {
-        if (context.GetType().GetCustomAttributes<NavigationTargetAttribute>()
+        if (view.GetType().GetCustomAttributes<NavigationTargetAttribute>()
             is IEnumerable<NavigationTargetAttribute> attributes)
         {
             foreach (NavigationTargetAttribute attribute in attributes)
