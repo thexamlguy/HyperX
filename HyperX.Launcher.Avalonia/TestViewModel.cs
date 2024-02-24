@@ -8,11 +8,7 @@ public class TestViewModel(IServiceProvider serviceProvider,
     IPublisher publisher,
     ISubscriber subscriber,
     IDisposer disposer) :
-    ObservableViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer), 
-    IConfirmNavigation
+    ObservableViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer)
 {
-    public Task<bool> ConfirmNavigationAsync()
-    {
-        return Task.FromResult(false);
-    }
+
 }

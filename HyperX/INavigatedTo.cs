@@ -2,5 +2,5 @@
 
 public interface INavigatedTo
 {
-    Task NavigatedToAsync(INavigationParameters parameters);
+    Task NavigatedToAsync();
 }

@@ -16,21 +16,35 @@ public class FrameHandler(IViewModelContentBinder binder) :
             frame.NavigationPageFactory ??= new NavigationPageFactory();
             if (args.View is TemplatedControl content)
             {
+                async void HandleNavigated(object sender, NavigationEventArgs args)
+                {
+                    frame.Navigated -= HandleNavigated;
+                    if (frame.Content is TemplatedControl content)
+                    {
+                        if (content.DataContext is INavigatedTo navigatedTo)
+                        {
+                            await navigatedTo.NavigatedToAsync();
+                        }
+                    }
+                }
+
                 async void HandleNavigating(object sender, NavigatingCancelEventArgs args)
                 {
                     frame.Navigating -= HandleNavigating;
                     if (frame.Content is TemplatedControl content)
                     {
-                        if (content.DataContext is IConfirmNavigation confirmNavigation)
+                        if (content.DataContext is IConfirmNavigation confirmNavigation && 
+                            !await confirmNavigation.ConfirmNavigationAsync())
                         {
-                            if (!await confirmNavigation.ConfirmNavigationAsync())
-                            {
-                                args.Cancel = true;
-                            }
+                            args.Cancel = true;
                         }
                         else
                         {
-
+                            frame.Navigated += HandleNavigated;
+                            if (content.DataContext is INavigatingFrom navigatingFrom)
+                            {
+                                await navigatingFrom.NavigatingFromAsync();
+                            }
                         }
                     }
                 }
@@ -58,7 +72,7 @@ public class FrameHandler(IViewModelContentBinder binder) :
                 {
                     if (content.DataContext is INavigatedFrom navigatedFrom) 
                     {
-                       //await navigatedFrom.NavigatedFromAsync();
+                        await navigatedFrom.NavigatedFromAsync();
                     }
                 }
             }
@@ -68,12 +82,10 @@ public class FrameHandler(IViewModelContentBinder binder) :
                 frame.Navigating -= HandleNavigating;
                 if (frame.Content is TemplatedControl content)
                 {
-                    if (content.DataContext is IConfirmNavigation confirmNavigation)
+                    if (content.DataContext is IConfirmNavigation confirmNavigation &&
+                        !await confirmNavigation.ConfirmNavigationAsync())
                     {
-                        if (await confirmNavigation.ConfirmNavigationAsync())
-                        {
-                            frame.Navigated += HandleNavigated;
-                        }
+                        args.Cancel = true;
                     }
                     else
                     {
