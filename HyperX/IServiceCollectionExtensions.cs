@@ -145,14 +145,14 @@ public static class IServiceCollectionExtensions
         ServiceLifetime lifetime = ServiceLifetime.Transient)
         where THandler : IHandler
     {
-        if (typeof(THandler).GetInterfaces() is { } contracts)
+        if (typeof(THandler).GetInterfaces() is Type[] contracts)
         {
             foreach (Type contract in contracts)
             {
                 if (contract.Name == typeof(INotificationHandler<>).Name &&
-                    contract.GetGenericArguments() is { Length: 1 } notificationArguments)
+                    contract.GetGenericArguments() is { Length: 1 } arguments)
                 {
-                    Type notificationType = notificationArguments[0];
+                    Type notificationType = arguments[0];
                     services.Add(new ServiceDescriptor(typeof(INotificationHandler<>).MakeGenericType(notificationType),
                         typeof(THandler),
                         lifetime));

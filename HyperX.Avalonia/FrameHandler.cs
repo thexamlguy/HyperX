@@ -4,7 +4,8 @@ using HyperX.UI.Controls.Avalonia;
 
 namespace HyperX.Avalonia;
 
-public class FrameHandler(IViewModelContentBinder binder) : 
+public class FrameHandler(IViewModelContentBinder binder, 
+    IMediator mediator) : 
     INavigateHandler<Frame>,
     INavigateBackHandler<Frame>
 {
@@ -16,43 +17,77 @@ public class FrameHandler(IViewModelContentBinder binder) :
             frame.NavigationPageFactory ??= new NavigationPageFactory();
             if (args.View is TemplatedControl content)
             {
-                async void HandleNavigated(object sender, NavigationEventArgs args)
+                void Navigated(Frame frame)
                 {
-                    frame.Navigated -= HandleNavigated;
-                    if (frame.Content is TemplatedControl content)
+                    async void HandleNavigated(object sender,
+                        NavigationEventArgs args)
                     {
-                        if (content.DataContext is INavigatedTo navigatedTo)
+                        frame.Navigated -= HandleNavigated;
+                        if (frame.Content is TemplatedControl content)
                         {
-                            await navigatedTo.NavigatedToAsync();
-                        }
-                    }
-                }
-
-                async void HandleNavigating(object sender, NavigatingCancelEventArgs args)
-                {
-                    frame.Navigating -= HandleNavigating;
-                    if (frame.Content is TemplatedControl content)
-                    {
-                        if (content.DataContext is IConfirmNavigation confirmNavigation && 
-                            !await confirmNavigation.ConfirmNavigationAsync())
-                        {
-                            args.Cancel = true;
-                        }
-                        else
-                        {
-                            frame.Navigated += HandleNavigated;
-                            if (content.DataContext is INavigatingFrom navigatingFrom)
+                            if (content.DataContext is INavigatedTo navigatedTo)
                             {
-                                await navigatingFrom.NavigatingFromAsync();
+                                await navigatedTo.NavigatedToAsync();
                             }
                         }
                     }
+
+                    frame.Navigated += HandleNavigated;
+                }
+
+                void Navigating(object? sender,
+                    Frame frame)
+                {
+                    async void HandleNavigating(object _,
+                         NavigatingCancelEventArgs args)
+                    {
+                        frame.Navigating -= HandleNavigating;
+                        async Task NavigationRoutineAsync(object? context)
+                        {
+                            if (context is TemplatedControl templated)
+                            {
+                                if (templated.DataContext is object content)
+                                {
+                                    if (content is IConfirmNavigation confirmNavigation &&
+                                        !await confirmNavigation.ConfirmNavigationAsync())
+                                    {
+                                        args.Cancel = true;
+                                    }
+                                    else
+                                    {
+                                        await mediator.SendAsync(new NavigatingFrom(content),
+                                            cancellationToken);
+                                    }
+                                }
+                            }
+                        }
+
+                        await NavigationRoutineAsync(frame.Content);
+
+                        if (frame.Content is not null 
+                            && frame.Content != sender 
+                            && frame != sender)
+                        {
+                            await NavigationRoutineAsync(sender);
+                        }
+
+                        if (!args.Cancel)
+                        {
+                            Navigated(frame);
+                        }
+                        else
+                        {
+                            frame.Navigating += HandleNavigating;
+                        }
+                    }
+
+                    frame.Navigating += HandleNavigating;
                 }
 
                 content.DataContext = args.ViewModel;
                 binder.Bind(content);
 
-                frame.Navigating += HandleNavigating;
+                Navigating(args.Sender, frame);
                 frame.NavigateFromObject(content);
             }
         }

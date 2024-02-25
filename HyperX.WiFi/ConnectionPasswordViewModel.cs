@@ -1,14 +1,13 @@
 ﻿namespace HyperX.WiFi;
 
-public class ConnectionPasswordViewModel :
-    ObservableViewModel
+public class ConnectionPasswordViewModel(IServiceProvider serviceProvider,
+    IServiceFactory serviceFactory,
+    IPublisher publisher,
+    ISubscriber subscriber,
+    IDisposer disposer) :
+    ValueViewModel<string>(serviceProvider, serviceFactory, publisher, subscriber, disposer),
+    INavigatingFrom<string?>
 {
-    public ConnectionPasswordViewModel(IServiceProvider serviceProvider, 
-        IServiceFactory serviceFactory, 
-        IPublisher publisher,
-        ISubscriber subscriber,
-        IDisposer disposer) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
-    {
-
-    }
+    public Task<string?> NavigatingFromAsync() => 
+        Task.FromResult(Value);
 }

@@ -14,6 +14,7 @@ public partial class ObservableCollectionViewModel<TViewModel> :
     IList,
     IReadOnlyList<TViewModel>,
     INotifyCollectionChanged,
+    IConfirmNavigation,
     INotificationHandler<Remove<TViewModel>>,
     INotificationHandler<Create<TViewModel>>,
     INotificationHandler<Insert<TViewModel>>,
@@ -337,7 +338,6 @@ public partial class ObservableCollectionViewModel<TViewModel> :
         }
 
         Insert(index, item);
-
         return true;
     }
 
@@ -383,6 +383,22 @@ public partial class ObservableCollectionViewModel<TViewModel> :
 
     private void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs args) => 
         CollectionChanged?.Invoke(this, args);
+
+    public async Task<bool> ConfirmNavigationAsync()
+    {
+        foreach (TViewModel item in this)
+        {
+            if (item is IConfirmNavigation confirmNavigation)
+            {
+                if (!await confirmNavigation.ConfirmNavigationAsync())
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }
 
 public class ObservableCollectionViewModel(IServiceProvider serviceProvider,

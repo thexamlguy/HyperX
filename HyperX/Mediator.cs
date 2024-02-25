@@ -1,4 +1,6 @@
-﻿namespace HyperX;
+﻿using System.Reflection;
+
+namespace HyperX;
 
 public class Mediator(IServiceProvider provider) :
     IMediator
@@ -6,12 +8,16 @@ public class Mediator(IServiceProvider provider) :
     public Task<TResponse?> SendAsync<TResponse>(IRequest<TResponse> request,
         CancellationToken cancellationToken = default)
     {
-        dynamic? handler = provider.GetService(typeof(HandlerWrapper<,>)
-            .MakeGenericType(request.GetType(), typeof(TResponse)));
+        Type handlerType = typeof(HandlerWrapper<,>).MakeGenericType(request.GetType(),
+            typeof(TResponse));
 
-        if (handler is not null)
+        if (provider.GetService(handlerType) 
+            is object handler)
         {
-            return handler.Handle((dynamic)request, cancellationToken);
+            if (handlerType.GetMethod("Handle") is MethodInfo handleMethod)
+            {
+                return (Task<TResponse?>)handleMethod.Invoke(handler, new object[] { request, cancellationToken })!;
+            }
         }
 
         return Task.FromResult<TResponse?>(default);
@@ -20,18 +26,19 @@ public class Mediator(IServiceProvider provider) :
     public Task<object?> SendAsync(object message,
         CancellationToken cancellationToken = default)
     {
-        if (message.GetType().GetInterface(typeof(IRequest<>).Name) is { } requestType)
+        if (message.GetType().GetInterface(typeof(IRequest<>).Name) is Type requestType &&
+            requestType.GetGenericArguments().Length == 1)
         {
-            if (requestType.GetGenericArguments() is { Length: 1 } arguments)
+            Type responseType = requestType.GetGenericArguments()[0];
+            Type handlerType = typeof(HandlerWrapper<,>).MakeGenericType(message.GetType(), 
+                responseType);
+
+            if (provider.GetService(handlerType) 
+                is object handler)
             {
-                Type responseType = arguments[0];
-
-                dynamic? handler = provider.GetService(typeof(HandlerWrapper<,>)
-                    .MakeGenericType(message.GetType(), responseType));
-
-                if (handler is not null)
+                if (handlerType.GetMethod("Handle") is MethodInfo handleMethod)
                 {
-                    return handler.Handle((dynamic)message, cancellationToken);
+                    return (Task<object?>)handleMethod.Invoke(handler, new object[] { message, cancellationToken })!;
                 }
             }
         }

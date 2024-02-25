@@ -30,7 +30,7 @@ public class NavigationScope(IPublisher publisher,
                         is INavigation navigation)
                     {
                         Type navigateType = typeof(Navigate<>).MakeGenericType(navigation.Type);
-                        if (Activator.CreateInstance(navigateType, [context, view, viewModel]) is object navigate)
+                        if (Activator.CreateInstance(navigateType, [context, view, viewModel, sender]) is object navigate)
                         {
                             await publisher.PublishAsync(navigate, cancellationToken);
                         }
