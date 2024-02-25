@@ -44,7 +44,6 @@ public class ComponentBuilder :
 
                 services.AddHandler<NavigateHandler>();
                 services.AddHandler<NavigateBackHandler>();
-                services.AddHandler<NavigatingFromHandler>();
             });
     }
 

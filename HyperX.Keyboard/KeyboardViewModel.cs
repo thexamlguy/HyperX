@@ -8,14 +8,14 @@ public partial class KeyboardViewModel :
     INotificationHandler<Keyboard<Delete>>,
     INotificationHandler<Keyboard<Space>>,
     INotificationHandler<Keyboard<Previous>>,
-    INotificationHandler<Keyboard<Next>>
+    INotificationHandler<Keyboard<Next>>,
+    INavigatingFrom<string>
 {
-    [ObservableProperty]
-    private string text = "";
-
     [ObservableProperty]
     private int position;
 
+    [ObservableProperty]
+    private string text = "";
     public KeyboardViewModel(IServiceProvider serviceProvider,
         IServiceFactory serviceFactory,
         IPublisher publisher,
@@ -83,6 +83,10 @@ public partial class KeyboardViewModel :
         InsertCharacter(' ');
         return Task.CompletedTask;
     }
+
+    [NavigationParameter("Input")]
+    public Task<string> NavigatingFromAsync() =>
+        Task.FromResult(Text);
 
     private void InsertCharacter(char character)
     {

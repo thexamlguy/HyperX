@@ -1,4 +1,5 @@
-﻿namespace HyperX.WiFi;
+﻿
+namespace HyperX.WiFi;
 
 public class ConnectionAuthenticationViewModel :
     ObservableCollectionViewModel<IDisposable>
@@ -17,5 +18,4 @@ public class ConnectionAuthenticationViewModel :
     }
 
     public IViewModelTemplate Template { get; }
-
 }

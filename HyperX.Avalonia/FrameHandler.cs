@@ -1,11 +1,11 @@
 ﻿using Avalonia.Controls.Primitives;
 using FluentAvalonia.UI.Navigation;
 using HyperX.UI.Controls.Avalonia;
+using System.Reflection;
 
 namespace HyperX.Avalonia;
 
-public class FrameHandler(IViewModelContentBinder binder, 
-    IMediator mediator) : 
+public class FrameHandler(IViewModelContentBinder binder) : 
     INavigateHandler<Frame>,
     INavigateBackHandler<Frame>
 {
@@ -15,80 +15,168 @@ public class FrameHandler(IViewModelContentBinder binder,
         if (args.Context is Frame frame)
         {
             frame.NavigationPageFactory ??= new NavigationPageFactory();
-            if (args.View is TemplatedControl content)
+            if (args.View is TemplatedControl template)
             {
-                void Navigated(Frame frame)
+                void NavigatingFrom(object? sender, 
+                    TemplatedControl template)
                 {
-                    async void HandleNavigated(object sender,
+                    async void HandleNavigatingFrom(object? _, 
+                        NavigatingCancelEventArgs args)
+                    {
+                        Dictionary<string,object> results = [];
+
+                        template.RemoveHandler(Frame.NavigatingFromEvent, HandleNavigatingFrom);
+                        NavigatedFrom(sender, template, () => results);
+
+                        if (template.DataContext is object content)
+                        {
+                            if (content is IConfirmNavigation confirmNavigation &&
+                                !await confirmNavigation.ConfirmNavigationAsync())
+                            {
+                                args.Cancel = true;
+                            }
+
+                            if (!args.Cancel)
+                            {
+                                if (content is INavigatingFrom navigatingFrom)
+                                {
+                                    await navigatingFrom.NavigatingFromAsync();
+                                }
+
+                                Type contentType = content.GetType();
+                                if (contentType.GetInterfaces() is Type[] contracts)
+                                {
+                                    foreach (Type contract in contracts)
+                                    {
+                                        if (contract.Name == typeof(INavigatingFrom<>).Name &&
+                                            contract.GetGenericArguments() is { Length: 1 } arguments)
+                                        {
+                                            if (contentType.GetMethods().FirstOrDefault(x =>
+                                                x.Name == "NavigatingFromAsync" && x.ReturnType == typeof(Task<>)
+                                                    .MakeGenericType(arguments[0]))
+                                                        is MethodInfo methodInfo)
+                                            {
+                                                if (methodInfo.GetCustomAttribute<NavigationParameterAttribute>()
+                                                    is NavigationParameterAttribute attribute)
+                                                {
+                                                    if (await methodInfo.InvokeAsync<object?>(content) is object result)
+                                                    {
+                                                        results.Add(attribute.Name, result);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }      
+                    }
+
+                    template.AddHandler(Frame.NavigatingFromEvent, HandleNavigatingFrom);
+                }
+
+                void NavigatedFrom(object? sender, 
+                    TemplatedControl template,
+                    Func<Dictionary<string, object>> resultCallBack)
+                {
+                    async void HandleNavigatedFrom(object? _,
                         NavigationEventArgs args)
                     {
-                        frame.Navigated -= HandleNavigated;
-                        if (frame.Content is TemplatedControl content)
+                        template.RemoveHandler(Frame.NavigatedFromEvent, HandleNavigatedFrom);
+                        if (args.NavigationMode == NavigationMode.New)
                         {
-                            if (content.DataContext is INavigatedTo navigatedTo)
+                            NavigatedTo(sender, template);
+                        }
+
+                        Dictionary<string, object> results = resultCallBack.Invoke();
+                        async Task DoNavigatedFromRoutineAsync(object? content)
+                        {
+                            if (content is not null)
+                            {
+                                if (content is INavigatedFrom navigatedFrom)
+                                {
+                                    await navigatedFrom.NavigatedFromAsync();
+                                }
+
+                                Type contentType = content.GetType();
+                                if (contentType.GetInterfaces() is Type[] contracts)
+                                {
+                                    foreach (Type contract in contracts)
+                                    {
+                                        if (contract.Name == typeof(INavigatedTo<>).Name &&
+                                            contract.GetGenericArguments() is { Length: 1 } arguments)
+                                        {
+                                            if (contentType.GetMethods().FirstOrDefault(x =>
+                                                x.Name == "NavigatedToAsync" && 
+                                                        x.GetCustomAttribute<NavigationParameterAttribute>()
+                                                    is NavigationParameterAttribute attribute && results.ContainsKey(attribute.Name)) 
+                                                is MethodInfo methodInfo)
+                                            {
+                                                if (methodInfo.GetCustomAttribute<NavigationParameterAttribute>()
+                                                    is NavigationParameterAttribute attribute)
+                                                {
+                                                    if (results.TryGetValue(attribute.Name, out object? value))
+                                                    {
+                                                        await methodInfo.InvokeAsync(content, value);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (args.Source is TemplatedControl sourceTemplate)
+                        {
+                            if (sourceTemplate.DataContext is object content)
+                            {
+                                await DoNavigatedFromRoutineAsync(content);
+                            }
+                        }
+
+                        if (sender is TemplatedControl senderTemplate)
+                        {
+                            if (senderTemplate.DataContext is object content)
+                            {
+                                await DoNavigatedFromRoutineAsync(content);
+                            }
+                        }
+                        else
+                        {
+                            await DoNavigatedFromRoutineAsync(sender);
+                        }
+                    }
+
+                    template.AddHandler(Frame.NavigatedFromEvent, HandleNavigatedFrom);
+                }
+
+                void NavigatedTo(object? sender, 
+                    TemplatedControl template)
+                {
+                    async void HandleNavigatedTo(object? _, 
+                        NavigationEventArgs args)
+                    {
+                        template.RemoveHandler(Frame.NavigatedToEvent, HandleNavigatedTo);
+                        NavigatingFrom(sender, template);
+
+                        if (template.DataContext is object content)
+                        {
+                            if (content is INavigatedTo navigatedTo)
                             {
                                 await navigatedTo.NavigatedToAsync();
                             }
                         }
                     }
 
-                    frame.Navigated += HandleNavigated;
+                    template.AddHandler(Frame.NavigatedToEvent, HandleNavigatedTo);
                 }
 
-                void Navigating(object? sender,
-                    Frame frame)
-                {
-                    async void HandleNavigating(object _,
-                         NavigatingCancelEventArgs args)
-                    {
-                        frame.Navigating -= HandleNavigating;
-                        async Task NavigationRoutineAsync(object? context)
-                        {
-                            if (context is TemplatedControl templated)
-                            {
-                                if (templated.DataContext is object content)
-                                {
-                                    if (content is IConfirmNavigation confirmNavigation &&
-                                        !await confirmNavigation.ConfirmNavigationAsync())
-                                    {
-                                        args.Cancel = true;
-                                    }
-                                    else
-                                    {
-                                        await mediator.SendAsync(new NavigatingFrom(content),
-                                            cancellationToken);
-                                    }
-                                }
-                            }
-                        }
+                template.DataContext = args.ViewModel;
+                binder.Bind(template);
 
-                        await NavigationRoutineAsync(frame.Content);
-
-                        if (frame.Content is not null 
-                            && frame.Content != sender 
-                            && frame != sender)
-                        {
-                            await NavigationRoutineAsync(sender);
-                        }
-
-                        if (!args.Cancel)
-                        {
-                            Navigated(frame);
-                        }
-                        else
-                        {
-                            frame.Navigating += HandleNavigating;
-                        }
-                    }
-
-                    frame.Navigating += HandleNavigating;
-                }
-
-                content.DataContext = args.ViewModel;
-                binder.Bind(content);
-
-                Navigating(args.Sender, frame);
-                frame.NavigateFromObject(content);
+                NavigatedTo(args.Sender, template);
+                frame.NavigateFromObject(template);
             }
         }
 
@@ -100,36 +188,6 @@ public class FrameHandler(IViewModelContentBinder binder,
     {
         if (args.Context is Frame frame)
         {
-            async void HandleNavigated(object sender, NavigationEventArgs args)
-            {
-                frame.Navigated -= HandleNavigated;
-                if (frame.Content is TemplatedControl content)
-                {
-                    if (content.DataContext is INavigatedFrom navigatedFrom) 
-                    {
-                        await navigatedFrom.NavigatedFromAsync();
-                    }
-                }
-            }
-
-            async void HandleNavigating(object sender, NavigatingCancelEventArgs args)
-            {
-                frame.Navigating -= HandleNavigating;
-                if (frame.Content is TemplatedControl content)
-                {
-                    if (content.DataContext is IConfirmNavigation confirmNavigation &&
-                        !await confirmNavigation.ConfirmNavigationAsync())
-                    {
-                        args.Cancel = true;
-                    }
-                    else
-                    {
-                        frame.Navigated += HandleNavigated;
-                    }
-                }
-            }
-
-            frame.Navigating += HandleNavigating;
             frame.GoBack();
         }
 

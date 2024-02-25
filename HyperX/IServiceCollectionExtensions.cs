@@ -150,9 +150,9 @@ public static class IServiceCollectionExtensions
             foreach (Type contract in contracts)
             {
                 if (contract.Name == typeof(INotificationHandler<>).Name &&
-                    contract.GetGenericArguments() is { Length: 1 } arguments)
+                    contract.GetGenericArguments() is { Length: 1 } notificationHandlerArguments)
                 {
-                    Type notificationType = arguments[0];
+                    Type notificationType = notificationHandlerArguments[0];
                     services.Add(new ServiceDescriptor(typeof(INotificationHandler<>).MakeGenericType(notificationType),
                         typeof(THandler),
                         lifetime));
