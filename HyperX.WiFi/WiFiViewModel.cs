@@ -12,12 +12,12 @@ public class WiFiViewModel :
     {
         Template = template;
 
-        Add<ConnectedConnectionViewModel>();
-        Add<SecuredConnectionViewModel>();
-        Add<SecuredConnectionViewModel>();
-        Add<OpenConnectionViewModel>();
-        Add<OpenConnectionViewModel>();
-        Add<OpenConnectionViewModel>();
+        Add<ConnectedConnectionViewModel>($"{Guid.NewGuid()}");
+        Add<SecuredConnectionViewModel>($"{Guid.NewGuid()}");
+        Add<SecuredConnectionViewModel>($"{Guid.NewGuid()}");
+        Add<OpenConnectionViewModel>($"{Guid.NewGuid()}");
+        Add<OpenConnectionViewModel>($"{Guid.NewGuid()}");
+        Add<OpenConnectionViewModel>($"{Guid.NewGuid()}");
     }
 
     public IViewModelTemplate Template { get; }

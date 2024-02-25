@@ -9,12 +9,10 @@ public class TitleViewModel(IServiceProvider serviceProvider,
     IPublisher publisher,
     ISubscriber subscriber,
     IDisposer disposer) : 
-    ObservableViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer), 
+    ValueViewModel<string>(serviceProvider, serviceFactory, publisher, subscriber, disposer), 
     INotificationHandler<NavigationChanged<string>>
 {
     public Task Handle(NavigationChanged<string> args,
-        CancellationToken cancellationToken = default)
-    {
-        return Task.CompletedTask;
-    }
+        CancellationToken cancellationToken = default) => 
+        Task.FromResult(Value = args.Value);
 }

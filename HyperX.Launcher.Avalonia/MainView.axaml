@@ -22,7 +22,10 @@
             <Frame x:Name="Root" Grid.Row="1">
                 <Interaction.Behaviors>
                     <EventTriggerBehavior EventName="Loaded">
-                        <NavigateAction Name="Test" Context="Root" />
+                        <NavigateAction
+                            Name="Test"
+                            Title="Debug screen"
+                            Context="Root" />
                     </EventTriggerBehavior>
                 </Interaction.Behaviors>
             </Frame>

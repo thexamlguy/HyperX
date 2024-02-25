@@ -3,12 +3,13 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Description="Secured"
-    Header="Connection name"
+    Header="{Binding Name}"
     IsClickEnabled="True">
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="Click">
             <NavigateAction
                 Name="ConnectionAuthentication"
+                Title="{Binding Name}"
                 Context="Root"
                 Scope="WiFiComponent" />
         </EventTriggerBehavior>

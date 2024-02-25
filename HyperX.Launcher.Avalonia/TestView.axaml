@@ -12,6 +12,7 @@
                 <EventTriggerBehavior EventName="Click">
                     <NavigateAction
                         Name="Keyboard"
+                        Title="Keyboard"
                         Context="Root"
                         Scope="KeyboardComponent" />
                 </EventTriggerBehavior>
@@ -22,6 +23,7 @@
                 <EventTriggerBehavior EventName="Click">
                     <NavigateAction
                         Name="WiFi"
+                        Title="WiFi"
                         Context="Root"
                         Scope="WiFiComponent" />
                 </EventTriggerBehavior>
@@ -32,6 +34,7 @@
                 <EventTriggerBehavior EventName="Click">
                     <NavigateAction
                         Name="Spotify"
+                        Title="Spotify"
                         Context="Root"
                         Scope="SpotifyComponent" />
                 </EventTriggerBehavior>

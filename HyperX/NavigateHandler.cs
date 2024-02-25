@@ -10,7 +10,7 @@ public class NavigateHandler(INavigationScopeProvider provider) :
             is INavigationScope scope)
         {
             await scope.NavigateAsync(args.Name, args.Sender,
-                args.Context, cancellationToken);
+                args.Context, args.Title, cancellationToken);
         }
     }
 }

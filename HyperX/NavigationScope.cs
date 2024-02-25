@@ -6,7 +6,9 @@ public class NavigationScope(IPublisher publisher,
     IViewModelTemplateProvider viewModelTemplateProvider) : 
     INavigationScope
 {
-    public async Task NavigateAsync(object key, object? sender, object? context, 
+    public async Task NavigateAsync(object key, object? sender, 
+        object? context, 
+        string? title, 
         CancellationToken cancellationToken = default)
     {
         if (viewModelTemplateProvider.Get(key)
@@ -30,7 +32,7 @@ public class NavigationScope(IPublisher publisher,
                         is INavigation navigation)
                     {
                         Type navigateType = typeof(Navigate<>).MakeGenericType(navigation.Type);
-                        if (Activator.CreateInstance(navigateType, [context, view, viewModel, sender]) is object navigate)
+                        if (Activator.CreateInstance(navigateType, [context, view, viewModel, sender, title]) is object navigate)
                         {
                             await publisher.PublishAsync(navigate, cancellationToken);
                         }

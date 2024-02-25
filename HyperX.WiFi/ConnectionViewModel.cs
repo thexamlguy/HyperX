@@ -1,8 +1,15 @@
-﻿namespace HyperX.WiFi;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-public class ConnectionViewModel(IServiceProvider serviceProvider,
+namespace HyperX.WiFi;
+
+public partial class ConnectionViewModel(IServiceProvider serviceProvider,
     IServiceFactory serviceFactory,
     IPublisher publisher,
     ISubscriber subscriber,
-    IDisposer disposer) :
-    ObservableViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer);
+    IDisposer disposer,
+    string name) :
+    ObservableViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+{
+    [ObservableProperty]
+    private string name = name;
+}

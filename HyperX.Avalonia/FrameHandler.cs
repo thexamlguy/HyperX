@@ -156,7 +156,7 @@ public class FrameHandler(IViewModelContentBinder binder,
                     TemplatedControl template)
                 {
                     async void HandleNavigatedTo(object? _, 
-                        NavigationEventArgs args)
+                        NavigationEventArgs __)
                     {
                         template.RemoveHandler(Frame.NavigatedToEvent, HandleNavigatedTo);
                         NavigatingFrom(sender, template);
@@ -169,7 +169,11 @@ public class FrameHandler(IViewModelContentBinder binder,
                             }
                         }
 
-                        await publisher.Proxy.PublishAsync(new NavigationChanged<string>("sdfds"));
+                        if (args.Title is not null)
+                        {
+                            await publisher.Proxy.PublishAsync(new NavigationChanged<string>(args.Title),
+                                cancellationToken);
+                        }
                     }
 
                     template.AddHandler(Frame.NavigatedToEvent, HandleNavigatedTo);

@@ -17,6 +17,8 @@ public class NavigateAction :
     public static readonly StyledProperty<string> ScopeProperty =
         AvaloniaProperty.Register<NavigateAction, string>(nameof(Scope));
 
+    public static readonly StyledProperty<string> TitleProperty =
+                AvaloniaProperty.Register<NavigateAction, string>(nameof(Title));
     public string Context
     {
         get => GetValue(ContextProperty);
@@ -35,6 +37,12 @@ public class NavigateAction :
         set => SetValue(ScopeProperty, value);
     }
 
+    public string Title
+    {
+        get => GetValue(TitleProperty);
+        set => SetValue(TitleProperty, value);
+    }
+
     public object Execute(object? sender,
         object? parameter)
     {
@@ -43,7 +51,7 @@ public class NavigateAction :
             if (control.DataContext is IObservableViewModel observableViewModel)
             {
                 observableViewModel.Publisher.PublishAsync(new Navigate(Name, Context 
-                    ?? null, Scope ?? null, control.DataContext)).GetAwaiter().GetResult();
+                    ?? null, Scope ?? null, control.DataContext, Title)).GetAwaiter().GetResult();
             }
         }
 
