@@ -5,7 +5,8 @@ using System.Reflection;
 
 namespace HyperX.Avalonia;
 
-public class FrameHandler(IViewModelContentBinder binder) : 
+public class FrameHandler(IViewModelContentBinder binder,
+    IProxyService<IPublisher> publisher) : 
     INavigateHandler<Frame>,
     INavigateBackHandler<Frame>
 {
@@ -167,6 +168,8 @@ public class FrameHandler(IViewModelContentBinder binder) :
                                 await navigatedTo.NavigatedToAsync();
                             }
                         }
+
+                        await publisher.Proxy.PublishAsync(new NavigationChanged<string>("sdfds"));
                     }
 
                     template.AddHandler(Frame.NavigatedToEvent, HandleNavigatedTo);

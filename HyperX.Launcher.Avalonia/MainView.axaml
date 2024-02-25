@@ -7,17 +7,18 @@
             <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
         </LayoutTransformControl.LayoutTransform>
         <Grid RowDefinitions="Auto, *">
-            <Button
+            <ItemsControl
                 Grid.Row="0"
+                Margin="24"
                 VerticalAlignment="Top"
-                Content="Back"
-                IsEnabled="{Binding #Root.CanGoBack}">
-                <Interaction.Behaviors>
-                    <EventTriggerBehavior EventName="Click">
-                        <CallMethodAction MethodName="GoBack" TargetObject="{Binding #Root}" />
-                    </EventTriggerBehavior>
-                </Interaction.Behaviors>
-            </Button>
+                ItemTemplate="{Binding Template}"
+                ItemsSource="{Binding}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="8" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
             <Frame x:Name="Root" Grid.Row="1">
                 <Interaction.Behaviors>
                     <EventTriggerBehavior EventName="Loaded">

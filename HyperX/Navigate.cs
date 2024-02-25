@@ -11,3 +11,5 @@ public record Navigate<TNavigation>(object Context,
     object ViewModel,
     object? Sender = null) :
     INotification;
+
+public record NavigationChanged<TValue>(string Value) : INotification;

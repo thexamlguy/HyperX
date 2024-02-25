@@ -1,0 +1,9 @@
+<UserControl
+    x:Class="HyperX.Launcher.Avalonia.TitleView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <TextBlock
+        FontWeight="Normal"
+        Text="Need to wire up title"
+        Theme="{DynamicResource TitleTextBlockStyle}" />
+</UserControl>

@@ -2,9 +2,21 @@
 
 namespace HyperX.Launcher.Avalonia;
 
-public class MainViewModel(IServiceProvider serviceProvider,
-    IServiceFactory serviceFactory,
-    IPublisher publisher,
-    ISubscriber subscriber,
-    IDisposer disposer) :
-    ObservableViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer);
+public partial class MainViewModel :
+    ObservableCollectionViewModel<IDisposable>
+{
+    public MainViewModel(IServiceProvider serviceProvider,
+        IServiceFactory serviceFactory,
+        IPublisher publisher,
+        ISubscriber subscriber,
+        IDisposer disposer,
+        IViewModelTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+    {
+        Template = template;
+
+        Add<BackButtonViewModel>();
+        Add<TitleViewModel>();
+    }
+
+    public IViewModelTemplate Template { get; }
+}
