@@ -29,6 +29,7 @@
                     </EventTriggerBehavior>
                 </Interaction.Behaviors>
             </Frame>
+            <CarouselView />
         </Grid>
     </LayoutTransformControl>
 </UserControl>

@@ -1,0 +1,15 @@
+﻿<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:HyperX.UI.Controls.Avalonia">
+    <Design.PreviewWith>
+        <Border Padding="20" />
+    </Design.PreviewWith>
+    <ControlTheme x:Key="{x:Type controls:CarouselView}" TargetType="controls:CarouselView">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Button>fucker this took me too long to render this</Button>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>
