@@ -8,7 +8,37 @@
     <ControlTheme x:Key="{x:Type controls:CarouselView}" TargetType="controls:CarouselView">
         <Setter Property="Template">
             <ControlTemplate>
-                <Button>fucker this took me too long to render this</Button>
+                <Grid
+                    x:Name="Container"
+                    VerticalAlignment="Stretch"
+                    Background="Blue">
+                    <Grid
+                        Width="420"
+                        HorizontalAlignment="Left"
+                        Background="Red" />
+                    <Grid
+                        Width="420"
+                        HorizontalAlignment="Left"
+                        Background="Green" />
+                    <Grid
+                        Width="420"
+                        HorizontalAlignment="Left"
+                        Background="Yellow" />
+                    <Grid
+                        Width="420"
+                        HorizontalAlignment="Left"
+                        Background="Pink" />
+                    <Grid
+                        Width="420"
+                        HorizontalAlignment="Left"
+                        Background="Brown" />
+                    <Rectangle
+                        x:Name="Indicator"
+                        Width="10"
+                        Height="10"
+                        VerticalAlignment="Top"
+                        Fill="#FFEA7474" />
+                </Grid>
             </ControlTemplate>
         </Setter>
     </ControlTheme>

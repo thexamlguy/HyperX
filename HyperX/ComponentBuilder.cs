@@ -13,8 +13,7 @@ public class ComponentBuilder :
     private ComponentBuilder()
     {
         hostBuilder = new HostBuilder()
-            .UseContentRoot(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                Assembly.GetEntryAssembly()?.GetName().Name!), true)
+            .UseContentRoot(Assembly.GetEntryAssembly()?.GetName().Name!, true)
             .ConfigureAppConfiguration(config =>
             {
                 config.AddJsonFile("Settings.json", true, true);
