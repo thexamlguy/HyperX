@@ -15,11 +15,11 @@ public class CarouselView :
 {
     private readonly List<ExpressionAnimation> animations = [];
     private readonly List<CompositionVisual> itemVisualList = [];
-    private Vector3DKeyFrameAnimation? indicatorAnimation;
     private Compositor? compositor;
     private Grid? container;
     private float horizontalDelta;
     private Rectangle? indicator;
+    private Vector3DKeyFrameAnimation? indicatorAnimation;
     private CompositionVisual? indicatorVisual;
     private bool isPressed;
     private List<Grid>? items;
@@ -27,8 +27,6 @@ public class CarouselView :
     private int selectedIndex = 2;
     private Point? startPosition;
     private CompositionVisual? touchAreaVisual;
-
-    public int SelectedIndex { get; set; }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs args)
     {
@@ -117,12 +115,10 @@ public class CarouselView :
             if (deltaX <= -threshold)
             {
                 selectedIndex = (selectedIndex + 1) % 5;
-                SelectedIndex = (SelectedIndex + 1) % items.Count;
             }
             else if (deltaX >= threshold)
             {
                 selectedIndex = (selectedIndex + 4) % 5;
-                SelectedIndex = (SelectedIndex + items.Count - 1) % items.Count;
             }
 
             MeasureItems(selectedIndex, oldSelectedIndex);

@@ -13,9 +13,6 @@ public partial class MainViewModel :
         IViewModelTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
         Template = template;
-
-        Add<BackButtonViewModel>();
-        Add<TitleViewModel>();
     }
 
     public IViewModelTemplate Template { get; }
