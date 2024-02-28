@@ -6,9 +6,6 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Rendering.Composition;
 using Avalonia.Rendering.Composition.Animations;
-using SkiaSharp;
-using System;
-using System.Linq.Expressions;
 using System.Numerics;
 
 namespace HyperX.UI.Controls.Avalonia;
@@ -16,11 +13,9 @@ namespace HyperX.UI.Controls.Avalonia;
 public class CarouselView :
     TemplatedControl
 {
-    private readonly List<CompositionVisual> itemVisualList = [];
     private readonly List<ExpressionAnimation> animations = [];
-
-    ExpressionAnimation? _animation, _animation_0, _animation_1, _animation_2, _animation_3, _animation_4;
-    Vector3DKeyFrameAnimation _indicatorAnimation;
+    private readonly List<CompositionVisual> itemVisualList = [];
+    private Vector3DKeyFrameAnimation? indicatorAnimation;
     private Compositor? compositor;
     private Grid? container;
     private float horizontalDelta;
@@ -32,6 +27,7 @@ public class CarouselView :
     private int selectedIndex = 2;
     private Point? startPosition;
     private CompositionVisual? touchAreaVisual;
+
     public int SelectedIndex { get; set; }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs args)
@@ -138,7 +134,7 @@ public class CarouselView :
     private async void MeasureItems(int newIndex,
         int oldIndex = -1)
     {
-        if (container is not null && items is not null)
+        if (compositor is not null && container is not null && items is not null && indicatorVisual is not null)
         {
             double containerWidth = container.Bounds.Width;
             double targetWidth = Math.Min(containerWidth, container.Bounds.Width / 2);
@@ -165,29 +161,21 @@ public class CarouselView :
             {
                 int diff = newIndex - oldIndex;
                 double duration = 500;
-                // new selected item equals to current item
-                if (diff == 0)
-                {
-                    _indicatorAnimation = compositor.CreateVector3DKeyFrameAnimation();
-                    _indicatorAnimation.InsertKeyFrame(1.0f, new Vector3D(0, 0, 0));
-                    _indicatorAnimation.Duration = TimeSpan.FromMilliseconds(duration);
-                }
-                // new selected item is the right item of current item
-                if (diff == 1 || diff < -1)
-                {
-                    _indicatorAnimation = compositor.CreateVector3DKeyFrameAnimation();
-                    _indicatorAnimation.InsertKeyFrame(1.0f, new Vector3D((float)-targetWidth, 0, 0));
-                    _indicatorAnimation.Duration = TimeSpan.FromMilliseconds(duration);
-                }
-                // new selected item is the left one of current item
-                if (diff == -1 || diff > 1)
-                {
-                    _indicatorAnimation = compositor.CreateVector3DKeyFrameAnimation();
-                    _indicatorAnimation.InsertKeyFrame(1.0f, new Vector3D((float)targetWidth, 0, 0));
-                    _indicatorAnimation.Duration = TimeSpan.FromMilliseconds(duration);
-                }
+                Vector3D finalOffset = new();
 
-                indicatorVisual.StartAnimation("Offset", _indicatorAnimation);
+                finalOffset = diff switch
+                {
+                    0 => new Vector3D(0, 0, 0),
+                    1 => new Vector3D((float)-targetWidth, 0, 0),
+                    -1 => new Vector3D((float)targetWidth, 0, 0),
+                    _ => new Vector3D((float)targetWidth * Math.Sign(diff), 0, 0)
+                };
+
+                indicatorAnimation = compositor.CreateVector3DKeyFrameAnimation();
+                indicatorAnimation.InsertKeyFrame(1.0f, finalOffset);
+                indicatorAnimation.Duration = TimeSpan.FromMilliseconds(duration);
+
+                indicatorVisual.StartAnimation("Offset", indicatorAnimation);
 
                 await Task.Delay(500);
                 for (int i = 0; i < 5; i++)
@@ -199,10 +187,7 @@ public class CarouselView :
     }
 
     private void OnContainerSizeChanged(object? sender,
-        SizeChangedEventArgs args)
-    {
-        MeasureItems(selectedIndex);
-    }
+        SizeChangedEventArgs args) => MeasureItems(selectedIndex);
 
     private void PrepareAnimations()
     {
