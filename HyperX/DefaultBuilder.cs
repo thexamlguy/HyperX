@@ -10,7 +10,7 @@ public class DefaultBuilder : HostBuilder
     public static IHostBuilder Create()
     {
         return new HostBuilder()
-                        .UseContentRoot(Assembly.GetEntryAssembly()?.GetName().Name!, true)
+                        .UseContentRoot("Test", true)
                         .ConfigureAppConfiguration(config =>
                         {
                             config.AddJsonFile("Settings.json", true, true);

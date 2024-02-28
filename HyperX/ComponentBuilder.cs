@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Reflection;
 
 namespace HyperX;
 
@@ -13,7 +12,7 @@ public class ComponentBuilder :
     private ComponentBuilder()
     {
         hostBuilder = new HostBuilder()
-            .UseContentRoot(Assembly.GetEntryAssembly()?.GetName().Name!, true)
+            .UseContentRoot("Test", true)
             .ConfigureAppConfiguration(config =>
             {
                 config.AddJsonFile("Settings.json", true, true);
