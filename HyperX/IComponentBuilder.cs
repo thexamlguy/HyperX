@@ -4,7 +4,10 @@ namespace HyperX;
 
 public interface IComponentBuilder
 {
-    IComponentBuilder ConfigureServices(Action<IServiceCollection> configureDelegate);
+    IComponentBuilder AddConfiguration<TConfiguration>(Action<TConfiguration>? configurationDelegate = null)
+        where TConfiguration : class, new();
 
     IComponentHost Build();
+
+    IComponentBuilder ConfigureServices(Action<IServiceCollection> configureDelegate);
 }

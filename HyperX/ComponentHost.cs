@@ -3,6 +3,7 @@
 namespace HyperX;
 
 public sealed class ComponentHost(IServiceProvider services,
+    IEnumerable<IInitializer> initializers,
     IEnumerable<IHostedService> hostedServices) :
     IComponentHost
 {
@@ -15,6 +16,11 @@ public sealed class ComponentHost(IServiceProvider services,
 
     public async Task StartAsync(CancellationToken cancellationToken = default)
     {
+        foreach (IInitializer initializer in initializers)
+        {
+            await initializer.InitializeAsync();
+        }
+
         foreach (IHostedService service in hostedServices)
         {
             await service.StartAsync(cancellationToken);

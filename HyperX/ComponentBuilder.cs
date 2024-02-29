@@ -9,6 +9,8 @@ public class ComponentBuilder :
 {
     private readonly IHostBuilder hostBuilder;
 
+    private bool configurationRegistered;
+
     private ComponentBuilder()
     {
         hostBuilder = new HostBuilder()
@@ -45,12 +47,30 @@ public class ComponentBuilder :
             });
     }
 
-    public static IComponentBuilder Create() => 
+    public static IComponentBuilder Create() =>
         new ComponentBuilder();
 
-    public IComponentBuilder ConfigureServices(Action<IServiceCollection> configureDelegate)
+    public IComponentBuilder AddConfiguration<TConfiguration>(Action<TConfiguration>? configurationDelegate = null)
+        where TConfiguration : class, new()
     {
-        hostBuilder.ConfigureServices(configureDelegate);
+        if (configurationRegistered)
+        {
+            return this;
+        }
+
+        configurationRegistered = true;
+        TConfiguration configuration = new();
+
+        if (configurationDelegate is not null)
+        {
+            configurationDelegate(configuration);
+        }
+
+        hostBuilder.ConfigureServices(services =>
+        {
+            services.AddConfiguration(configuration);
+        });
+
         return this;
     }
 
@@ -58,5 +78,11 @@ public class ComponentBuilder :
     {
         IHost host = hostBuilder.Build();
         return host.Services.GetRequiredService<IComponentHost>();
+    }
+
+    public IComponentBuilder ConfigureServices(Action<IServiceCollection> configureDelegate)
+    {
+        hostBuilder.ConfigureServices(configureDelegate);
+        return this;
     }
 }

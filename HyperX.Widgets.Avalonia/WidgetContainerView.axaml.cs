@@ -3,7 +3,7 @@ using HyperX.UI.Windows;
 
 namespace HyperX.Widgets.Avalonia;
 
-[NavigationTarget("Widget")]
+[NavigationTarget("WidgetContainer")]
 public partial class WidgetContainerView : 
     UserControl
 {

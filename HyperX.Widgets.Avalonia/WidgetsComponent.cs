@@ -6,6 +6,19 @@ public class WidgetsComponent :
 {
     public IComponentBuilder Create() =>
         ComponentBuilder.Create()
+            .AddConfiguration<WidgetsConfiguration>(args => {
+                args.Add([
+                    new Widget
+                    {
+                        Name = "Spotify",
+                        Component = "SpotifyComponent",
+                        Row = 0,
+                        Column = 0,
+                        RowSpan = 2,
+                        ColumnSpan = 2
+                    }
+                ]);
+            })
             .ConfigureServices(services =>
             {
                 services.AddViewModelTemplate<WidgetsViewModel,
