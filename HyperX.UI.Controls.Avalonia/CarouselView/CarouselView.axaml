@@ -18,11 +18,11 @@
                         Width="10"
                         Height="10"
                         VerticalAlignment="Top" />
-                    <ContentControl HorizontalAlignment="Left" />
-                    <ContentControl HorizontalAlignment="Left" />
-                    <ContentControl HorizontalAlignment="Left" />
-                    <ContentControl HorizontalAlignment="Left" />
-                    <ContentControl HorizontalAlignment="Left" />
+                    <ContentControl HorizontalAlignment="Left" Background="Red" />
+                    <ContentControl HorizontalAlignment="Left" Background="Blue" />
+                    <ContentControl HorizontalAlignment="Left" Background="Purple" />
+                    <ContentControl HorizontalAlignment="Left" Background="Green" />
+                    <ContentControl HorizontalAlignment="Left" Background="Yellow" />
                 </Grid>
             </ControlTemplate>
         </Setter>
