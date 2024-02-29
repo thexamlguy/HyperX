@@ -11,7 +11,10 @@ public class WidgetsComponent :
                 services.AddViewModelTemplate<WidgetsViewModel,
                     WidgetsView>("Widgets");
 
-                services.AddViewModelTemplate<WidgetViewModel,
-                    WidgetView>();
+                services.AddViewModelTemplate<WidgetLayoutViewModel,
+                    WidgetLayoutView>();
+
+                services.AddViewModelTemplate<WidgetContainerViewModel,
+                    WidgetContainerView>();
             });
 }

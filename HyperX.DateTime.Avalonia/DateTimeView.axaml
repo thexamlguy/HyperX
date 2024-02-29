@@ -2,9 +2,8 @@
     x:Class="HyperX.DateTime.Avalonia.DateTimeView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <TextBlock>
-        <Run FontWeight="SemiLight" Text="{Binding Value, StringFormat='ddd, dd MMM'}" />
-        <LineBreak />
-        <Run FontSize="{DynamicResource TitleLargeTextBlockFontSize}" Text="{Binding Value, StringFormat='HH:mm'}" />
-    </TextBlock>
+    <StackPanel>
+        <TextBlock Margin="4,0,0,-8" Text="{Binding Value, StringFormat='ddd, dd MMM'}" />
+        <TextBlock Text="{Binding Value, StringFormat='HH:mm'}" Theme="{DynamicResource TitleLargeTextBlockStyle}" />
+    </StackPanel>
 </UserControl>

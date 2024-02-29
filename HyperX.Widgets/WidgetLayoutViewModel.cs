@@ -1,9 +1,9 @@
 ﻿namespace HyperX.Widgets;
 
-public class WidgetsViewModel : 
-    ObservableCollectionViewModel<WidgetLayoutViewModel>
+public class WidgetLayoutViewModel : 
+    ObservableCollectionViewModel<WidgetContainerViewModel>
 {
-    public WidgetsViewModel(IServiceProvider serviceProvider, 
+    public WidgetLayoutViewModel(IServiceProvider serviceProvider, 
         IServiceFactory serviceFactory,
         IPublisher publisher, 
         ISubscriber subscriber, 
@@ -12,11 +12,7 @@ public class WidgetsViewModel :
     {
         Template = template;
 
-        Add<WidgetLayoutViewModel>();
-        Add<WidgetLayoutViewModel>();
-        Add<WidgetLayoutViewModel>();
-        Add<WidgetLayoutViewModel>();
-        Add<WidgetLayoutViewModel>();
+        Add<WidgetContainerViewModel>("Spotify", "SpotifyComponent", 0, 0, 1, 1);
     }
 
     public IViewModelTemplate Template { get; }

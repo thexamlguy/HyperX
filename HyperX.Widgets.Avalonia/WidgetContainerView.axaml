@@ -1,0 +1,17 @@
+<UserControl
+    x:Class="HyperX.Widgets.Avalonia.WidgetContainerView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Border Background="Pink">
+        <ContentControl x:Name="Widget">
+            <Interaction.Behaviors>
+                <EventTriggerBehavior EventName="Loaded">
+                    <NavigateAction
+                        Name="Spotify"
+                        Context="Widget"
+                        Scope="SpotifyComponent" />
+                </EventTriggerBehavior>
+            </Interaction.Behaviors>
+        </ContentControl>
+    </Border>
+</UserControl>

@@ -9,17 +9,17 @@ public partial class FunctionButtonViewModel :
     private readonly Func<Task>? function;
 
     [ObservableProperty]
-    private int index;
+    private int column;
 
     public FunctionButtonViewModel(IServiceProvider serviceProvider,
         IServiceFactory serviceFactory,
         IPublisher publisher,
         ISubscriber subscriber,
         IDisposer disposer,
-        int index,
+        int column,
         Func<Task>? function = default) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
-        Index = index;
+        Column = column;
         this.function = function;
     }
 
@@ -28,9 +28,9 @@ public partial class FunctionButtonViewModel :
         IPublisher publisher,
         ISubscriber subscriber,
         IDisposer disposer,
-        int index) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+        int column) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
-        Index = index;
+        Column = column;
     }
 
     protected override async Task OnClickAsync()

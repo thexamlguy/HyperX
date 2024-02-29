@@ -1,16 +1,19 @@
 <UserControl
-    x:Class="HyperX.Keyboard.Avalonia.FunctionLayoutView"
+    x:Class="HyperX.Widgets.Avalonia.WidgetLayoutView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Styles>
         <Style Selector="ItemsControl > ContentPresenter">
             <Setter Property="Grid.Column" Value="{Binding Column}" />
+            <Setter Property="Grid.Row" Value="{Binding Row}" />
+            <Setter Property="Grid.ColumnSpan" Value="{Binding ColumnSpan}" />
+            <Setter Property="Grid.RowSpan" Value="{Binding RowSpan}" />
         </Style>
     </UserControl.Styles>
     <ItemsControl ItemTemplate="{Binding Template}" ItemsSource="{Binding}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <SpacedGrid ColumnDefinitions="Auto, *, Auto, Auto, Auto, Auto" ColumnSpacing="4" />
+                <Grid ColumnDefinitions="*, *" RowDefinitions="*, *" />
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
     </ItemsControl>
