@@ -22,7 +22,7 @@ class Program
             // If Card0, Card1 and Card2 all don't work. You can also try:                 
             // return builder.StartLinuxFbDev(args);
             // return builder.StartLinuxDrm(args, "/dev/dri/card1");
-            return builder.StartLinuxDrm(args, "/dev/dri/card1", 1D);
+            return builder.StartLinuxDrm(args, "/dev/dri/card0", 1D);
         }
 
         return builder.StartWithClassicDesktopLifetime(args);
