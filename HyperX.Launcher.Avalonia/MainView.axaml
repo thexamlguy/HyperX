@@ -19,10 +19,16 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            <CarouselView
-                Grid.Row="1"
-                ItemTemplate="{Binding Template}"
-                ItemsSource="{Binding}" />
+            <Frame x:Name="Root" Grid.Row="1">
+                <Interaction.Behaviors>
+                    <EventTriggerBehavior EventName="Loaded">
+                        <NavigateAction
+                            Name="Widgets"
+                            Context="Root"
+                            Scope="WidgetsComponent" />
+                    </EventTriggerBehavior>
+                </Interaction.Behaviors>
+            </Frame>
         </Grid>
     </LayoutTransformControl>
 </UserControl>

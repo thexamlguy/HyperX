@@ -6,6 +6,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using HyperX.Keyboard.Avalonia;
 using HyperX.Spotify.Avalonia;
 using HyperX.WiFi.Avalonia;
+using HyperX.Widgets.Avalonia;
 
 namespace HyperX.Launcher.Avalonia;
 
@@ -23,6 +24,7 @@ public partial class App :
 
                 services.AddComponent<KeyboardComponent>();
                 services.AddComponent<WiFiComponent>();
+                services.AddComponent<WidgetsComponent>();
                 services.AddComponent<SpotifyComponent>();
 
                 services.AddHandler<AppStartedHandler>();

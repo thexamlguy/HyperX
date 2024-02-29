@@ -28,9 +28,15 @@
 	<ItemGroup>
 		<ProjectReference Include="..\HyperX.Avalonia\HyperX.Avalonia.csproj" />
 		<ProjectReference Include="..\HyperX.Keyboard.Avalonia\HyperX.Keyboard.Avalonia.csproj" />
+		<ProjectReference Include="..\HyperX.Keyboard\HyperX.Keyboard.csproj" />
+		<ProjectReference Include="..\HyperX.Settings.Avalonia\HyperX.Settings.Avalonia.csproj" />
+		<ProjectReference Include="..\HyperX.Settings\HyperX.Settings.csproj" />
 		<ProjectReference Include="..\HyperX.Spotify.Avalonia\HyperX.Spotify.Avalonia.csproj" />
 		<ProjectReference Include="..\HyperX.Spotify\HyperX.Spotify.csproj" />
 		<ProjectReference Include="..\HyperX.UI.Avalonia\HyperX.UI.Avalonia.csproj" />
+		<ProjectReference Include="..\HyperX.UI.Controls.Avalonia\HyperX.UI.Controls.Avalonia.csproj" />
+		<ProjectReference Include="..\HyperX.Widgets.Avalonia\HyperX.Widgets.Avalonia.csproj" />
+		<ProjectReference Include="..\HyperX.Widgets\HyperX.Widgets.csproj" />
 		<ProjectReference Include="..\HyperX.WiFi.Avalonia\HyperX.WiFi.Avalonia.csproj" />
 		<ProjectReference Include="..\HyperX.WiFi\HyperX.WiFi.csproj" />
 		<ProjectReference Include="..\HyperX\HyperX.csproj" />

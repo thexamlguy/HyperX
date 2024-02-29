@@ -23,13 +23,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.Spotify.Avalonia", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.UI.Controls.Avalonia", "HyperX.UI.Controls.Avalonia\HyperX.UI.Controls.Avalonia.csproj", "{92C114E4-1E94-4BB3-B71E-CEC952C7A3CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.WiFi", "HyperX.WiFi\HyperX.WiFi.csproj", "{AC53155A-D580-4D38-BC34-A5291A41B34A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.WiFi", "HyperX.WiFi\HyperX.WiFi.csproj", "{AC53155A-D580-4D38-BC34-A5291A41B34A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.WiFi.Avalonia", "HyperX.WiFi.Avalonia\HyperX.WiFi.Avalonia.csproj", "{A703DF54-C758-4B97-A9FC-8B911F4F4BB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.WiFi.Avalonia", "HyperX.WiFi.Avalonia\HyperX.WiFi.Avalonia.csproj", "{A703DF54-C758-4B97-A9FC-8B911F4F4BB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.Settings", "HyperX.Settings\HyperX.Settings.csproj", "{6AEFD577-5223-454B-ADC1-52BF229A028E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.Settings", "HyperX.Settings\HyperX.Settings.csproj", "{6AEFD577-5223-454B-ADC1-52BF229A028E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.Settings.Avalonia", "HyperX.Settings.Avalonia\HyperX.Settings.Avalonia.csproj", "{697B00D6-6DE1-416D-8252-C8A141C5C97D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.Settings.Avalonia", "HyperX.Settings.Avalonia\HyperX.Settings.Avalonia.csproj", "{697B00D6-6DE1-416D-8252-C8A141C5C97D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.Widgets", "HyperX.Widgets\HyperX.Widgets.csproj", "{F73A37DB-CFDD-4B21-AA80-70BD117355B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.Widgets.Avalonia", "HyperX.Widgets.Avalonia\HyperX.Widgets.Avalonia.csproj", "{8C5C7F8B-18D0-45FB-9829-16DF75D628A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +97,14 @@ Global
 		{697B00D6-6DE1-416D-8252-C8A141C5C97D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{697B00D6-6DE1-416D-8252-C8A141C5C97D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{697B00D6-6DE1-416D-8252-C8A141C5C97D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F73A37DB-CFDD-4B21-AA80-70BD117355B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F73A37DB-CFDD-4B21-AA80-70BD117355B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F73A37DB-CFDD-4B21-AA80-70BD117355B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F73A37DB-CFDD-4B21-AA80-70BD117355B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C5C7F8B-18D0-45FB-9829-16DF75D628A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C5C7F8B-18D0-45FB-9829-16DF75D628A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C5C7F8B-18D0-45FB-9829-16DF75D628A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C5C7F8B-18D0-45FB-9829-16DF75D628A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

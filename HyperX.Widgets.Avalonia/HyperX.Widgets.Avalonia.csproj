@@ -11,7 +11,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\HyperX.UI.Avalonia\HyperX.UI.Avalonia.csproj" />
 		<ProjectReference Include="..\HyperX.UI.Controls.Avalonia\HyperX.UI.Controls.Avalonia.csproj" />
-		<ProjectReference Include="..\HyperX.WiFi\HyperX.WiFi.csproj" />
+		<ProjectReference Include="..\HyperX.Widgets\HyperX.Widgets.csproj" />
 		<ProjectReference Include="..\HyperX\HyperX.csproj" />
 	</ItemGroup>
 </Project>

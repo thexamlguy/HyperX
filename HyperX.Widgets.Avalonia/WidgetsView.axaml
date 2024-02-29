@@ -1,0 +1,9 @@
+<UserControl
+    x:Class="HyperX.Widgets.Avalonia.WidgetsView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <CarouselView
+        Grid.Row="1"
+        ItemTemplate="{Binding Template}"
+        ItemsSource="{Binding}" />
+</UserControl>
