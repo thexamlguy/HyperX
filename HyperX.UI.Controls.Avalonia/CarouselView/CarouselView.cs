@@ -11,10 +11,10 @@ using System.Numerics;
 namespace HyperX.UI.Controls.Avalonia;
 
 public class CarouselView :
-    TemplatedControl
+    ItemsControl
 {
     private readonly List<ExpressionAnimation> animations = [];
-    private readonly List<CompositionVisual> itemVisualList = [];
+    private readonly List<CompositionVisual> itemVisuals = [];
     private Compositor? compositor;
     private Grid? container;
     private float horizontalDelta;
@@ -22,7 +22,7 @@ public class CarouselView :
     private Vector3DKeyFrameAnimation? indicatorAnimation;
     private CompositionVisual? indicatorVisual;
     private bool isPressed;
-    private List<Grid>? items;
+    private List<ContentControl>? items;
     private Point? lastPosition;
     private int selectedIndex = 2;
     private Point? startPosition;
@@ -39,12 +39,12 @@ public class CarouselView :
                 compositor = touchAreaVisual.Compositor;
             }
 
-            items = container.Children.OfType<Grid>().ToList();
-            foreach (Grid item in items)
+            items = container.Children.OfType<ContentControl>().ToList();
+            foreach (ContentControl item in items)
             {
                 if (ElementComposition.GetElementVisual(item) is CompositionVisual visual)
                 {
-                    itemVisualList.Add(visual);
+                    itemVisuals.Add(visual);
                 }
             }
 
@@ -61,8 +61,10 @@ public class CarouselView :
         base.OnApplyTemplate(args);
     }
 
-    protected override void OnLoaded(RoutedEventArgs args) =>
-        MeasureItems(selectedIndex);
+    protected override void OnLoaded(RoutedEventArgs args)
+    {
+        ArrangeItems(selectedIndex);
+    }
 
     protected override void OnPointerMoved(PointerEventArgs args)
     {
@@ -91,9 +93,9 @@ public class CarouselView :
 
             PrepareAnimations();
 
-            for (int i = 0; i < itemVisualList.Count; i++)
+            for (int i = 0; i < itemVisuals.Count; i++)
             {
-                itemVisualList[i].StartAnimation("Offset", animations[i]);
+                itemVisuals[i].StartAnimation("Offset", animations[i]);
             }
         }
 
@@ -121,13 +123,39 @@ public class CarouselView :
                 selectedIndex = (selectedIndex + 4) % 5;
             }
 
-            MeasureItems(selectedIndex, oldSelectedIndex);
+            ArrangeItems(selectedIndex, oldSelectedIndex);
         }
 
         base.OnPointerReleased(args);
     }
 
-    private async void MeasureItems(int newIndex,
+    private void SetItems()
+    {
+        int count = ItemsView.Count;
+        if (count == 0)
+        {
+            return;
+        }
+
+        int currentIndex = selectedIndex;
+        int[] indexes = new int[5];
+
+        for (int i = 0; i < 5; i++)
+        {
+            int offset = i - 2;
+            indexes[i] = (currentIndex + offset + count) % count;
+        }
+
+        for (int i = 0; i < 5; i++)
+        {
+            int index = (currentIndex + i - 2 + 5) % 5;
+
+            items[index].Content = ItemsView[indexes[i]];
+            items[index].ContentTemplate = ItemTemplate;
+        }
+    }
+
+    private async void ArrangeItems(int newIndex,
         int oldIndex = -1)
     {
         if (compositor is not null && container is not null && items is not null && indicatorVisual is not null)
@@ -150,7 +178,7 @@ public class CarouselView :
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    itemVisualList[(newIndex + i - 2 + 5) % 5].Offset = new Vector3((float)offsets[i], 0, 0);
+                    itemVisuals[(newIndex + i - 2 + 5) % 5].Offset = new Vector3((float)offsets[i], 0, 0);
                 }
             }
             else
@@ -176,26 +204,28 @@ public class CarouselView :
                 await Task.Delay(500);
                 for (int i = 0; i < 5; i++)
                 {
-                    itemVisualList[(newIndex + i - 2 + 5) % 5].Offset = new Vector3((float)offsets[i], 0, 0);
+                    itemVisuals[(newIndex + i - 2 + 5) % 5].Offset = new Vector3((float)offsets[i], 0, 0);
                 }
             }
+
+            SetItems();
         }
     }
 
     private void OnContainerSizeChanged(object? sender,
-        SizeChangedEventArgs args) => MeasureItems(selectedIndex);
+        SizeChangedEventArgs args) => ArrangeItems(selectedIndex);
 
     private void PrepareAnimations()
     {
         animations.Clear();
 
-        if (compositor is not null && indicatorVisual is not null && itemVisualList is not null)
+        if (compositor is not null && indicatorVisual is not null && itemVisuals is not null)
         {
-            for (int i = 0; i < itemVisualList.Count; i++)
+            for (int i = 0; i < itemVisuals.Count; i++)
             {
                 ExpressionAnimation animation = compositor.CreateExpressionAnimation();
 
-                animation.Expression = $"Source.Offset + Vector3({itemVisualList[i].Offset.X}, 0, 0)";
+                animation.Expression = $"Source.Offset + Vector3({itemVisuals[i].Offset.X}, 0, 0)";
                 animation.SetReferenceParameter("Source", indicatorVisual);
                 animations.Add(animation);
             }

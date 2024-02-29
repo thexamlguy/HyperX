@@ -19,7 +19,10 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-			<CarouselView Grid.Row="1" />
-		</Grid>
+            <CarouselView
+                Grid.Row="1"
+                ItemTemplate="{Binding Template}"
+                ItemsSource="{Binding}" />
+        </Grid>
     </LayoutTransformControl>
 </UserControl>

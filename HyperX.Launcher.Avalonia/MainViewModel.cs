@@ -13,6 +13,20 @@ public partial class MainViewModel :
         IViewModelTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
         Template = template;
+
+        Add<TestViewModel>();
+        Add<TestViewModel>();
+        Add<TestViewModel>();
+        Add<TestViewModel>();
+        Add<TestViewModel>();
+        Add<TestViewModel>();
+        Add<TestViewModel>();
+        Add<TestViewModel>();
+        Add<TestViewModel>();
+        Add<TestViewModel>();
+        Add<TestViewModel>();
+        Add<TestViewModel>();
+        Add<TestViewModel>();
     }
 
     public IViewModelTemplate Template { get; }

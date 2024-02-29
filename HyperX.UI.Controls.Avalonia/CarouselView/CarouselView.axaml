@@ -6,38 +6,23 @@
         <Border Padding="20" />
     </Design.PreviewWith>
     <ControlTheme x:Key="{x:Type controls:CarouselView}" TargetType="controls:CarouselView">
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid
                     x:Name="Container"
                     VerticalAlignment="Stretch"
-                    Background="Blue">
-                    <Grid
-                        Width="420"
-                        HorizontalAlignment="Left"
-                        Background="Red" />
-                    <Grid
-                        Width="420"
-                        HorizontalAlignment="Left"
-                        Background="Green" />
-                    <Grid
-                        Width="420"
-                        HorizontalAlignment="Left"
-                        Background="Yellow" />
-                    <Grid
-                        Width="420"
-                        HorizontalAlignment="Left"
-                        Background="Pink" />
-                    <Grid
-                        Width="420"
-                        HorizontalAlignment="Left"
-                        Background="Brown" />
+                    Background="{TemplateBinding Background}">
                     <Rectangle
                         x:Name="Indicator"
                         Width="10"
                         Height="10"
-                        VerticalAlignment="Top"
-                        Fill="#FFEA7474" />
+                        VerticalAlignment="Top" />
+                    <ContentControl HorizontalAlignment="Left" />
+                    <ContentControl HorizontalAlignment="Left" />
+                    <ContentControl HorizontalAlignment="Left" />
+                    <ContentControl HorizontalAlignment="Left" />
+                    <ContentControl HorizontalAlignment="Left" />
                 </Grid>
             </ControlTemplate>
         </Setter>

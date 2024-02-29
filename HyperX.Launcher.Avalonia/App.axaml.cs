@@ -34,9 +34,8 @@ public partial class App :
 
                 services.AddViewModelTemplate<MainViewModel, MainView>("Main");
                 services.AddViewModelTemplate<BackButtonViewModel, BackButtonView>();
-                services.AddViewModelTemplate<TitleViewModel, TitleView>();
 
-                services.AddViewModelTemplate<TestViewModel, TestView>("Test");
+                services.AddViewModelTemplate<TestViewModel, TestView>();
 
             })
         .Build();
