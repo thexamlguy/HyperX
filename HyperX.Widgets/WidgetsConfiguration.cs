@@ -1,4 +1,4 @@
-﻿namespace HyperX.Widgets.Avalonia;
+﻿namespace HyperX.Widgets;
 
 public class WidgetsConfiguration : 
     List<WidgetLayout>

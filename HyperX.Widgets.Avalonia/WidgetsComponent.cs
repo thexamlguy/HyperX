@@ -29,5 +29,7 @@ public class WidgetsComponent :
 
                 services.AddViewModelTemplate<WidgetContainerViewModel,
                     WidgetContainerView>();
+
+                services.AddHandler<WidgetLayoutHandler>();
             });
 }

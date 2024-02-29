@@ -11,12 +11,6 @@ public class WidgetsViewModel :
         IViewModelTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
         Template = template;
-
-        Add<WidgetLayoutViewModel>();
-        Add<WidgetLayoutViewModel>();
-        Add<WidgetLayoutViewModel>();
-        Add<WidgetLayoutViewModel>();
-        Add<WidgetLayoutViewModel>();
     }
 
     public IViewModelTemplate Template { get; }

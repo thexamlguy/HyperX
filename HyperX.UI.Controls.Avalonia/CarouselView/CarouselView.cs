@@ -64,6 +64,7 @@ public class CarouselView :
     protected override void OnLoaded(RoutedEventArgs args)
     {
         ArrangeItems(selectedIndex);
+        base.OnLoaded(args);
     }
 
     protected override void OnPointerMoved(PointerEventArgs args)
