@@ -1,0 +1,9 @@
+<UserControl
+    x:Class="HyperX.Widgets.Avalonia.WidgetView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid
+        ColumnDefinitions="*, *"
+        RowDefinitions="*, *"
+        ShowGridLines="True" />
+</UserControl>

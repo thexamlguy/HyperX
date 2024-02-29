@@ -27,6 +27,8 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\HyperX.Avalonia\HyperX.Avalonia.csproj" />
+		<ProjectReference Include="..\HyperX.DateTime.Avalonia\HyperX.DateTime.Avalonia.csproj" />
+		<ProjectReference Include="..\HyperX.DateTime\HyperX.DateTime.csproj" />
 		<ProjectReference Include="..\HyperX.Keyboard.Avalonia\HyperX.Keyboard.Avalonia.csproj" />
 		<ProjectReference Include="..\HyperX.Keyboard\HyperX.Keyboard.csproj" />
 		<ProjectReference Include="..\HyperX.Settings.Avalonia\HyperX.Settings.Avalonia.csproj" />

@@ -7,18 +7,23 @@
             <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
         </LayoutTransformControl.LayoutTransform>
         <Grid RowDefinitions="Auto, *">
-            <ItemsControl
-                Grid.Row="0"
-                Margin="24"
-                VerticalAlignment="Top"
-                ItemTemplate="{Binding Template}"
-                ItemsSource="{Binding}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" Spacing="8" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+            <TextBlock>
+                <Run Text="{Binding Value, StringFormat='ddd, dd MMM'}" FontWeight="SemiLight" />
+                <LineBreak />
+                <Run FontSize="{DynamicResource TitleLargeTextBlockFontSize}" Text="{Binding Value, StringFormat='HH:mm'}" />
+            </TextBlock>
+            <Grid Margin="24,24,24,0">
+                <ContentControl x:Name="DateTime">
+                    <Interaction.Behaviors>
+                        <EventTriggerBehavior EventName="Loaded">
+                            <NavigateAction
+                                Name="DateTime"
+                                Context="DateTime"
+                                Scope="DateTimeComponent" />
+                        </EventTriggerBehavior>
+                    </Interaction.Behaviors>
+                </ContentControl>
+            </Grid>
             <Frame x:Name="Root" Grid.Row="1">
                 <Interaction.Behaviors>
                     <EventTriggerBehavior EventName="Loaded">

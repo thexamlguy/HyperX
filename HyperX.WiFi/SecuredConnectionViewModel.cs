@@ -1,4 +1,5 @@
 ﻿namespace HyperX.WiFi;
+
 public class SecuredConnectionViewModel(IServiceProvider serviceProvider,
     IServiceFactory serviceFactory,
     IPublisher publisher,

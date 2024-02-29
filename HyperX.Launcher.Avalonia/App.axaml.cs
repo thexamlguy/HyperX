@@ -7,6 +7,7 @@ using HyperX.Keyboard.Avalonia;
 using HyperX.Spotify.Avalonia;
 using HyperX.WiFi.Avalonia;
 using HyperX.Widgets.Avalonia;
+using HyperX.DateTime.Avalonia;
 
 namespace HyperX.Launcher.Avalonia;
 
@@ -24,6 +25,7 @@ public partial class App :
 
                 services.AddComponent<KeyboardComponent>();
                 services.AddComponent<WiFiComponent>();
+                services.AddComponent<DateTimeComponent>();
                 services.AddComponent<WidgetsComponent>();
                 services.AddComponent<SpotifyComponent>();
 

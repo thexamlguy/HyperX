@@ -1,0 +1,10 @@
+<UserControl
+    x:Class="HyperX.DateTime.Avalonia.DateTimeView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <TextBlock>
+        <Run FontWeight="SemiLight" Text="{Binding Value, StringFormat='ddd, dd MMM'}" />
+        <LineBreak />
+        <Run FontSize="{DynamicResource TitleLargeTextBlockFontSize}" Text="{Binding Value, StringFormat='HH:mm'}" />
+    </TextBlock>
+</UserControl>
