@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reactive.Disposables;
+using System.Reflection;
 using System.Windows.Input;
 
 namespace HyperX;
@@ -186,8 +187,24 @@ public partial class ObservableCollectionViewModel<TViewModel> :
         ClearItems();
     }
 
+    public async Task<bool> ConfirmNavigationAsync()
+    {
+        foreach (TViewModel item in this)
+        {
+            if (item is IConfirmNavigation confirmNavigation)
+            {
+                if (!await confirmNavigation.ConfirmNavigationAsync())
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     public bool Contains(TViewModel item) =>
-        collection.Contains(item);
+            collection.Contains(item);
 
     bool IList.Contains(object? value) =>
         IsCompatibleObject(value) && Contains((TViewModel)value!);
@@ -274,10 +291,12 @@ public partial class ObservableCollectionViewModel<TViewModel> :
     int IList.IndexOf(object? value) =>
         IsCompatibleObject(value) ?
         IndexOf((TViewModel)value!) : -1;
-    public virtual Task InitializeAsync() => Task.CompletedTask;
+
+    public virtual Task InitializeAsync() => 
+        Task.CompletedTask;
 
     public void Insert(int index, TViewModel item) =>
-            InsertItem(index, item);
+        InsertItem(index, item);
 
     void IList.Insert(int index,
         object? value)
@@ -301,6 +320,7 @@ public partial class ObservableCollectionViewModel<TViewModel> :
 
         return true;
     }
+
     public bool Remove(TViewModel item)
     {
         int index = collection.IndexOf(item);
@@ -326,7 +346,8 @@ public partial class ObservableCollectionViewModel<TViewModel> :
     public void RemoveAt(int index) =>
         RemoveItem(index);
 
-    public bool Replace(int index, TViewModel item)
+    public bool Replace(int index, 
+        TViewModel item)
     {
         if (index <= Count - 1)
         {
@@ -377,28 +398,15 @@ public partial class ObservableCollectionViewModel<TViewModel> :
 
         isInitialized = true;
 
-        await Publisher.PublishUIAsync<Enumerate<TViewModel>>();
+        object? key = GetType().GetCustomAttribute<NotificationHandlerAttribute>()
+            is NotificationHandlerAttribute attribute ? attribute : null;
+
+        await Publisher.PublishUIAsync(new Enumerate<TViewModel>(key));
         await InitializeAsync();
     }
 
     private void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs args) => 
         CollectionChanged?.Invoke(this, args);
-
-    public async Task<bool> ConfirmNavigationAsync()
-    {
-        foreach (TViewModel item in this)
-        {
-            if (item is IConfirmNavigation confirmNavigation)
-            {
-                if (!await confirmNavigation.ConfirmNavigationAsync())
-                {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
 }
 
 public class ObservableCollectionViewModel(IServiceProvider serviceProvider,

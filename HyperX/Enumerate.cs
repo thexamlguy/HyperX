@@ -1,3 +1,3 @@
 ﻿namespace HyperX;
 
-public record Enumerate<TValue> : INotification;
+public record Enumerate<TValue>(object? Key = null) : INotification;

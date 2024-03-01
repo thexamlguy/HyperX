@@ -31,5 +31,6 @@ public class WidgetsComponent :
                     WidgetContainerView>();
 
                 services.AddHandler<WidgetLayoutHandler>();
+                services.AddHandler<WidgetContainerHandler>();
             });
 }

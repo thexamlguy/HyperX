@@ -8,10 +8,10 @@ public class WidgetLayoutHandler(IPublisher publisher,
     public async Task Handle(Enumerate<WidgetLayoutViewModel> args,
         CancellationToken cancellationToken)
     {
-        foreach (WidgetLayout widgetLayout in configuration)
+        for (int index = 0; index < configuration.Count; index++)
         {
-            await publisher.PublishUIAsync(new Create<WidgetLayoutViewModel>(factory.Create<WidgetLayoutViewModel>()), 
-                cancellationToken);
+            await publisher.PublishUIAsync(new Create<WidgetLayoutViewModel>(
+                    factory.Create<WidgetLayoutViewModel>($"WidgetLayoutViewModel:{index}")), cancellationToken);
         }
     }
 }
