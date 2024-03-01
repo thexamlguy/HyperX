@@ -28,7 +28,7 @@ public class SubscriptionManager(SubscriptionCollection subscriptions) :
     public void Remove(object subscriber)
     {
         Type handlerType = subscriber.GetType();
-        object? key = GetKeyFromHandler(handlerType, subscriber);
+        object? key = GetKeyFromHandler(subscriber);
         foreach (Type interfaceType in GetHandlerInterfaces(handlerType))
         {
             if (interfaceType.GetGenericArguments().FirstOrDefault() is Type argumentType)
@@ -50,7 +50,7 @@ public class SubscriptionManager(SubscriptionCollection subscriptions) :
     public void Add(object subscriber)
     {
         Type handlerType = subscriber.GetType();
-        object? key = GetKeyFromHandler(handlerType, subscriber);
+        object? key = GetKeyFromHandler(subscriber);
         foreach (Type interfaceType in GetHandlerInterfaces(handlerType))
         {
             if (interfaceType.GetGenericArguments().FirstOrDefault() is Type argumentType)
@@ -64,21 +64,12 @@ public class SubscriptionManager(SubscriptionCollection subscriptions) :
         }
     }
 
-    private static object? GetKeyFromHandler(Type handlerType, object handler)
+    private static object? GetKeyFromHandler(object handler)
     {
-        if (handlerType.GetCustomAttribute<NotificationHandlerAttribute>() is NotificationHandlerAttribute attribute)
-        {
-            if (handlerType.GetProperty($"{attribute.Key}") is PropertyInfo property
-                && property.GetValue(handler) is { } value)
-            {
-                return value;
-            }
-            else
-            {
-                return attribute.Key;
-            }
-        }
-        return null;
+        return handler.GetAttribute<NotificationHandlerAttribute>()
+            is NotificationHandlerAttribute attribute
+            ? handler.GetPropertyValue(() => attribute.Key) is { } value ? value : attribute.Key
+            : null;
     }
 
     private static IEnumerable<Type> GetHandlerInterfaces(Type handlerType) => 

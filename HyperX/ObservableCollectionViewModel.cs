@@ -398,8 +398,10 @@ public partial class ObservableCollectionViewModel<TViewModel> :
 
         isInitialized = true;
 
-        object? key = GetType().GetCustomAttribute<NotificationHandlerAttribute>()
-            is NotificationHandlerAttribute attribute ? attribute : null;
+        object? key = this.GetAttribute<NotificationHandlerAttribute>()
+            is NotificationHandlerAttribute attribute
+            ? this.GetPropertyValue(() => attribute.Key) is { } value ? value : attribute.Key
+            : null;
 
         await Publisher.PublishUIAsync(new Enumerate<TViewModel>(key));
         await InitializeAsync();
