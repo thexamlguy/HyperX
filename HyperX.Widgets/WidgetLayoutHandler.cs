@@ -10,8 +10,11 @@ public class WidgetLayoutHandler(IPublisher publisher,
     {
         for (int index = 0; index < configuration.Count; index++)
         {
-            await publisher.PublishUIAsync(new Create<WidgetLayoutViewModel>(
-                    factory.Create<WidgetLayoutViewModel>($"WidgetLayoutViewModel:{index}")), cancellationToken);
+            if (factory.Create<WidgetLayoutViewModel>($"WidgetLayoutViewModel:{index}")
+                is WidgetLayoutViewModel item)
+            {
+                await publisher.PublishUIAsync(new Create<WidgetLayoutViewModel>(item), cancellationToken);
+            }
         }
     }
 }

@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reactive.Disposables;
-using System.Reflection;
 using System.Windows.Input;
 
 namespace HyperX;
@@ -227,12 +226,12 @@ public partial class ObservableCollectionViewModel<TViewModel> :
     IEnumerator IEnumerable.GetEnumerator() =>
         ((IEnumerable)collection).GetEnumerator();
 
-    public Task Handle(Remove<TViewModel> notification,
+    public Task Handle(Remove<TViewModel> args,
         CancellationToken cancellationToken)
     {
         foreach (TViewModel item in this.ToList())
         {
-            if (notification.Value is not null && notification.Value.Equals(item))
+            if (args.Value is not null && args.Value.Equals(item))
             {
                 Remove(item);
             }
@@ -241,10 +240,10 @@ public partial class ObservableCollectionViewModel<TViewModel> :
         return Task.CompletedTask;
     }
 
-    public Task Handle(Create<TViewModel> notification,
+    public Task Handle(Create<TViewModel> args,
         CancellationToken cancellationToken)
     {
-        if (notification.Value is TViewModel item)
+        if (args.Value is TViewModel item)
         {
             Add(item);
         }
@@ -252,34 +251,34 @@ public partial class ObservableCollectionViewModel<TViewModel> :
         return Task.CompletedTask;
     }
 
-    public Task Handle(Insert<TViewModel> notification,
+    public Task Handle(Insert<TViewModel> args,
         CancellationToken cancellationToken)
     {
-        if (notification.Value is TViewModel item)
+        if (args.Value is TViewModel item)
         {
-            Insert(notification.Index, item);
+            Insert(args.Index, item);
         }
 
         return Task.CompletedTask;
     }
 
-    public Task Handle(Move<TViewModel> notification,
+    public Task Handle(Move<TViewModel> args,
         CancellationToken cancellationToken)
     {
-        if (notification.Value is TViewModel item)
+        if (args.Value is TViewModel item)
         {
-            Move(notification.Index, item);
+            Move(args.Index, item);
         }
 
         return Task.CompletedTask;
     }
 
-    public Task Handle(Replace<TViewModel> notification, 
+    public Task Handle(Replace<TViewModel> args, 
         CancellationToken cancellationToken)
     {
-        if (notification.Value is TViewModel item)
+        if (args.Value is TViewModel item)
         {
-            Replace(notification.Index, item);
+            Replace(args.Index, item);
         }
 
         return Task.CompletedTask;

@@ -3,25 +3,17 @@
 namespace HyperX.Widgets;
 
 [NotificationHandler(nameof(Id))]
-public partial class WidgetLayoutViewModel : 
-    ObservableCollectionViewModel<WidgetContainerViewModel>
+public partial class WidgetLayoutViewModel(IServiceProvider serviceProvider, 
+    IServiceFactory serviceFactory, 
+    IPublisher publisher,
+    ISubscriber subscriber, 
+    IDisposer disposer,
+    IViewModelTemplate template,
+    string id) : 
+    ObservableCollectionViewModel<WidgetContainerViewModel>(serviceProvider, serviceFactory, publisher, subscriber, disposer)
 {
     [ObservableProperty]
-    private string id;
+    private string id = id;
 
-    public WidgetLayoutViewModel(IServiceProvider serviceProvider, 
-        IServiceFactory serviceFactory,
-        IPublisher publisher, 
-        ISubscriber subscriber, 
-        IDisposer disposer,
-        IViewModelTemplate template,
-        string id) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
-    {
-        Id = id;
-        Template = template;
-
-        Add<WidgetContainerViewModel>("Spotify", "SpotifyComponent", 0, 0, 1, 1);
-    }
-
-    public IViewModelTemplate Template { get; }
+    public IViewModelTemplate Template => template;
 }

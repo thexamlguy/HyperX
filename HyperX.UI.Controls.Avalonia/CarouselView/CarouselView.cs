@@ -6,6 +6,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Rendering.Composition;
 using Avalonia.Rendering.Composition.Animations;
+using System.Collections.Specialized;
 using System.Numerics;
 
 namespace HyperX.UI.Controls.Avalonia;
@@ -58,7 +59,15 @@ public class CarouselView :
             indicatorVisual = ElementComposition.GetElementVisual(indicator);
         }
 
+        ItemsView.CollectionChanged += ItemsView_CollectionChanged;
+
         base.OnApplyTemplate(args);
+    }
+
+    private void ItemsView_CollectionChanged(object? sender, 
+        NotifyCollectionChangedEventArgs args)
+    {
+        SetItems();
     }
 
     protected override void OnLoaded(RoutedEventArgs args)
