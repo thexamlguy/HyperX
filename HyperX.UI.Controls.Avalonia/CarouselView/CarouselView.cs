@@ -171,7 +171,7 @@ public class CarouselView :
 
             double[] offsets =
             [
-                leftLeft - targetWidth + spacing * 1 - (spacing /2),
+                leftLeft - targetWidth + spacing * 1,
                 leftLeft + spacing * 2,
                 centreLeft + spacing * 3,
                 rightLeft + spacing * 4,
