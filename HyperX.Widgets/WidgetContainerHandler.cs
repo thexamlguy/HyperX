@@ -20,7 +20,7 @@ public class WidgetContainerHandler(IPublisher publisher,
                     {
                         foreach (Widget widget in widgetLayout)
                         {
-                            if (factory.Create<WidgetContainerViewModel>(Guid.NewGuid().ToString(), widget.Component, 0, 0, 1, 1)
+                            if (factory.Create<WidgetContainerViewModel>(widget.Name, widget.Component, 0, 0, 1, 1)
                                 is WidgetContainerViewModel item)
                             {
                                 await publisher.PublishUIAsync(new Create<WidgetContainerViewModel>(item),
