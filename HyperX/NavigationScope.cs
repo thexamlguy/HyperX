@@ -19,7 +19,10 @@ public class NavigationScope(IPublisher publisher,
             {
                 if (context is not null)
                 {
-                    navigationContextProvider.TryGet(context, out context);
+                    if (navigationContextProvider.TryGet(context, out object? scopedContext))
+                    {
+                        context = scopedContext;
+                    }
                 }
                 else
                 {

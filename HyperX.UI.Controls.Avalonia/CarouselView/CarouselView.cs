@@ -6,6 +6,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Rendering.Composition;
 using Avalonia.Rendering.Composition.Animations;
+using SkiaSharp;
 using System.Collections.Specialized;
 using System.Numerics;
 
@@ -16,6 +17,8 @@ public class CarouselView :
 {
     private readonly List<ExpressionAnimation> animations = [];
     private readonly List<CompositionVisual> itemVisuals = [];
+    private int newIndex;
+    private readonly int columnCount = 5;
     private Compositor? compositor;
     private Grid? container;
     private float horizontalDelta;
@@ -25,7 +28,7 @@ public class CarouselView :
     private bool isPressed;
     private List<Border>? items;
     private Point? lastPosition;
-    private int selectedIndex = 2;
+    private int SelectedIndex;
     private Point? startPosition;
     private CompositionVisual? touchAreaVisual;
 
@@ -47,6 +50,11 @@ public class CarouselView :
                 {
                     itemVisuals.Add(visual);
                 }
+
+                if (item.Child is ContentControl contentControl)
+                {
+                    contentControl.ContentTemplate = ItemTemplate;
+                }
             }
 
             container.SizeChanged -= OnContainerSizeChanged;
@@ -59,20 +67,14 @@ public class CarouselView :
             indicatorVisual = ElementComposition.GetElementVisual(indicator);
         }
 
-        ItemsView.CollectionChanged += ItemsView_CollectionChanged;
+        ItemsView.CollectionChanged += OnCollectionChanged;
 
         base.OnApplyTemplate(args);
     }
 
-    private void ItemsView_CollectionChanged(object? sender, 
-        NotifyCollectionChangedEventArgs args)
-    {
-        ArrangeItems(selectedIndex);
-    }
-
     protected override void OnLoaded(RoutedEventArgs args)
     {
-        ArrangeItems(selectedIndex);
+        ArrangeItems(newIndex);
         base.OnLoaded(args);
     }
 
@@ -100,7 +102,6 @@ public class CarouselView :
             isPressed = true;
 
             indicatorVisual.Offset = new Vector3(horizontalDelta, 0.0f, 0.0f);
-
             PrepareAnimations();
 
             for (int i = 0; i < itemVisuals.Count; i++)
@@ -111,64 +112,34 @@ public class CarouselView :
 
         base.OnPointerPressed(args);
     }
-
     protected override void OnPointerReleased(PointerReleasedEventArgs args)
     {
         if (isPressed && container is not null && items is not null && indicatorVisual is not null)
         {
             isPressed = false;
 
-            double itemWidth = items[0].Width;
-            double threshold = itemWidth / 4;
-            double deltaX = indicatorVisual.Offset.X;
+            double itemWidth = items[0].Bounds.Width;
+            double threshold = itemWidth / 2;
 
-            int oldSelectedIndex = selectedIndex;
+            int oldSelectedIndex = newIndex;
+            double offset = indicatorVisual.Offset.X;
 
-            if (deltaX <= -threshold)
+            if (offset <= -threshold)
             {
-                selectedIndex = (selectedIndex + 1) % 5;
-            }
-            else if (deltaX >= threshold)
-            {
-                selectedIndex = (selectedIndex + 4) % 5;
+                newIndex = (newIndex + 1) % 5;
+                SelectedIndex = (SelectedIndex + 1) % ItemsView.Count;
             }
 
-            ArrangeItems(selectedIndex, oldSelectedIndex);
+            if (offset >= threshold)
+            {
+                newIndex = (newIndex + 4) % 5;
+                SelectedIndex = (SelectedIndex + ItemsView.Count - 1) % ItemsView.Count;
+            }
+
+            ArrangeItems(newIndex, oldSelectedIndex);
         }
 
         base.OnPointerReleased(args);
-    }
-
-    private void SetItems()
-    {
-        int count = ItemsView.Count;
-        if (count == 0)
-        {
-            return;
-        }
-
-        int currentIndex = selectedIndex;
-        int[] indexes = new int[5];
-
-        for (int i = 0; i < 5; i++)
-        {
-            int offset = i - 2;
-            indexes[i] = (currentIndex + offset + count) % count;
-        }
-
-        for (int i = 0; i < 5; i++)
-        {
-            int index = (currentIndex + i - 2 + 5) % 5;
-
-            if (items[index] is Border border)
-            {
-                if (border.Child is ContentControl contentControl)
-                {
-                    contentControl.Content = ItemsView[indexes[i]];
-                    contentControl.ContentTemplate = ItemTemplate;
-                }
-            }
-        }
     }
 
     private async void ArrangeItems(int newIndex,
@@ -202,9 +173,9 @@ public class CarouselView :
 
             if (oldIndex == -1)
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < columnCount; i++)
                 {
-                    itemVisuals[(newIndex + i - 2 + 5) % 5].Offset = new Vector3((float)offsets[i], 0, 0);
+                    itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset = new Vector3((float)offsets[i], 0, 0);
                 }
             }
             else
@@ -228,9 +199,9 @@ public class CarouselView :
                 indicatorVisual.StartAnimation("Offset", indicatorAnimation);
 
                 await Task.Delay(500);
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < columnCount; i++)
                 {
-                    itemVisuals[(newIndex + i - 2 + 5) % 5].Offset = new Vector3((float)offsets[i], 0, 0);
+                    itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset = new Vector3((float)offsets[i], 0, 0);
                 }
             }
 
@@ -238,13 +209,15 @@ public class CarouselView :
         }
     }
 
+    private void OnCollectionChanged(object? sender,
+        NotifyCollectionChangedEventArgs args) => ArrangeItems(newIndex);
+
     private void OnContainerSizeChanged(object? sender,
-        SizeChangedEventArgs args) => ArrangeItems(selectedIndex);
+        SizeChangedEventArgs args) => ArrangeItems(newIndex);
 
     private void PrepareAnimations()
     {
         animations.Clear();
-
         if (compositor is not null && indicatorVisual is not null && itemVisuals is not null)
         {
             for (int i = 0; i < itemVisuals.Count; i++)
@@ -254,6 +227,43 @@ public class CarouselView :
                 animation.Expression = $"Source.Offset + Vector3({itemVisuals[i].Offset.X}, 0, 0)";
                 animation.SetReferenceParameter("Source", indicatorVisual);
                 animations.Add(animation);
+            }
+        }
+    }
+
+    private void SetItems()
+    {
+        if (items is not null)
+        {
+            int itemCount = ItemsView.Count;
+            if (itemCount == 0)
+            {
+                return;
+            }
+
+            int[] selectedIndexOffsets = new int[columnCount];
+            int[] indexOffsets = new int[columnCount];
+
+            SelectedIndex = SelectedIndex < 0 ? 0 : SelectedIndex;
+
+            for (int i = -2; i <= 2; i++)
+            {
+                selectedIndexOffsets[i + 2] = (SelectedIndex + i + itemCount) % itemCount;
+                indexOffsets[i + 2] = (newIndex + i + columnCount) % columnCount;
+            }
+
+            for (int i = 0; i < columnCount; i++)
+            {
+                int index = selectedIndexOffsets[i];
+                if (itemCount == 1)
+                {
+                    index = 0;
+                }
+
+                if (items[indexOffsets[i]] is Border border && border.Child is ContentControl contentControl)
+                {
+                    contentControl.Content = ItemsView[index];
+                }
             }
         }
     }

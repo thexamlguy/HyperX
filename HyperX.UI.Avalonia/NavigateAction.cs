@@ -8,8 +8,8 @@ public class NavigateAction :
     AvaloniaObject,
     IAction
 {
-    public static readonly StyledProperty<string> ContextProperty =
-        AvaloniaProperty.Register<NavigateAction, string>(nameof(Context));
+    public static readonly StyledProperty<object> ContextProperty =
+        AvaloniaProperty.Register<NavigateAction, object>(nameof(Context));
 
     public static readonly StyledProperty<string> NameProperty =
         AvaloniaProperty.Register<NavigateAction, string>(nameof(Name));
@@ -18,8 +18,9 @@ public class NavigateAction :
         AvaloniaProperty.Register<NavigateAction, string>(nameof(Scope));
 
     public static readonly StyledProperty<string> TitleProperty =
-                AvaloniaProperty.Register<NavigateAction, string>(nameof(Title));
-    public string Context
+        AvaloniaProperty.Register<NavigateAction, string>(nameof(Title));
+
+    public object Context
     {
         get => GetValue(ContextProperty);
         set => SetValue(ContextProperty, value);
