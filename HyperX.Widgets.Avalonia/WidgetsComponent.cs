@@ -18,6 +18,17 @@ public class WidgetsComponent :
                         ColumnSpan = 2
                     }
                 ]);
+                args.Add([
+                    new Widget
+                    {
+                        Name = "Keyboard",
+                        Component = "KeyboardComponent",
+                        Row = 0,
+                        Column = 0,
+                        RowSpan = 2,
+                        ColumnSpan = 2
+                    }
+                ]);
             })
             .ConfigureServices(services =>
             {

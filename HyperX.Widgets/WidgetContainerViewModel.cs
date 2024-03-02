@@ -21,7 +21,7 @@ public partial class WidgetContainerViewModel :
     private int rowSpan;
 
     [ObservableProperty]
-    private string scope;
+    private string component;
 
     public WidgetContainerViewModel(IServiceProvider serviceProvider,
         IServiceFactory serviceFactory,
@@ -34,7 +34,7 @@ public partial class WidgetContainerViewModel :
         int rowSpan,
         int columnSpan,
         string name,
-        string scope) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+        string component) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
         Template = template;
         Row = row;
@@ -42,7 +42,7 @@ public partial class WidgetContainerViewModel :
         RowSpan = rowSpan;
         ColumnSpan = columnSpan;
         Name = name;
-        Scope = scope;
+        Component = component;
     }
 
     public IViewModelTemplate Template { get; }

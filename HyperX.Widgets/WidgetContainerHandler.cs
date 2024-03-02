@@ -18,11 +18,14 @@ public class WidgetContainerHandler(IPublisher publisher,
                 {
                     if (configuration[index] is WidgetLayout widgetLayout)
                     {
-                        if (factory.Create<WidgetContainerViewModel>("Spotify", "SpotifyComponent", 0, 0, 1, 1) 
-                            is WidgetContainerViewModel item)
+                        foreach (Widget widget in widgetLayout)
                         {
-                            await publisher.PublishUIAsync(new Create<WidgetContainerViewModel>(item),
-                                args.Key, cancellationToken);
+                            if (factory.Create<WidgetContainerViewModel>(widget.Name, widget.Component, 0, 0, 1, 1)
+                                is WidgetContainerViewModel item)
+                            {
+                                await publisher.PublishUIAsync(new Create<WidgetContainerViewModel>(item),
+                                    args.Key, cancellationToken);
+                            }
                         }
                     }
                 }

@@ -1,5 +1,4 @@
-﻿using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
+﻿using Avalonia.Controls.ApplicationLifetimes;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HyperX.Avalonia;
@@ -18,7 +17,7 @@ public static class IServiceCollectionExtensions
         services.AddNavigateHandler<ContentControlHandler>();
         services.AddNavigateHandler<FrameHandler>();
 
-        services.AddSingleton<INavigationContextCollection, NavigationContextCollection>(provider => new NavigationContextCollection
+        services.AddScoped<INavigationContextCollection, NavigationContextCollection>(provider => new NavigationContextCollection
         {
             { typeof(IClassicDesktopStyleApplicationLifetime), typeof(IClassicDesktopStyleApplicationLifetime) },
             { typeof(ISingleViewApplicationLifetime), typeof(ISingleViewApplicationLifetime) }

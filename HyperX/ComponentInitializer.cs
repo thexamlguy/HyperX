@@ -18,10 +18,10 @@ public class ComponentInitializer(IEnumerable<IComponent> components,
             {
                 services.AddTransient(_ => provider.GetRequiredService<IProxyService<IPublisher>>());
 
-                services.AddSingleton(_ => provider.GetRequiredService<INavigationContextCollection>());
-                services.AddTransient(_ => provider.GetRequiredService<INavigationContextProvider>());
+                services.AddScoped(_ => provider.GetRequiredService<INavigationContextCollection>());
+                services.AddScoped(_ => provider.GetRequiredService<INavigationContextProvider>());
 
-                services.AddSingleton(_ => provider.GetRequiredService<INavigationScopeCollection>());
+                services.AddScoped(_ => provider.GetRequiredService<INavigationScopeCollection>());
                 services.AddTransient(_ => provider.GetRequiredService<INavigationScopeProvider>());
 
                 services.AddRange(typedServices.Services);

@@ -1,61 +1,61 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Reflection;
 
 namespace HyperX;
 
-public class DefaultBuilder : HostBuilder
+public class DefaultBuilder : 
+    HostBuilder
 {
     public static IHostBuilder Create()
     {
         return new HostBuilder()
-                        .UseContentRoot("Test", true)
-                        .ConfigureAppConfiguration(config =>
-                        {
-                            config.AddJsonFile("Settings.json", true, true);
-                        })
-                        .ConfigureServices((context, services) =>
-                        {
-                            services.AddSingleton<IServiceFactory>(provider =>
-                                new ServiceFactory((type, parameters) => ActivatorUtilities.CreateInstance(provider, type, parameters!)));
+            .UseContentRoot("Test", true)
+            .ConfigureAppConfiguration(config =>
+            {
+                config.AddJsonFile("Settings.json", true, true);
+            })
+            .ConfigureServices((context, services) =>
+            {
+                services.AddScoped<IServiceFactory>(provider =>
+                    new ServiceFactory((type, parameters) => ActivatorUtilities.CreateInstance(provider, type, parameters!)));
 
-                            services.AddSingleton<SubscriptionCollection>();
-                            services.AddSingleton<ISubscriptionManager, SubscriptionManager>();
-                            services.AddTransient<ISubscriber, Subscriber>();
-                            services.AddTransient<IPublisher, Publisher>();
+                services.AddScoped<SubscriptionCollection>();
+                services.AddScoped<ISubscriptionManager, SubscriptionManager>();
+                services.AddTransient<ISubscriber, Subscriber>();
+                services.AddTransient<IPublisher, Publisher>();
 
-                            services.AddSingleton<IMediator, Mediator>();
+                services.AddScoped<IMediator, Mediator>();
 
-                            services.AddSingleton<IProxyService<IPublisher>>(provider =>
-                                new ProxyService<IPublisher>(provider.GetRequiredService<IPublisher>()));
+                services.AddScoped<IProxyService<IPublisher>>(provider =>
+                    new ProxyService<IPublisher>(provider.GetRequiredService<IPublisher>()));
 
-                            services.AddSingleton<IProxyService<INavigationContextProvider>>(provider =>
-                                new ProxyService<INavigationContextProvider>(provider.GetRequiredService<INavigationContextProvider>()));
+                services.AddScoped<IProxyService<INavigationContextProvider>>(provider =>
+                    new ProxyService<INavigationContextProvider>(provider.GetRequiredService<INavigationContextProvider>()));
 
-                            services.AddSingleton<IDisposer, Disposer>();
+                services.AddScoped<IDisposer, Disposer>();
 
-                            services.AddTransient<IViewModelTemplateProvider, ViewModelTemplateProvider>();
+                services.AddTransient<IViewModelTemplateProvider, ViewModelTemplateProvider>();
 
-                            services.AddTransient<INavigationProvider, NavigationProvider>();
+                services.AddTransient<INavigationProvider, NavigationProvider>();
 
-                            services.AddSingleton<INavigationContextCollection, NavigationContextCollection>();
-                            services.AddTransient<INavigationContextProvider, NavigationContextProvider>();
+                services.AddScoped<INavigationContextCollection, NavigationContextCollection>();
+                services.AddTransient<INavigationContextProvider, NavigationContextProvider>();
 
-                            services.AddSingleton<INavigationScope, NavigationScope>();
+                services.AddScoped<INavigationScope, NavigationScope>();
          
-                            services.AddSingleton<INavigationScopeCollection, NavigationScopeCollection>(provider => new NavigationScopeCollection
-                            {
-                                { "Default", provider.GetRequiredService<INavigationScope>() }
-                            });
+                services.AddScoped<INavigationScopeCollection, NavigationScopeCollection>(provider => new NavigationScopeCollection
+                {
+                    { "Default", provider.GetRequiredService<INavigationScope>() }
+                });
 
-                            services.AddTransient<INavigationScopeProvider, NavigationScopeProvider>();
+                services.AddTransient<INavigationScopeProvider, NavigationScopeProvider>();
 
-                            services.AddHandler<NavigateHandler>();
-                            services.AddHandler<NavigateBackHandler>();
+                services.AddHandler<NavigateHandler>();
+                services.AddHandler<NavigateBackHandler>();
 
-                            services.AddInitializer<ComponentInitializer>();
-                            services.AddHostedService<AppService>();
-                        });
+                services.AddInitializer<ComponentInitializer>();
+                services.AddHostedService<AppService>();
+            });
     }
 }

@@ -13,16 +13,27 @@
                     x:Name="Container"
                     VerticalAlignment="Stretch"
                     Background="{TemplateBinding Background}">
+                    <Border HorizontalAlignment="Left" Background="Red">
+                        <ContentControl />
+                    </Border>
+                    <Border HorizontalAlignment="Left" Background="Blue">
+                        <ContentControl />
+                    </Border>
+                    <Border HorizontalAlignment="Left" Background="Purple">
+                        <ContentControl />
+                    </Border>
+                    <Border HorizontalAlignment="Left" Background="Green">
+                        <ContentControl />
+                    </Border>
+                    <Border HorizontalAlignment="Left" Background="Yellow">
+                        <ContentControl />
+                    </Border>
                     <Rectangle
                         x:Name="Indicator"
                         Width="10"
                         Height="10"
-                        VerticalAlignment="Top" />
-                    <ContentControl HorizontalAlignment="Left" Background="Red" />
-                    <ContentControl HorizontalAlignment="Left" Background="Blue" />
-                    <ContentControl HorizontalAlignment="Left" Background="Purple" />
-                    <ContentControl HorizontalAlignment="Left" Background="Green" />
-                    <ContentControl HorizontalAlignment="Left" Background="Yellow" />
+                        VerticalAlignment="Top"
+                        Fill="Pink" />
                 </Grid>
             </ControlTemplate>
         </Setter>

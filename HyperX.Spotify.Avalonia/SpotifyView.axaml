@@ -2,7 +2,8 @@
     x:Class="HyperX.Spotify.Avalonia.SpotifyView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Border>
+    <Grid>
         <Image Source="avares://HyperX.Spotify.Avalonia/Assets/1666890621426.jpg" Stretch="UniformToFill" />
-    </Border>
+        <Button x:Name="Test" Content="Test" />
+    </Grid>
 </UserControl>

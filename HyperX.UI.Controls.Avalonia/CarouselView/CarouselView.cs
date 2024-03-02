@@ -23,7 +23,7 @@ public class CarouselView :
     private Vector3DKeyFrameAnimation? indicatorAnimation;
     private CompositionVisual? indicatorVisual;
     private bool isPressed;
-    private List<ContentControl>? items;
+    private List<Border>? items;
     private Point? lastPosition;
     private int selectedIndex = 2;
     private Point? startPosition;
@@ -40,8 +40,8 @@ public class CarouselView :
                 compositor = touchAreaVisual.Compositor;
             }
 
-            items = container.Children.OfType<ContentControl>().ToList();
-            foreach (ContentControl item in items)
+            items = container.Children.OfType<Border>().ToList();
+            foreach (Border item in items)
             {
                 if (ElementComposition.GetElementVisual(item) is CompositionVisual visual)
                 {
@@ -67,7 +67,7 @@ public class CarouselView :
     private void ItemsView_CollectionChanged(object? sender, 
         NotifyCollectionChangedEventArgs args)
     {
-        SetItems();
+        ArrangeItems(selectedIndex);
     }
 
     protected override void OnLoaded(RoutedEventArgs args)
@@ -160,8 +160,14 @@ public class CarouselView :
         {
             int index = (currentIndex + i - 2 + 5) % 5;
 
-            items[index].Content = ItemsView[indexes[i]];
-            items[index].ContentTemplate = ItemTemplate;
+            if (items[index] is Border border)
+            {
+                if (border.Child is ContentControl contentControl)
+                {
+                    contentControl.Content = ItemsView[indexes[i]];
+                    contentControl.ContentTemplate = ItemTemplate;
+                }
+            }
         }
     }
 
@@ -171,11 +177,21 @@ public class CarouselView :
         if (compositor is not null && container is not null && items is not null && indicatorVisual is not null)
         {
             double containerWidth = container.Bounds.Width;
-            double targetWidth = Math.Min(containerWidth, container.Bounds.Width / 2);
+            double ContainerHeight = container.Bounds.Height;
 
-            foreach (var item in items)
+            double targetWidth = Math.Min(containerWidth, container.Bounds.Width / 2);
+            double targetHeight = ContainerHeight;
+
+            foreach (Border item in items)
             {
+                if (item.Child is ContentControl contentControl)
+                {
+                    contentControl.Width = targetWidth;
+                    contentControl.Height = targetHeight;
+                }
+
                 item.Width = targetWidth;
+                item.Height = targetHeight;
             }
 
             double centreLeft = (containerWidth - targetWidth) / 2;

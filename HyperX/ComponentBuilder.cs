@@ -21,25 +21,25 @@ public class ComponentBuilder :
             })
             .ConfigureServices((context, services) =>
             {
-                services.AddSingleton<IComponentHost, ComponentHost>();
+                services.AddScoped<IComponentHost, ComponentHost>();
 
                 services.AddScoped<IServiceFactory>(provider =>
                     new ServiceFactory((type, parameters) =>
                         ActivatorUtilities.CreateInstance(provider, type, parameters!)));
 
-                services.AddSingleton<SubscriptionCollection>();
-                services.AddSingleton<ISubscriptionManager, SubscriptionManager>();
+                services.AddScoped<SubscriptionCollection>();
+                services.AddScoped<ISubscriptionManager, SubscriptionManager>();
 
                 services.AddTransient<ISubscriber, Subscriber>();
                 services.AddTransient<IPublisher, Publisher>();
 
                 services.AddTransient<IMediator, Mediator>();
-                services.AddSingleton<IDisposer, Disposer>();
+                services.AddScoped<IDisposer, Disposer>();
 
-                services.AddSingleton<INavigationScope, NavigationScope>();
+                services.AddScoped<INavigationScope, NavigationScope>();
 
                 services.AddTransient<INavigationProvider, NavigationProvider>();
-                services.AddSingleton<NavigationContextCollection>();
+                services.AddScoped<INavigationContextCollection, NavigationContextCollection>();
                 services.AddTransient<INavigationContextProvider, NavigationContextProvider>();
 
                 services.AddHandler<NavigateHandler>();

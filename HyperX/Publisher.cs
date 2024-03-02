@@ -26,8 +26,7 @@ public class Publisher(ISubscriptionManager subscriptionManager,
         CancellationToken cancellationToken = default)
         where TNotification :
         INotification => PublishAsync(notification, 
-            async args => await args(),
-                key, cancellationToken);
+            async args => await args(), key, cancellationToken);
 
     public Task PublishAsync(object notification,
         Func<Func<Task>, Task> marshal,
