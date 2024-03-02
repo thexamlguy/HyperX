@@ -1,6 +1,5 @@
 ﻿namespace HyperX.WiFi.Avalonia;
 
-[ViewModelTemplateRoot("WiFi")]
 public class WiFiComponent : 
     IComponent
 {

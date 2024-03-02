@@ -18,7 +18,8 @@ public class ViewModelTemplate :
                 if (provider.GetService<IViewModelTemplateProvider>()
                     is IViewModelTemplateProvider viewModelTemplateProvider)
                 {
-                    if (viewModelTemplateProvider.Get(item.GetType()) is IViewModelTemplateDescriptor descriptor)
+                    if (viewModelTemplateProvider.Get(item.GetType().Name.Replace("ViewModel", "")) 
+                        is IViewModelTemplateDescriptor descriptor)
                     {
                         if (provider.GetService<IViewModelContentBinder>()
                             is IViewModelContentBinder viewModelContentBinder)

@@ -1,6 +1,6 @@
 ﻿namespace HyperX;
 
-public class NavigateBackHandler(INavigationScopeProvider provider) :
+public class NavigateBackHandler(IComponentScopeProvider provider) :
     INotificationHandler<NavigateBack>
 {
     public async Task Handle(NavigateBack args,

@@ -1,6 +1,5 @@
 ﻿namespace HyperX.Keyboard.Avalonia;
 
-[ViewModelTemplateRoot("Keyboard")]
 public class KeyboardComponent :
     IComponent
 {
@@ -9,7 +8,7 @@ public class KeyboardComponent :
             .ConfigureServices(services =>
             {
                 services.AddViewModelTemplate<KeyboardViewModel,
-                    KeyboardView>("Keyboard");
+                    KeyboardView>();
 
                 services.AddViewModelTemplate<CharacterLayoutViewModel,
                     CharacterLayoutView>();

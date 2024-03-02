@@ -1,7 +1,10 @@
-﻿namespace HyperX.Widgets;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace HyperX.Widgets;
 
 public class WidgetContainerHandler(IPublisher publisher,
-    IServiceFactory factory,
+    IServiceFactory fac,
+    IComponentScopeProvider componentScopeProvider,
     WidgetsConfiguration configuration) :
     INotificationHandler<Enumerate<WidgetContainerViewModel>>
 {
@@ -20,11 +23,27 @@ public class WidgetContainerHandler(IPublisher publisher,
                     {
                         foreach (Widget widget in widgetLayout)
                         {
-                            if (factory.Create<WidgetContainerViewModel>(widget.Name, widget.Component, 0, 0, 1, 1)
-                                is WidgetContainerViewModel item)
+                            IServiceProvider? serviceProvider = 
+                                componentScopeProvider.Get(widget.Component);
+
+                            IViewModelTemplateProvider? viewModelTemplateProvider = 
+                                serviceProvider?.GetService<IViewModelTemplateProvider>();
+
+                            IViewModelTemplateDescriptor? viewModelTemplateDescriptor =
+                                viewModelTemplateProvider?.Get(widget.Name);
+
+                            IServiceFactory? serviceFactory = 
+                                serviceProvider?.GetService<IServiceFactory>();
+
+                            if (serviceFactory is not null && viewModelTemplateDescriptor is not null)
                             {
-                                await publisher.PublishUIAsync(new Create<WidgetContainerViewModel>(item),
-                                    args.Key, cancellationToken);
+                                if (fac.Create<WidgetContainerViewModel>(widget.Row, widget.Column,
+                                    widget.RowSpan, widget.ColumnSpan, viewModelTemplateDescriptor.GetViewModel())
+                                    is WidgetContainerViewModel widgetContainerViewModel)
+                                {
+                                    await publisher.PublishUIAsync(new Create<WidgetContainerViewModel>(widgetContainerViewModel),
+                                        args.Key, cancellationToken);
+                                }                             
                             }
                         }
                     }

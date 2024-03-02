@@ -44,12 +44,12 @@ public class DefaultBuilder :
 
                 services.AddScoped<INavigationScope, NavigationScope>();
          
-                services.AddScoped<INavigationScopeCollection, NavigationScopeCollection>(provider => new NavigationScopeCollection
+                services.AddScoped<IComponentScopeCollection, ComponentScopeCollection>(provider => new ComponentScopeCollection
                 {
-                    { "Default", provider.GetRequiredService<INavigationScope>() }
+                    { "Default", provider.GetRequiredService<IServiceProvider>() }
                 });
 
-                services.AddTransient<INavigationScopeProvider, NavigationScopeProvider>();
+                services.AddTransient<IComponentScopeProvider, ComponentScopeProvider>();
 
                 services.AddHandler<NavigateHandler>();
                 services.AddHandler<NavigateBackHandler>();

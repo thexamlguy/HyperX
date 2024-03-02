@@ -1,6 +1,5 @@
 ﻿namespace HyperX.DateTime.Avalonia;
 
-[ViewModelTemplateRoot("DateTime")]
 public class DateTimeComponent :
     IComponent
 {

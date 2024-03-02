@@ -127,7 +127,7 @@ public static class IServiceCollectionExtensions
         Type viewModelType = typeof(TViewModel);
         Type viewType = typeof(TView);
 
-        key ??= viewModelType;
+        key ??= viewModelType.Name.Replace("ViewModel", "");
 
         services.AddTransient(viewModelType);
         services.AddTransient(viewType);
@@ -135,7 +135,8 @@ public static class IServiceCollectionExtensions
         services.AddKeyedTransient(viewModelType, key);
         services.AddKeyedTransient(viewType, key);
 
-        services.AddTransient<IViewModelTemplateDescriptor>(provider => new ViewModelTemplateDescriptor(provider, key, viewModelType, viewType));
+        services.AddTransient<IViewModelTemplateDescriptor>(provider => 
+            new ViewModelTemplateDescriptor(provider, key, viewModelType, viewType));
 
         return services;
     }

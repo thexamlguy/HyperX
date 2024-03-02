@@ -3,15 +3,6 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border ClipToBounds="True" CornerRadius="{DynamicResource OverlayCornerRadius}">
-        <ContentControl x:Name="WidgetContainer">
-            <Interaction.Behaviors>
-                <EventTriggerBehavior EventName="Loaded">
-                    <NavigateAction
-                        Name="{Binding Name}"
-                        Context="{Binding #WidgetContainer}"
-                        Scope="{Binding Component}" />
-                </EventTriggerBehavior>
-            </Interaction.Behaviors>
-        </ContentControl>
+        <ContentControl Content="{Binding Content}" ContentTemplate="{Binding Template}" />
     </Border>
 </UserControl>

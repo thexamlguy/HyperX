@@ -1,6 +1,5 @@
 ﻿namespace HyperX.Widgets.Avalonia;
 
-[ViewModelTemplateRoot("Widgets")]
 public class WidgetsComponent :
     IComponent
 {

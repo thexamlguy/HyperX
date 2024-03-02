@@ -1,6 +1,5 @@
 ﻿namespace HyperX.Spotify.Avalonia;
 
-[ViewModelTemplateRoot("Spotify")]
 public class SpotifyComponent : 
     IComponent
 {

@@ -4,7 +4,7 @@ namespace HyperX;
 
 public class ComponentInitializer(IEnumerable<IComponent> components,
     IProxyServiceCollection<IComponentBuilder> typedServices,
-    INavigationScopeCollection scopes,
+    IComponentScopeCollection scopes,
     IServiceProvider provider) :
     IInitializer
 {
@@ -20,15 +20,15 @@ public class ComponentInitializer(IEnumerable<IComponent> components,
                 services.AddScoped(_ => provider.GetRequiredService<INavigationContextCollection>());
                 services.AddScoped(_ => provider.GetRequiredService<INavigationContextProvider>());
 
-                services.AddScoped(_ => provider.GetRequiredService<INavigationScopeCollection>());
-                services.AddTransient(_ => provider.GetRequiredService<INavigationScopeProvider>());
+                services.AddScoped(_ => provider.GetRequiredService<IComponentScopeCollection>());
+                services.AddTransient(_ => provider.GetRequiredService<IComponentScopeProvider>());
 
                 services.AddRange(typedServices.Services);
             });
 
             IComponentHost host = builder.Build();
 
-            scopes.Add(component.GetType().Name, host.Services.GetRequiredService<INavigationScope>());
+            scopes.Add(component.GetType().Name, host.Services.GetRequiredService<IServiceProvider>());
             await host.StartAsync();
         }
     }

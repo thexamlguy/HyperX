@@ -1,16 +1,21 @@
-﻿namespace HyperX;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-public class NavigateHandler(INavigationScopeProvider provider) :
+namespace HyperX;
+
+public class NavigateHandler(IComponentScopeProvider provider) :
     INotificationHandler<Navigate>
 {
     public async Task Handle(Navigate args, 
         CancellationToken cancellationToken)
     {
         if (provider.Get(args.Scope ?? "Default") 
-            is INavigationScope scope)
+            is IServiceProvider scope)
         {
-            await scope.NavigateAsync(args.Name, args.Sender,
-                args.Context, args.Title, cancellationToken);
+            if (scope.GetService<INavigationScope>() is INavigationScope navigationScope)
+            {
+                await navigationScope.NavigateAsync(args.Name, args.Sender,
+                    args.Context, args.Title, cancellationToken);
+            }
         }
     }
 }
