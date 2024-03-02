@@ -13,19 +13,19 @@
                     x:Name="Container"
                     VerticalAlignment="Stretch"
                     Background="{TemplateBinding Background}">
-                    <Border HorizontalAlignment="Left" Background="Red">
+                    <Border HorizontalAlignment="Left">
                         <ContentControl />
                     </Border>
-                    <Border HorizontalAlignment="Left" Background="Blue">
+                    <Border HorizontalAlignment="Left">
                         <ContentControl />
                     </Border>
-                    <Border HorizontalAlignment="Left" Background="Purple">
+                    <Border HorizontalAlignment="Left">
                         <ContentControl />
                     </Border>
-                    <Border HorizontalAlignment="Left" Background="Green">
+                    <Border HorizontalAlignment="Left">
                         <ContentControl />
                     </Border>
-                    <Border HorizontalAlignment="Left" Background="Yellow">
+                    <Border HorizontalAlignment="Left">
                         <ContentControl />
                     </Border>
                     <Rectangle

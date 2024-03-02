@@ -13,7 +13,11 @@
     <ItemsControl ItemTemplate="{Binding Template}" ItemsSource="{Binding}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <Grid ColumnDefinitions="*, *" RowDefinitions="*, *" />
+                <SpacedGrid
+                    ColumnDefinitions="*, *"
+                    ColumnSpacing="12"
+                    RowDefinitions="*, *"
+                    RowSpacing="12" />
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
         <Interaction.Behaviors>

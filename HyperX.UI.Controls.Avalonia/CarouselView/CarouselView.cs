@@ -6,7 +6,6 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Rendering.Composition;
 using Avalonia.Rendering.Composition.Animations;
-using SkiaSharp;
 using System.Collections.Specialized;
 using System.Numerics;
 
@@ -16,9 +15,9 @@ public class CarouselView :
     ItemsControl
 {
     private readonly List<ExpressionAnimation> animations = [];
-    private readonly List<CompositionVisual> itemVisuals = [];
-    private int newIndex;
     private readonly int columnCount = 5;
+    private readonly List<CompositionVisual> itemVisuals = [];
+    private readonly double spacing = 12;
     private Compositor? compositor;
     private Grid? container;
     private float horizontalDelta;
@@ -28,6 +27,7 @@ public class CarouselView :
     private bool isPressed;
     private List<Border>? items;
     private Point? lastPosition;
+    private int newIndex;
     private int SelectedIndex;
     private Point? startPosition;
     private CompositionVisual? touchAreaVisual;
@@ -68,7 +68,6 @@ public class CarouselView :
         }
 
         ItemsView.CollectionChanged += OnCollectionChanged;
-
         base.OnApplyTemplate(args);
     }
 
@@ -112,6 +111,7 @@ public class CarouselView :
 
         base.OnPointerPressed(args);
     }
+
     protected override void OnPointerReleased(PointerReleasedEventArgs args)
     {
         if (isPressed && container is not null && items is not null && indicatorVisual is not null)
@@ -169,27 +169,35 @@ public class CarouselView :
             double leftLeft = -targetWidth + centreLeft;
             double rightLeft = containerWidth - centreLeft;
 
-            double[] offsets = [leftLeft - targetWidth, leftLeft, centreLeft, rightLeft, rightLeft + targetWidth];
+            double[] offsets =
+            [
+                leftLeft - targetWidth + spacing * 1 - (spacing /2),
+                leftLeft + spacing * 2,
+                centreLeft + spacing * 3,
+                rightLeft + spacing * 4,
+                rightLeft + targetWidth + spacing * 5
+            ];
+
+            double centerOffset = spacing * (columnCount - 1) / 2 + spacing;
 
             if (oldIndex == -1)
             {
                 for (int i = 0; i < columnCount; i++)
                 {
-                    itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset = new Vector3((float)offsets[i], 0, 0);
+                    itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset = new Vector3((float)(offsets[i] - centerOffset), 0, 0);
                 }
             }
             else
             {
-                int diff = newIndex - oldIndex;
+                int difference = newIndex - oldIndex;
                 double duration = 500;
-                Vector3D finalOffset = new();
 
-                finalOffset = diff switch
+                Vector3D finalOffset = difference switch
                 {
                     0 => new Vector3D(0, 0, 0),
-                    1 => new Vector3D((float)-targetWidth, 0, 0),
-                    -1 => new Vector3D((float)targetWidth, 0, 0),
-                    _ => new Vector3D((float)targetWidth * Math.Sign(diff), 0, 0)
+                    1 => new Vector3D((float)(-targetWidth - spacing), 0, 0),
+                    -1 => new Vector3D((float)(targetWidth + spacing), 0, 0),
+                    _ => new Vector3D((float)(targetWidth * Math.Sign(difference) + spacing * Math.Sign(difference)), 0, 0)
                 };
 
                 indicatorAnimation = compositor.CreateVector3DKeyFrameAnimation();
@@ -201,7 +209,7 @@ public class CarouselView :
                 await Task.Delay(500);
                 for (int i = 0; i < columnCount; i++)
                 {
-                    itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset = new Vector3((float)offsets[i], 0, 0);
+                    itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset = new Vector3((float)(offsets[i] - centerOffset), 0, 0);
                 }
             }
 
