@@ -31,13 +31,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.Settings", "HyperX.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.Settings.Avalonia", "HyperX.Settings.Avalonia\HyperX.Settings.Avalonia.csproj", "{697B00D6-6DE1-416D-8252-C8A141C5C97D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.Widgets", "HyperX.Widgets\HyperX.Widgets.csproj", "{F73A37DB-CFDD-4B21-AA80-70BD117355B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.Widgets", "HyperX.Widgets\HyperX.Widgets.csproj", "{F73A37DB-CFDD-4B21-AA80-70BD117355B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.Widgets.Avalonia", "HyperX.Widgets.Avalonia\HyperX.Widgets.Avalonia.csproj", "{8C5C7F8B-18D0-45FB-9829-16DF75D628A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.Widgets.Avalonia", "HyperX.Widgets.Avalonia\HyperX.Widgets.Avalonia.csproj", "{8C5C7F8B-18D0-45FB-9829-16DF75D628A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.DateTime", "HyperX.DateTime\HyperX.DateTime.csproj", "{B8F27F56-C9E5-43FE-B9CE-1A6202F635FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.DateTime", "HyperX.DateTime\HyperX.DateTime.csproj", "{B8F27F56-C9E5-43FE-B9CE-1A6202F635FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.DateTime.Avalonia", "HyperX.DateTime.Avalonia\HyperX.DateTime.Avalonia.csproj", "{B0A05845-1D33-448F-915A-9EC27B5D4979}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperX.DateTime.Avalonia", "HyperX.DateTime.Avalonia\HyperX.DateTime.Avalonia.csproj", "{B0A05845-1D33-448F-915A-9EC27B5D4979}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.Reolink", "HyperX.Reolink\HyperX.Reolink.csproj", "{7E577F1B-587A-4EC0-A514-EEE61282B118}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.Reolink.Avalonia", "HyperX.Reolink.Avalonia\HyperX.Reolink.Avalonia.csproj", "{49E914E3-63DC-43CE-ABB6-B1B9C9C31850}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.Hue", "HyperX.Hue\HyperX.Hue.csproj", "{CB63DFB2-D532-4ADA-91C6-BDCFCB151CBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperX.Hue.Avalonia", "HyperX.Hue.Avalonia\HyperX.Hue.Avalonia.csproj", "{61F9D53E-E115-402A-AE86-EC147F32FCDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +125,22 @@ Global
 		{B0A05845-1D33-448F-915A-9EC27B5D4979}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0A05845-1D33-448F-915A-9EC27B5D4979}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0A05845-1D33-448F-915A-9EC27B5D4979}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E577F1B-587A-4EC0-A514-EEE61282B118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E577F1B-587A-4EC0-A514-EEE61282B118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E577F1B-587A-4EC0-A514-EEE61282B118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E577F1B-587A-4EC0-A514-EEE61282B118}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49E914E3-63DC-43CE-ABB6-B1B9C9C31850}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49E914E3-63DC-43CE-ABB6-B1B9C9C31850}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49E914E3-63DC-43CE-ABB6-B1B9C9C31850}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49E914E3-63DC-43CE-ABB6-B1B9C9C31850}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB63DFB2-D532-4ADA-91C6-BDCFCB151CBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB63DFB2-D532-4ADA-91C6-BDCFCB151CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB63DFB2-D532-4ADA-91C6-BDCFCB151CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB63DFB2-D532-4ADA-91C6-BDCFCB151CBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61F9D53E-E115-402A-AE86-EC147F32FCDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61F9D53E-E115-402A-AE86-EC147F32FCDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61F9D53E-E115-402A-AE86-EC147F32FCDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61F9D53E-E115-402A-AE86-EC147F32FCDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
