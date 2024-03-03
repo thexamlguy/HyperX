@@ -147,44 +147,44 @@ public class CarouselView :
     {
         if (compositor is not null && container is not null && items is not null && indicatorVisual is not null)
         {
+            double containerHeight = container.Bounds.Height;
             double containerWidth = container.Bounds.Width;
-            double ContainerHeight = container.Bounds.Height;
 
-            double targetWidth = Math.Min(containerWidth, container.Bounds.Width / 2);
-            double targetHeight = ContainerHeight;
+            double targetSize = containerHeight;
 
             foreach (Border item in items)
             {
                 if (item.Child is ContentControl contentControl)
                 {
-                    contentControl.Width = targetWidth;
-                    contentControl.Height = targetHeight;
+                    contentControl.Width = targetSize;
+                    contentControl.Height = targetSize;
                 }
 
-                item.Width = targetWidth;
-                item.Height = targetHeight;
+                item.Width = targetSize;
+                item.Height = targetSize;
             }
 
-            double centreLeft = (containerWidth - targetWidth) / 2;
-            double leftLeft = -targetWidth + centreLeft;
+            double centreLeft = (containerWidth - targetSize) / 2;
+            double leftLeft = -targetSize + centreLeft;
             double rightLeft = containerWidth - centreLeft;
 
             double[] offsets =
             [
-                leftLeft - targetWidth + spacing * 1,
+                leftLeft - targetSize + spacing * 1,
                 leftLeft + spacing * 2,
                 centreLeft + spacing * 3,
                 rightLeft + spacing * 4,
-                rightLeft + targetWidth + spacing * 5
+                rightLeft + targetSize + spacing * 5
             ];
 
-            double centerOffset = spacing * (columnCount - 1) / 2 + spacing;
+            double centreOffset = spacing * (columnCount - 1) / 2 + spacing;
 
             if (oldIndex == -1)
             {
                 for (int i = 0; i < columnCount; i++)
                 {
-                    itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset = new Vector3((float)(offsets[i] - centerOffset), 0, 0);
+                    itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset = 
+                        new Vector3((float)(offsets[i] - centreOffset), 0, 0);
                 }
             }
             else
@@ -195,9 +195,10 @@ public class CarouselView :
                 Vector3D finalOffset = difference switch
                 {
                     0 => new Vector3D(0, 0, 0),
-                    1 => new Vector3D((float)(-targetWidth - spacing), 0, 0),
-                    -1 => new Vector3D((float)(targetWidth + spacing), 0, 0),
-                    _ => new Vector3D((float)(targetWidth * Math.Sign(difference) + spacing * Math.Sign(difference)), 0, 0)
+                    1 => new Vector3D((float)(-targetSize - spacing), 0, 0),
+                    -1 => new Vector3D((float)(targetSize + spacing), 0, 0),
+                    _ => new Vector3D((float)(targetSize * Math.Sign(difference) + 
+                    spacing * Math.Sign(difference)), 0, 0)
                 };
 
                 indicatorAnimation = compositor.CreateVector3DKeyFrameAnimation();
@@ -209,13 +210,15 @@ public class CarouselView :
                 await Task.Delay(500);
                 for (int i = 0; i < columnCount; i++)
                 {
-                    itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset = new Vector3((float)(offsets[i] - centerOffset), 0, 0);
+                    itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset = 
+                        new Vector3((float)(offsets[i] - centreOffset), 0, 0);
                 }
             }
 
             SetItems();
         }
     }
+
 
     private void OnCollectionChanged(object? sender,
         NotifyCollectionChangedEventArgs args) => ArrangeItems(newIndex);
