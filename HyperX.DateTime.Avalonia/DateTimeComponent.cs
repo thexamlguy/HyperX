@@ -4,7 +4,7 @@ public class DateTimeComponent :
     IComponent
 {
     public IComponentBuilder Create() =>
-        DictionaryStringObjectJsonConverter.Create()
+        ComponentBuilder.Create()
             .ConfigureServices(services =>
             {
                 services.AddViewModelTemplate<DateTimeViewModel,

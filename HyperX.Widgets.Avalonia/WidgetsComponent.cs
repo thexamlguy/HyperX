@@ -4,7 +4,7 @@ public class WidgetsComponent :
     IComponent
 {
     public IComponentBuilder Create() =>
-        DictionaryStringObjectJsonConverter.Create()
+        ComponentBuilder.Create()
             .AddConfiguration<WidgetsConfiguration>(args => {
                 args.Add([
                     new Widget

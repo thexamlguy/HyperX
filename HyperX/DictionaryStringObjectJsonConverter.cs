@@ -1,88 +1,84 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace HyperX;
 
 public class DictionaryStringObjectJsonConverter : 
-    IComponentBuilder
+    JsonConverter<Dictionary<string, object?>>
 {
-    private readonly IHostBuilder hostBuilder;
+    public override bool CanConvert(Type typeToConvert) =>
+        typeToConvert == typeof(Dictionary<string, object>) ||
+        typeToConvert == typeof(Dictionary<string, object?>);
 
-    private bool configurationRegistered;
-
-    private DictionaryStringObjectJsonConverter()
+    public override Dictionary<string, object?> Read(ref Utf8JsonReader reader, 
+        Type typeToConvert, 
+        JsonSerializerOptions options)
     {
-        hostBuilder = new HostBuilder()
-            .UseContentRoot("Test", true)
-            .ConfigureAppConfiguration(config =>
-            {
-                config.AddJsonFile("Settings.json", true, true);
-            })
-            .ConfigureServices((context, services) =>
-            {
-                services.AddScoped<IComponentHost, ComponentHost>();
+        Dictionary<string, object?> dictionary = [];
 
-                services.AddScoped<IServiceFactory>(provider =>
-                    new ServiceFactory((type, parameters) =>
-                        ActivatorUtilities.CreateInstance(provider, type, parameters!)));
-
-                services.AddScoped<SubscriptionCollection>();
-                services.AddScoped<ISubscriptionManager, SubscriptionManager>();
-
-                services.AddTransient<ISubscriber, Subscriber>();
-                services.AddTransient<IPublisher, Publisher>();
-
-                services.AddTransient<IMediator, Mediator>();
-                services.AddScoped<IDisposer, Disposer>();
-
-                services.AddScoped<INavigationScope, NavigationScope>();
-
-                services.AddTransient<INavigationProvider, NavigationProvider>();
-                services.AddScoped<INavigationContextCollection, NavigationContextCollection>();
-                services.AddTransient<INavigationContextProvider, NavigationContextProvider>();
-
-                services.AddHandler<NavigateHandler>();
-                services.AddHandler<NavigateBackHandler>();
-            });
-    }
-
-    public static IComponentBuilder Create() =>
-        new DictionaryStringObjectJsonConverter();
-
-    public IComponentBuilder AddConfiguration<TConfiguration>(Action<TConfiguration>? configurationDelegate = null)
-        where TConfiguration : class, new()
-    {
-        if (configurationRegistered)
+        if (reader.TokenType == JsonTokenType.StartObject)
         {
-            return this;
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonTokenType.EndObject)
+                {
+                    return dictionary;
+                }
+
+                if (reader.TokenType is JsonTokenType.PropertyName)
+                {
+                    string? propertyName = reader.GetString();
+                    if (!string.IsNullOrWhiteSpace(propertyName))
+                    {
+                        reader.Read();
+                        dictionary.Add(propertyName!, ExtractValue(ref reader, options));
+                    }
+                }
+            }
         }
 
-        configurationRegistered = true;
-        TConfiguration configuration = new();
+        return dictionary;
+    }
 
-        if (configurationDelegate is not null)
+    public override void Write(Utf8JsonWriter writer,
+        Dictionary<string, object?> value,
+        JsonSerializerOptions options) => 
+            JsonSerializer.Serialize(writer, (IDictionary<string, object?>)value, options);
+
+    private object? ExtractValue(ref Utf8JsonReader reader,
+        JsonSerializerOptions options)
+    {
+        switch (reader.TokenType)
         {
-            configurationDelegate(configuration);
+            case JsonTokenType.String:
+                if (reader.TryGetDateTime(out var date))
+                {
+                    return date;
+                }
+                return reader.GetString();
+            case JsonTokenType.False:
+                return false;
+            case JsonTokenType.True:
+                return true;
+            case JsonTokenType.Null:
+                return null;
+            case JsonTokenType.Number:
+                if (reader.TryGetInt64(out var result))
+                {
+                    return result;
+                }
+                return reader.GetDecimal();
+            case JsonTokenType.StartObject:
+                return Read(ref reader, null!, options);
+            case JsonTokenType.StartArray:
+                List<object?> list = [];
+                while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
+                {
+                    list.Add(ExtractValue(ref reader, options));
+                }
+                return list;
+            default:
+                return default;
         }
-
-        hostBuilder.ConfigureServices(services =>
-        {
-            services.AddConfiguration(configuration);
-        });
-
-        return this;
-    }
-
-    public IComponentHost Build()
-    {
-        IHost host = hostBuilder.Build();
-        return host.Services.GetRequiredService<IComponentHost>();
-    }
-
-    public IComponentBuilder ConfigureServices(Action<IServiceCollection> configureDelegate)
-    {
-        hostBuilder.ConfigureServices(configureDelegate);
-        return this;
     }
 }
