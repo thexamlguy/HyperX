@@ -2,7 +2,5 @@
     x:Class="HyperX.Reolink.Avalonia.LiveView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Border Background="{Binding Colour}">
-        <TextBlock>To embed video playback</TextBlock>
-    </Border>
+    <Border Background="{Binding Colour}" />
 </UserControl>

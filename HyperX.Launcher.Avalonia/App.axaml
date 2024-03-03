@@ -6,7 +6,7 @@
     xmlns:ui="using:FluentAvalonia.UI.Controls"
     RequestedThemeVariant="Dark">
     <Application.Styles>
-        <sty:FluentAvaloniaTheme PreferSystemTheme="True" />
+        <sty:FluentAvaloniaTheme />
         <ThemeResources />
         <Style Selector="ui|SettingsExpanderItem">
             <Style Selector="^ /template/ Expander#Expander">

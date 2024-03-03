@@ -6,7 +6,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
-		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.0.6" />
+		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.0.9.2" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\HyperX.UI.Avalonia\HyperX.UI.Avalonia.csproj" />

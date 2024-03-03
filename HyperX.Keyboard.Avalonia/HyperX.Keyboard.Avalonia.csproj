@@ -6,7 +6,7 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
-		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.0.6" />
+		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.0.9.2" />
 		<PackageReference Include="Avalonia.Labs.Panels" Version="11.0.3" />
 	</ItemGroup>
 	<ItemGroup>
