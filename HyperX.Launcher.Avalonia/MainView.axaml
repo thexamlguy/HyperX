@@ -9,12 +9,12 @@
         <Grid RowDefinitions="Auto,24,*,48">
             <FastRendererBackground Grid.Row="0" Grid.RowSpan="4" />
             <Grid Margin="24,24,24,0">
-                <ContentControl x:Name="DateTime">
+                <ContentControl x:Name="TopLeft">
                     <Interaction.Behaviors>
                         <EventTriggerBehavior EventName="Loaded">
                             <NavigateAction
                                 Name="DateTime"
-                                Context="DateTime"
+                                Context="{Binding #TopLeft}"
                                 Scope="DateTimeComponent" />
                         </EventTriggerBehavior>
                     </Interaction.Behaviors>
