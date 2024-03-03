@@ -15,8 +15,8 @@ public class FastNoiseBackgroundRenderer
     private readonly object lockObj = new();
     private readonly float primaryAlpha;
     private readonly float scale;
-    private readonly float xAnimation;
-    private readonly float yAnimation;
+    private readonly float xSeed;
+    private readonly float ySeed;
     private uint accentColour;
     private float aOffsetX;
     private float aOffsetY;
@@ -28,23 +28,24 @@ public class FastNoiseBackgroundRenderer
 
     public FastNoiseBackgroundRenderer(FastNoiseRendererOptions? options = null)
     {
-        FastNoiseRendererOptions opt = options ?? new FastNoiseRendererOptions(FastNoiseLite.NoiseType.OpenSimplex2);
+        FastNoiseRendererOptions opt = options ?? 
+            new FastNoiseRendererOptions(FastNoiseLite.NoiseType.OpenSimplex2);
+
         NoiseGen.SetNoiseType(opt.Type);
         scale = opt.NoiseScale * 100f;
-        xAnimation = opt.XAnimSpeed;
-        yAnimation = opt.YAnimSpeed;
+
+        xSeed = opt.XSeed;
+        ySeed = opt.YSeed;
         primaryAlpha = opt.PrimaryAlpha;
         accentAlpha = opt.AccentAlpha;
     }
 
-    public bool SupportsAnimation => true;
-
-    public async Task Render(WriteableBitmap bitmap)
+    public async void Render(WriteableBitmap bitmap)
     {
-        pOffsetX += xAnimation;
-        pOffsetY += yAnimation;
-        aOffsetX -= xAnimation;
-        aOffsetY -= yAnimation;
+        pOffsetX += xSeed;
+        pOffsetY += ySeed;
+        aOffsetX -= xSeed;
+        aOffsetY -= ySeed;
 
         if (isRedrawing) return;
         lock (lockObj) { isRedrawing = true; }
@@ -81,8 +82,9 @@ public class FastNoiseBackgroundRenderer
         lock (lockObj) { isRedrawing = false; }
     }
 
-    public void UpdateValues(Color primary, Color accent,
-            ThemeVariant baseTheme)
+    public void UpdateValues(Color primary,
+        Color accent,
+        ThemeVariant baseTheme)
     {
         themeColour = ToUInt32(primary);
         accentColour = ToUInt32(accent);
@@ -97,6 +99,7 @@ public class FastNoiseBackgroundRenderer
         aOffsetY = Rand.Next(1000);
         aOffsetX = Rand.Next(1000);
     }
+
     private static byte A(uint col) => (byte)(col >> 24);
 
     private static uint ARGB(byte a, byte r, byte g, byte b) =>
@@ -127,7 +130,8 @@ public class FastNoiseBackgroundRenderer
         return ARGB(A(back), resultR, resultG, resultB);
     }
 
-    private static byte G(uint col) => (byte)(col >> 8);
+    private static byte G(uint col) => 
+        (byte)(col >> 8);
 
     private static uint GetBackgroundColour(Color input)
     {
@@ -155,9 +159,8 @@ public class FastNoiseBackgroundRenderer
 
     private static byte R(uint col) => (byte)(col >> 16);
 
-    private static uint ToUInt32(Color colour)
-    {
-        return (uint)(colour.A << 24 | colour.R << 16 | colour.G << 8 | colour.B);
-    }
+    private static uint ToUInt32(Color colour) => 
+        (uint)(colour.A << 24 | colour.R << 16 | colour.G << 8 | colour.B);
+
     private static uint WithAlpha(uint col, byte a) => col & 0x00FFFFFF | (uint)(a << 24);
 }

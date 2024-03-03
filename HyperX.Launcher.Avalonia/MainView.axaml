@@ -7,6 +7,7 @@
             <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
         </LayoutTransformControl.LayoutTransform>
         <Grid RowDefinitions="Auto, 12, *, 24">
+            <FastRendererBackground Grid.Row="0" Grid.RowSpan="4" />
             <Grid Margin="24,24,24,0">
                 <ContentControl x:Name="DateTime">
                     <Interaction.Behaviors>
