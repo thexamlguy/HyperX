@@ -4,7 +4,7 @@ public class WidgetsComponent :
     IComponent
 {
     public IComponentBuilder Create() =>
-        ComponentBuilder.Create()
+        DictionaryStringObjectJsonConverter.Create()
             .AddConfiguration<WidgetsConfiguration>(args => {
                 args.Add([
                     new Widget
@@ -20,12 +20,17 @@ public class WidgetsComponent :
                 args.Add([
                     new Widget
                     {
-                        Name = "Keyboard",
-                        Component = "KeyboardComponent",
+                        Name = "Live",
+                        Component = "ReolinkComponent",
                         Row = 0,
                         Column = 0,
                         RowSpan = 2,
-                        ColumnSpan = 2
+                        ColumnSpan = 2,
+                        Arguments = new Dictionary<string, object>
+                        {
+                            { "Colour", "Red" },
+                            { "Test", 1 },
+                        }
                     }
                 ]);
             })

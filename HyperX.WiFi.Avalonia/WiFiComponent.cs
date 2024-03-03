@@ -4,7 +4,7 @@ public class WiFiComponent :
     IComponent
 {
     public IComponentBuilder Create() =>
-        ComponentBuilder.Create()
+        DictionaryStringObjectJsonConverter.Create()
             .ConfigureServices(services =>
             {
                 services.AddViewModelTemplate<WiFiViewModel,

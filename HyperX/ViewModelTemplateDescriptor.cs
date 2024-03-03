@@ -2,7 +2,8 @@
 
 namespace HyperX;
 
-public class ViewModelTemplateDescriptor(IServiceProvider provider, 
+public class ViewModelTemplateDescriptor(IServiceProvider provider,
+    IServiceFactory serviceFactory,
     object key,
     Type viewModelType, 
     Type viewType) :
@@ -16,21 +17,20 @@ public class ViewModelTemplateDescriptor(IServiceProvider provider,
 
     public Type ViewType => viewType;
 
-    public object? GetView()
+    public object? GetView() => 
+        provider.GetRequiredKeyedService(ViewType, key) 
+            is object view ? view : default;
+
+    public object? GetViewModel(object?[]? parameters = null)
     {
-        if (provider.GetRequiredKeyedService(ViewType, key) is object view)
+        if (parameters is { Length: > 0 })
         {
-            return view;
+            return serviceFactory.Create(viewModelType, parameters);
         }
 
-        return default;
-    }
-
-    public object? GetViewModel()
-    {
-        if (provider.GetRequiredKeyedService(viewModelType, key) is object view)
+        if (provider.GetRequiredKeyedService(viewModelType, key) is object viewModel)
         {
-            return view;
+            return viewModel;
         }
 
         return default;

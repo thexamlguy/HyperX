@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace HyperX.Widgets;
 
 public class WidgetContainerHandler(IPublisher publisher,
-    IServiceFactory fac,
+    IServiceFactory serviceFactory,
     IComponentScopeProvider componentScopeProvider,
     WidgetsConfiguration configuration) :
     INotificationHandler<Enumerate<WidgetContainerViewModel>>
@@ -32,14 +33,23 @@ public class WidgetContainerHandler(IPublisher publisher,
                             IViewModelTemplateDescriptor? viewModelTemplateDescriptor =
                                 viewModelTemplateProvider?.Get(widget.Name);
 
-                            IServiceFactory? serviceFactory = 
-                                serviceProvider?.GetService<IServiceFactory>();
-
                             if (serviceFactory is not null && viewModelTemplateDescriptor is not null)
                             {
-                                if (fac.Create<WidgetContainerViewModel>(widget.Row, widget.Column,
-                                    widget.RowSpan, widget.ColumnSpan, viewModelTemplateDescriptor.GetViewModel())
-                                    is WidgetContainerViewModel widgetContainerViewModel)
+                                Dictionary<string, object> arguments = new(widget.Arguments,
+                                                       StringComparer.InvariantCultureIgnoreCase);
+
+                                object?[]? parameters = viewModelTemplateDescriptor.ViewModelType
+                                    .GetConstructors()
+                                    .FirstOrDefault()?
+                                    .GetParameters()
+                                    .Select(parameter => parameter?.Name != null && arguments
+                                        .TryGetValue(parameter.Name, out object? argument) ? argument : default)
+                                    .Where(argument => argument != null)
+                                    .ToArray();
+
+                                if (serviceFactory.Create<WidgetContainerViewModel>(widget.Row, widget.Column,
+                                    widget.RowSpan, widget.ColumnSpan, viewModelTemplateDescriptor.GetViewModel(parameters))
+                                        is WidgetContainerViewModel widgetContainerViewModel)
                                 {
                                     await publisher.PublishUIAsync(new Create<WidgetContainerViewModel>(widgetContainerViewModel),
                                         args.Key, cancellationToken);

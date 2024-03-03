@@ -2,7 +2,7 @@
 
 public class Widget
 {
-    public string? Arguments { get; set; }
+    public Dictionary<string, object> Arguments { get; set; } = [];
 
     public int Column { get; set; }
 

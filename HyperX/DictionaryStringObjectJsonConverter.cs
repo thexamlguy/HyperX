@@ -4,14 +4,14 @@ using Microsoft.Extensions.Hosting;
 
 namespace HyperX;
 
-public class ComponentBuilder : 
+public class DictionaryStringObjectJsonConverter : 
     IComponentBuilder
 {
     private readonly IHostBuilder hostBuilder;
 
     private bool configurationRegistered;
 
-    private ComponentBuilder()
+    private DictionaryStringObjectJsonConverter()
     {
         hostBuilder = new HostBuilder()
             .UseContentRoot("Test", true)
@@ -48,7 +48,7 @@ public class ComponentBuilder :
     }
 
     public static IComponentBuilder Create() =>
-        new ComponentBuilder();
+        new DictionaryStringObjectJsonConverter();
 
     public IComponentBuilder AddConfiguration<TConfiguration>(Action<TConfiguration>? configurationDelegate = null)
         where TConfiguration : class, new()

@@ -87,7 +87,8 @@ public static class IServiceCollectionExtensions
                 serializerDelegate.Invoke(defaultSerializer);
             }
 
-            return new ConfigurationSource<TConfiguration>(provider.GetRequiredService<IConfigurationFile<TConfiguration>>(), section, defaultSerializer);
+            return new ConfigurationSource<TConfiguration>(provider.GetRequiredService<IConfigurationFile<TConfiguration>>(),
+                section, defaultSerializer);
         });
 
         services.AddSingleton<IConfigurationFile<TConfiguration>>(provider =>
@@ -136,7 +137,8 @@ public static class IServiceCollectionExtensions
         services.AddKeyedTransient(viewType, key);
 
         services.AddTransient<IViewModelTemplateDescriptor>(provider => 
-            new ViewModelTemplateDescriptor(provider, key, viewModelType, viewType));
+            new ViewModelTemplateDescriptor(provider, provider.GetRequiredService<IServiceFactory>(), 
+                key, viewModelType, viewType));
 
         return services;
     }

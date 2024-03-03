@@ -1,13 +1,13 @@
-﻿namespace HyperX.Spotify.Avalonia;
+﻿namespace HyperX.Reolink.Avalonia;
 
-public class SpotifyComponent : 
+public class ReolinkComponent : 
     IComponent
 {
     public IComponentBuilder Create() =>
         DictionaryStringObjectJsonConverter.Create()
             .ConfigureServices(services =>
             {
-                services.AddViewModelTemplate<SpotifyViewModel,
-                    SpotifyView>("Spotify");
+                services.AddViewModelTemplate<LiveViewModel,
+                    LiveView>("Live");
             });
 }

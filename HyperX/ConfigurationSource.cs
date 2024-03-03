@@ -22,7 +22,8 @@ public class ConfigurationSource<TConfiguration>(IConfigurationFile<TConfigurati
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
             Converters =
             {
-                new JsonStringEnumConverter()
+                new JsonStringEnumConverter(),
+                new DictionaryStringObjectJsonConverter()
             }
         };
     });

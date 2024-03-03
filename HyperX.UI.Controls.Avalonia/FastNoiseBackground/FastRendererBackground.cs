@@ -29,8 +29,8 @@ public class FastRendererBackground :
         base.EndInit();
         if (Application.Current?.ActualThemeVariant is ThemeVariant theme)
         {
-            renderer.UpdateValues((Color)Application.Current.FindResource("SystemAccentColor"), 
-                (Color)Application.Current.FindResource("SystemAccentColorLight3"), theme);
+            renderer.UpdateValues((Color)Application.Current.FindResource("SystemAccentColorLight3"), 
+                (Color)Application.Current.FindResource("SystemAccentColorDark3"), theme);
         }
 
         renderer.Render(bitmap);
