@@ -2,6 +2,7 @@
 
 namespace HyperX.Launcher.Avalonia;
 
+
 public partial class MainViewModel :
     ObservableCollectionViewModel<IDisposable>
 {

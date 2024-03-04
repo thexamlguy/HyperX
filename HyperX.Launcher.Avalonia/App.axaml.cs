@@ -9,6 +9,7 @@ using HyperX.WiFi.Avalonia;
 using HyperX.Widgets.Avalonia;
 using HyperX.DateTime.Avalonia;
 using HyperX.Reolink.Avalonia;
+using HyperX.Settings.Avalonia;
 
 namespace HyperX.Launcher.Avalonia;
 
@@ -24,6 +25,7 @@ public partial class App :
             {
                 services.AddAvalonia();
 
+                services.AddComponent<SettingsComponent>();
                 services.AddComponent<KeyboardComponent>();
                 services.AddComponent<WiFiComponent>();
                 services.AddComponent<DateTimeComponent>();
@@ -39,9 +41,9 @@ public partial class App :
                 }
 
                 services.AddViewModelTemplate<MainViewModel, MainView>("Main");
-                services.AddViewModelTemplate<BackButtonViewModel, BackButtonView>();
-
-                services.AddViewModelTemplate<TestViewModel, TestView>();
+                services.AddViewModelTemplate<BackButtonViewModel, BackButtonView>("Back");
+                services.AddViewModelTemplate<SettingsButtonViewModel, SettingsButtonView>("Settings");
+                services.AddViewModelTemplate<HeaderViewModel, HeaderView>("Header");
 
             })
         .Build();

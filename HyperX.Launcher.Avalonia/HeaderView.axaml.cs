@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace HyperX.Launcher.Avalonia;
 
-public partial class TestView : 
+public partial class HeaderView : 
     UserControl
 {
-    public TestView() => 
+    public HeaderView() => 
         InitializeComponent();
 }

@@ -10,7 +10,7 @@ public class DefaultBuilder :
     public static IHostBuilder Create()
     {
         return new HostBuilder()
-            .UseContentRoot("Test", true)
+            .UseContentRoot("Local", true)
             .ConfigureAppConfiguration(config =>
             {
                 config.AddJsonFile("Settings.json", true, true);

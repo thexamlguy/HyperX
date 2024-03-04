@@ -1,9 +1,11 @@
 ﻿using Avalonia;
+using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
 using Avalonia.Rendering.Composition;
 using Avalonia.Rendering.Composition.Animations;
 using System.Collections.Specialized;
@@ -14,13 +16,13 @@ namespace HyperX.UI.Controls.Avalonia;
 public class CarouselView :
     ItemsControl
 {
+    private readonly TimeSpan animationDuration = TimeSpan.FromMilliseconds(200);
     private readonly List<ExpressionAnimation> animations = [];
     private readonly int columnCount = 5;
     private readonly List<CompositionVisual> itemVisuals = [];
     private readonly ScopedBatchHelper scopedBatch = new ScopedBatchHelper();
     private readonly double spacing = 12;
     private CancellationTokenSource? animationCancellation;
-    private readonly TimeSpan animationDuration = TimeSpan.FromMilliseconds(200);
     private Compositor? compositor;
     private Grid? container;
     private Vector3D finalOffset;
@@ -42,20 +44,9 @@ public class CarouselView :
         container = args.NameScope.Get<Grid>("Container");
         if (container is not null)
         {
-            touchAreaVisual = ElementComposition.GetElementVisual(container);
-            if (touchAreaVisual is not null)
-            {
-                compositor = touchAreaVisual.Compositor;
-            }
-
             items = container.Children.OfType<Border>().ToList();
             foreach (Border item in items)
             {
-                if (ElementComposition.GetElementVisual(item) is CompositionVisual visual)
-                {
-                    itemVisuals.Add(visual);
-                }
-
                 if (item.Child is ContentControl contentControl)
                 {
                     contentControl.ContentTemplate = ItemTemplate;
@@ -72,14 +63,37 @@ public class CarouselView :
             indicatorVisual = ElementComposition.GetElementVisual(indicator);
         }
 
+        ItemsView.CollectionChanged -= OnCollectionChanged;
         ItemsView.CollectionChanged += OnCollectionChanged;
+
         base.OnApplyTemplate(args);
     }
 
     protected override void OnLoaded(RoutedEventArgs args)
     {
-        ArrangeItems(newIndex);
-        base.OnLoaded(args);
+        if (container is not null
+            && items is not null
+            && indicator is not null)
+        {
+            indicatorVisual = ElementComposition.GetElementVisual(indicator);
+            touchAreaVisual = ElementComposition.GetElementVisual(container);
+            if (touchAreaVisual is not null)
+            {            
+                compositor = touchAreaVisual.Compositor;
+            }
+
+            itemVisuals.Clear();
+            foreach (Border item in items)
+            {
+                if (ElementComposition.GetElementVisual(item) is CompositionVisual visual)
+                {
+                    itemVisuals.Add(visual);
+                }
+            }
+
+            ArrangeItems(newIndex);
+            base.OnLoaded(args);
+        }
     }
 
     protected override void OnPointerMoved(PointerEventArgs args)
@@ -94,7 +108,7 @@ public class CarouselView :
 
         base.OnPointerMoved(args);
     }
-       
+
     protected override void OnPointerPressed(PointerPressedEventArgs args)
     {
         if (!isPressed && indicatorVisual is not null)
@@ -145,13 +159,14 @@ public class CarouselView :
                 SelectedIndex = (SelectedIndex + ItemsView.Count - 1) % ItemsView.Count;
             }
 
-            ArrangeItems(newIndex, oldSelectedIndex);
+            ArrangeItems(newIndex, oldSelectedIndex, true);
         }
 
         base.OnPointerReleased(args);
     }
+
     private void ArrangeItems(int newIndex,
-        int oldIndex = -1)
+        int oldIndex = -1, bool isAnimating = false)
     {
         if (compositor is not null 
             && container is not null 
@@ -192,7 +207,7 @@ public class CarouselView :
 
             double centreOffset = spacing * (columnCount - 1) / 2 + spacing;
 
-            if (oldIndex == -1)
+            if (!isAnimating)
             {
                 for (int i = 0; i < columnCount; i++)
                 {

@@ -1,4 +1,6 @@
-﻿namespace HyperX;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace HyperX;
 
 public class NavigateBackHandler(IComponentScopeProvider provider) :
     INotificationHandler<NavigateBack>
@@ -6,9 +8,13 @@ public class NavigateBackHandler(IComponentScopeProvider provider) :
     public async Task Handle(NavigateBack args,
         CancellationToken cancellationToken)
     {
-        if (provider.Get(args.Scope ?? "Default") is INavigationScope scope)
+        if (provider.Get(args.Scope ?? "Default")
+            is IServiceProvider scope)
         {
-            await scope.NavigateBackAsync(args.Context, cancellationToken);
+            if (scope.GetService<INavigationScope>() is INavigationScope navigationScope)
+            {
+                await navigationScope.NavigateBackAsync(args.Context, cancellationToken);
+            }
         }
     }
 }

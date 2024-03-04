@@ -2,20 +2,32 @@
     x:Class="HyperX.Launcher.Avalonia.MainView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <LayoutTransformControl>
         <LayoutTransformControl.LayoutTransform>
             <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
         </LayoutTransformControl.LayoutTransform>
         <Grid RowDefinitions="Auto,24,*,48">
             <FastRendererBackground Grid.Row="0" Grid.RowSpan="4" />
-            <Grid Margin="24,24,24,0">
-                <ContentControl x:Name="TopLeft">
+            <Grid Margin="24,24,24,0" ColumnDefinitions="Auto,*,Auto">
+                <ContentControl Grid.Column="0" IsVisible="{Binding #Root.CanGoBack}">
                     <Interaction.Behaviors>
                         <EventTriggerBehavior EventName="Loaded">
-                            <NavigateAction
-                                Name="DateTime"
-                                Context="{Binding #TopLeft}"
-                                Scope="DateTimeComponent" />
+                            <NavigateAction Name="Back" Context="{Binding $self}" />
+                        </EventTriggerBehavior>
+                    </Interaction.Behaviors>
+                </ContentControl>
+                <ContentControl Grid.Column="1">
+                    <Interaction.Behaviors>
+                        <EventTriggerBehavior EventName="Loaded">
+                            <NavigateAction Name="Header" Context="{Binding $self}" />
+                        </EventTriggerBehavior>
+                    </Interaction.Behaviors>
+                </ContentControl>
+                <ContentControl Grid.Column="2">
+                    <Interaction.Behaviors>
+                        <EventTriggerBehavior EventName="Loaded">
+                            <NavigateAction Name="Settings" Context="{Binding $self}" />
                         </EventTriggerBehavior>
                     </Interaction.Behaviors>
                 </ContentControl>
