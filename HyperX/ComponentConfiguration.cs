@@ -1,6 +1,13 @@
-﻿namespace HyperX;
+﻿using System.Text.Json.Serialization;
 
-public class ComponentConfiguration
+namespace HyperX;
+
+public record ComponentConfiguration
 {
+    public string? Description { get; set; }
 
+    public string? Name { get; set; }
+
+    [JsonInclude]
+    internal Guid Id { get; set; } = Guid.NewGuid();
 }

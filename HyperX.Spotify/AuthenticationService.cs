@@ -12,11 +12,11 @@ public class AuthenticationService(SpotifyConfiguration configuration) :
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        server = new WebServer(configuration.Port)
-              .WithModule(new ActionModule("/", HttpVerbs.Get, args =>
-              {
-                  return args.SendStringAsync("OK", "text/plain", Encoding.UTF8);
-              }));
+        //server = new WebServer(configuration.Port)
+        //      .WithModule(new ActionModule("/", HttpVerbs.Get, args =>
+        //      {
+        //          return args.SendStringAsync("OK", "text/plain", Encoding.UTF8);
+        //      }));
 
         await server.RunAsync(cancellationToken);
     }

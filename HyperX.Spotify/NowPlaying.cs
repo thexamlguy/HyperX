@@ -1,8 +1,8 @@
 ﻿namespace HyperX.Spotify;
 
-public class SpotifyViewModel : ObservableViewModel
+public class NowPlaying : ObservableViewModel
 {
-    public SpotifyViewModel(IServiceProvider serviceProvider, 
+    public NowPlaying(IServiceProvider serviceProvider, 
         IServiceFactory serviceFactory,
         IPublisher publisher,
         ISubscriber subscriber, 

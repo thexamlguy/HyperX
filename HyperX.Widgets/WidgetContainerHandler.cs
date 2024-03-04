@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace HyperX.Widgets;
 
@@ -18,9 +17,9 @@ public class WidgetContainerHandler(IPublisher publisher,
             if (colonIndex >= 0 && colonIndex < key.Length - 1)
             {
                 string indexString = key[(colonIndex + 1)..];
-                if (int.TryParse(indexString, out int index) && index >= 0 && index < configuration.Count)
+                if (int.TryParse(indexString, out int index) && index >= 0 && index < configuration.Layouts.Count)
                 {
-                    if (configuration[index] is WidgetLayout widgetLayout)
+                    if (configuration.Layouts[index] is WidgetLayout widgetLayout)
                     {
                         foreach (Widget widget in widgetLayout)
                         {

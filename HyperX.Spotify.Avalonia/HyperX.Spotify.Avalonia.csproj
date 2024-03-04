@@ -19,4 +19,9 @@
 		<ProjectReference Include="..\HyperX.UI.Avalonia\HyperX.UI.Avalonia.csproj" />
 		<ProjectReference Include="..\HyperX\HyperX.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="NowPlayingView.axaml.cs">
+	    <DependentUpon>NowPlayingView.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
 </Project>

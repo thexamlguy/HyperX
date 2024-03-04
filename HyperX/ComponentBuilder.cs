@@ -14,7 +14,7 @@ public class ComponentBuilder :
     private ComponentBuilder()
     {
         hostBuilder = new HostBuilder()
-            .UseContentRoot("Test", true)
+            .UseContentRoot("Local", true)
             .ConfigureAppConfiguration(config =>
             {
                 config.AddJsonFile("Settings.json", true, true);
@@ -50,8 +50,8 @@ public class ComponentBuilder :
     public static IComponentBuilder Create() =>
         new ComponentBuilder();
 
-    public IComponentBuilder AddConfiguration<TConfiguration>(Action<TConfiguration>? configurationDelegate = null)
-        where TConfiguration : class, new()
+    public IComponentBuilder AddConfiguration<TConfiguration>(Action<TConfiguration> configurationDelegate)
+        where TConfiguration : ComponentConfiguration, new()
     {
         if (configurationRegistered)
         {

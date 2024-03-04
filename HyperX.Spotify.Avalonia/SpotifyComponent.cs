@@ -5,9 +5,14 @@ public class SpotifyComponent :
 {
     public IComponentBuilder Create() =>
         ComponentBuilder.Create()
+            .AddConfiguration<SpotifyConfiguration>(args => 
+            {
+                args.Name = "Spotify";
+                args.Description = "Spotify remote player";
+            })
             .ConfigureServices(services =>
             {
-                services.AddViewModelTemplate<SpotifyViewModel,
-                    SpotifyView>("Spotify");
+                services.AddViewModelTemplate<NowPlaying,
+                    NowPlayingView>("NowPlaying");
             });
 }

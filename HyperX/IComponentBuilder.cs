@@ -4,8 +4,8 @@ namespace HyperX;
 
 public interface IComponentBuilder
 {
-    IComponentBuilder AddConfiguration<TConfiguration>(Action<TConfiguration>? configurationDelegate = null)
-        where TConfiguration : class, new();
+    IComponentBuilder AddConfiguration<TConfiguration>(Action<TConfiguration> configurationDelegate)
+        where TConfiguration : ComponentConfiguration, new();
 
     IComponentHost Build();
 

@@ -1,7 +1,7 @@
 ﻿namespace HyperX.Widgets;
 
-public class WidgetsConfiguration : 
-    List<WidgetLayout>
+public record WidgetsConfiguration : 
+    ComponentConfiguration
 {
-
+    public List<WidgetLayout> Layouts { get; set; } = [];
 }

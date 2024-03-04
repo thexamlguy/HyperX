@@ -3,36 +3,43 @@
 public class WidgetsComponent :
     IComponent
 {
-    public IComponentBuilder Create() =>
-        ComponentBuilder.Create()
-            .AddConfiguration<WidgetsConfiguration>(args => {
-                args.Add([
-                    new Widget
-                    {
-                        Name = "Spotify",
-                        Component = "SpotifyComponent",
-                        Row = 0,
-                        Column = 0,
-                        RowSpan = 2,
-                        ColumnSpan = 2
-                    }
-                ]);
-                args.Add([
-                    new Widget
-                    {
-                        Name = "Live",
-                        Component = "ReolinkComponent",
-                        Row = 0,
-                        Column = 0,
-                        RowSpan = 2,
-                        ColumnSpan = 2,
-                        Arguments = new Dictionary<string, object>
+    public IComponentBuilder Create()
+    {
+        return ComponentBuilder.Create()
+            .AddConfiguration<WidgetsConfiguration>(args =>
+            {
+                args.Name = "Widgets";
+                args.Name = "Widgets board";
+                args.Layouts =
+                [
+                    new() {
+                        new Widget
                         {
-                            { "Colour", "Red" },
-                            { "Test", 1 },
+                            Name = "Spotify",
+                            Component = "SpotifyComponent",
+                            Row = 0,
+                            Column = 0,
+                            RowSpan = 2,
+                            ColumnSpan = 2
+                        }
+                    },
+                    new() {
+                        new Widget
+                        {
+                            Name = "Live",
+                            Component = "ReolinkComponent",
+                            Row = 0,
+                            Column = 0,
+                            RowSpan = 2,
+                            ColumnSpan = 2,
+                            Arguments = new Dictionary<string, object>
+                            {
+                                { "Colour", "Red" },
+                                { "Test", 1 },
+                            }
                         }
                     }
-                ]);
+                ];
             })
             .ConfigureServices(services =>
             {
@@ -48,4 +55,5 @@ public class WidgetsComponent :
                 services.AddHandler<WidgetLayoutHandler>();
                 services.AddHandler<WidgetContainerHandler>();
             });
+    }
 }

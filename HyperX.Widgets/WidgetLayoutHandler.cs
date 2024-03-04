@@ -8,7 +8,7 @@ public class WidgetLayoutHandler(IPublisher publisher,
     public async Task Handle(Enumerate<WidgetLayoutViewModel> args,
         CancellationToken cancellationToken)
     {
-        for (int index = 0; index < configuration.Count; index++)
+        for (int index = 0; index < configuration.Layouts.Count; index++)
         {
             if (factory.Create<WidgetLayoutViewModel>($"WidgetLayoutViewModel:{index}")
                 is WidgetLayoutViewModel item)
