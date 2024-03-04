@@ -17,13 +17,18 @@ public class CarouselView :
     private readonly List<ExpressionAnimation> animations = [];
     private readonly int columnCount = 5;
     private readonly List<CompositionVisual> itemVisuals = [];
+    private readonly ScopedBatchHelper scopedBatch = new ScopedBatchHelper();
     private readonly double spacing = 12;
+    private CancellationTokenSource? animationCancellation;
+    private readonly TimeSpan animationDuration = TimeSpan.FromMilliseconds(200);
     private Compositor? compositor;
     private Grid? container;
+    private Vector3D finalOffset;
     private float horizontalDelta;
     private Rectangle? indicator;
     private Vector3DKeyFrameAnimation? indicatorAnimation;
     private CompositionVisual? indicatorVisual;
+    private bool isAnimating;
     private bool isPressed;
     private List<Border>? items;
     private Point? lastPosition;
@@ -89,23 +94,25 @@ public class CarouselView :
 
         base.OnPointerMoved(args);
     }
-
+       
     protected override void OnPointerPressed(PointerPressedEventArgs args)
     {
         if (!isPressed && indicatorVisual is not null)
         {
-            isPressed = true;
-            horizontalDelta = 0.0f;
-
-            startPosition = args.GetPosition(container);
-            isPressed = true;
-
-            indicatorVisual.Offset = new Vector3(horizontalDelta, 0.0f, 0.0f);
-            PrepareAnimations();
-
-            for (int i = 0; i < itemVisuals.Count; i++)
+            if (!isAnimating)
             {
-                itemVisuals[i].StartAnimation("Offset", animations[i]);
+                horizontalDelta = 0;
+
+                isPressed = true;
+                startPosition = args.GetPosition(container);
+
+                indicatorVisual.Offset = new Vector3(horizontalDelta, 0.0f, 0.0f);
+                PrepareAnimations();
+
+                for (int i = 0; i < itemVisuals.Count; i++)
+                {
+                    itemVisuals[i].StartAnimation("Offset", animations[i]);
+                }
             }
         }
 
@@ -114,7 +121,9 @@ public class CarouselView :
 
     protected override void OnPointerReleased(PointerReleasedEventArgs args)
     {
-        if (isPressed && container is not null && items is not null && indicatorVisual is not null)
+        if (isPressed && container is not null 
+            && items is not null
+            && indicatorVisual is not null)
         {
             isPressed = false;
 
@@ -141,12 +150,16 @@ public class CarouselView :
 
         base.OnPointerReleased(args);
     }
-
-    private async void ArrangeItems(int newIndex,
+    private void ArrangeItems(int newIndex,
         int oldIndex = -1)
     {
-        if (compositor is not null && container is not null && items is not null && indicatorVisual is not null)
+        if (compositor is not null 
+            && container is not null 
+            && items is not null 
+            && indicatorVisual is not null)
         {
+            animationCancellation = new CancellationTokenSource();
+
             double containerHeight = container.Bounds.Height;
             double containerWidth = container.Bounds.Width;
 
@@ -183,43 +196,49 @@ public class CarouselView :
             {
                 for (int i = 0; i < columnCount; i++)
                 {
-                    itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset = 
+                    itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset =
                         new Vector3((float)(offsets[i] - centreOffset), 0, 0);
                 }
+
+                SetItems();
             }
             else
             {
                 int difference = newIndex - oldIndex;
-                double duration = 500;
 
-                Vector3D finalOffset = difference switch
+                finalOffset = difference switch
                 {
                     0 => new Vector3D(0, 0, 0),
                     1 => new Vector3D((float)(-targetSize - spacing), 0, 0),
                     -1 => new Vector3D((float)(targetSize + spacing), 0, 0),
-                    _ => new Vector3D((float)(targetSize * Math.Sign(difference) + 
-                    spacing * Math.Sign(difference)), 0, 0)
+                    _ => new Vector3D((float)(targetSize * Math.Sign(difference) +
+                        spacing * Math.Sign(difference)), 0, 0)
                 };
 
                 indicatorAnimation = compositor.CreateVector3DKeyFrameAnimation();
                 indicatorAnimation.InsertKeyFrame(1.0f, finalOffset);
-                indicatorAnimation.Duration = TimeSpan.FromMilliseconds(duration);
+                indicatorAnimation.Duration = animationDuration;
+                indicatorAnimation.StopBehavior = AnimationStopBehavior.LeaveCurrentValue;
 
-                indicatorVisual.StartAnimation("Offset", indicatorAnimation);
-
-                await Task.Delay(500);
-                for (int i = 0; i < columnCount; i++)
+                scopedBatch.Completed += () =>
                 {
-                    itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset = 
-                        new Vector3((float)(offsets[i] - centreOffset), 0, 0);
-                }
-            }
+                    isAnimating = false;                    
+                    for (int i = 0; i < columnCount; i++)
+                    {
+                        itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset =
+                            new Vector3((float)(offsets[i] - centreOffset), 0, 0);
 
-            SetItems();
+                        SetItems();
+                    }
+                };
+                
+                indicatorVisual.StartAnimation("Offset", indicatorAnimation);
+                scopedBatch.Start(animationDuration);
+
+                isAnimating = true;
+            }
         }
     }
-
-
     private void OnCollectionChanged(object? sender,
         NotifyCollectionChangedEventArgs args) => ArrangeItems(newIndex);
 

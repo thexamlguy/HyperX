@@ -32,7 +32,8 @@
                         x:Name="Indicator"
                         Width="10"
                         Height="10"
-                        VerticalAlignment="Top" />
+                        VerticalAlignment="Top"
+                        Fill="Red" />
                 </Grid>
             </ControlTemplate>
         </Setter>
