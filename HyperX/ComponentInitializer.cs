@@ -4,6 +4,7 @@ namespace HyperX;
 
 public class ComponentInitializer(IEnumerable<IComponent> components,
     IProxyServiceCollection<IComponentBuilder> typedServices,
+    IComponentHostCollection hosts,
     IComponentScopeCollection scopes,
     IServiceProvider provider) :
     IInitializer
@@ -15,20 +16,30 @@ public class ComponentInitializer(IEnumerable<IComponent> components,
             IComponentBuilder builder = component.Create();
             builder.ConfigureServices(services =>
             {
-                services.AddTransient(_ => provider.GetRequiredService<IProxyService<IPublisher>>());
+                services.AddTransient(_ => 
+                    provider.GetRequiredService<IProxyService<IPublisher>>());
 
-                services.AddScoped(_ => provider.GetRequiredService<INavigationContextCollection>());
-                services.AddScoped(_ => provider.GetRequiredService<INavigationContextProvider>());
+                services.AddScoped(_ => 
+                    provider.GetRequiredService<INavigationContextCollection>());
+                
+                services.AddScoped(_ => 
+                    provider.GetRequiredService<INavigationContextProvider>());
 
-                services.AddScoped(_ => provider.GetRequiredService<IComponentScopeCollection>());
-                services.AddTransient(_ => provider.GetRequiredService<IComponentScopeProvider>());
+                services.AddScoped(_ => 
+                    provider.GetRequiredService<IComponentScopeCollection>());
+
+                services.AddTransient(_ => 
+                    provider.GetRequiredService<IComponentScopeProvider>());
 
                 services.AddRange(typedServices.Services);
             });
 
             IComponentHost host = builder.Build();
 
-            scopes.Add(component.GetType().Name, host.Services.GetRequiredService<IServiceProvider>());
+            scopes.Add(component.GetType().Name,
+                host.Services.GetRequiredService<IServiceProvider>());
+
+            hosts.Add(host);
             await host.StartAsync();
         }
     }

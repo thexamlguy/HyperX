@@ -2,7 +2,10 @@
     x:Class="HyperX.Settings.Avalonia.SettingsView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <NavigationView IsPaneToggleButtonVisible="False" IsSettingsVisible="False">
+    <NavigationView
+        IsPaneToggleButtonVisible="False"
+        IsSettingsVisible="False"
+        PaneDisplayMode="Left">
         <ContentControl
             x:Name="Settings"
             Margin="12"

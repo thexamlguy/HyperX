@@ -34,6 +34,7 @@ public static class IServiceCollectionExtensions
         services.AddTransient<IComponent, TComponent>();
         return services;
     }
+
     public static IServiceCollection AddConfiguration<TConfiguration,
         TValue>(this IServiceCollection services,
         Func<TConfiguration, Action<TValue>> changed)
