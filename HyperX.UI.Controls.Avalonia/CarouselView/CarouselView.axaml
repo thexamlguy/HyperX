@@ -9,10 +9,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid
-                    x:Name="Container"
-                    VerticalAlignment="Stretch"
-                    Background="{TemplateBinding Background}">
+                <Grid x:Name="Container" Background="{TemplateBinding Background}">
                     <Border HorizontalAlignment="Left">
                         <ContentControl />
                     </Border>

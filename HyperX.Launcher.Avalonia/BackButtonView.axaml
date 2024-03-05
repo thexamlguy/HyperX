@@ -7,12 +7,14 @@
         Height="{DynamicResource ButtonHeight}"
         Padding="{DynamicResource ButtonPadding}"
         Content="&#xE72B;"
+        CornerRadius="{DynamicResource ButtonCornerRadius}"
         FontFamily="{DynamicResource SymbolFontFamily}">
         <Button.Resources>
             <ResourceDictionary>
                 <x:Double x:Key="ButtonHeight">44</x:Double>
                 <x:Double x:Key="ButtonWidth">44</x:Double>
                 <Thickness x:Key="ButtonPadding">0</Thickness>
+                <CornerRadius x:Key="ButtonCornerRadius">44</CornerRadius>
                 <StaticResource x:Key="ButtonBackground" ResourceKey="ControlFillColorTransparentBrush" />
                 <StaticResource x:Key="ButtonBorderBrush" ResourceKey="ControlFillColorTransparentBrush" />
             </ResourceDictionary>

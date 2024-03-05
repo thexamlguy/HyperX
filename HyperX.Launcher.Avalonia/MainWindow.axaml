@@ -1,8 +1,10 @@
 <Window
     x:Class="HyperX.Launcher.Avalonia.MainWindow"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<ContentControl x:Name="Window">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    SystemDecorations="None"
+    WindowState="FullScreen">
+    <ContentControl x:Name="Window">
         <Interaction.Behaviors>
             <EventTriggerBehavior EventName="Loaded">
                 <NavigateAction Name="Main" Context="Window" />

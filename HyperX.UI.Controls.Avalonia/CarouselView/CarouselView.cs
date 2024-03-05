@@ -1,15 +1,16 @@
 ﻿using Avalonia;
-using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.LogicalTree;
 using Avalonia.Rendering.Composition;
 using Avalonia.Rendering.Composition.Animations;
+using Avalonia.Threading;
 using System.Collections.Specialized;
 using System.Numerics;
+using Avalonia;
+using Vector = Avalonia.Vector;
 
 namespace HyperX.UI.Controls.Avalonia;
 
@@ -22,7 +23,6 @@ public class CarouselView :
     private readonly List<CompositionVisual> itemVisuals = [];
     private readonly ScopedBatchHelper scopedBatch = new ScopedBatchHelper();
     private readonly double spacing = 12;
-    private CancellationTokenSource? animationCancellation;
     private Compositor? compositor;
     private Grid? container;
     private Vector3D finalOffset;
@@ -52,9 +52,6 @@ public class CarouselView :
                     contentControl.ContentTemplate = ItemTemplate;
                 }
             }
-
-            container.SizeChanged -= OnContainerSizeChanged;
-            container.SizeChanged += OnContainerSizeChanged;
         }
 
         indicator = args.NameScope.Get<Rectangle>("Indicator");
@@ -67,6 +64,12 @@ public class CarouselView :
         ItemsView.CollectionChanged += OnCollectionChanged;
 
         base.OnApplyTemplate(args);
+    }
+
+    protected override void OnSizeChanged(SizeChangedEventArgs args)
+    {
+        base.OnSizeChanged(args);
+        ArrangeItems(newIndex, isAnimating: false);
     }
 
     protected override void OnLoaded(RoutedEventArgs args)
@@ -92,8 +95,9 @@ public class CarouselView :
             }
 
             ArrangeItems(newIndex);
-            base.OnLoaded(args);
         }
+
+        base.OnLoaded(args);
     }
 
     protected override void OnPointerMoved(PointerEventArgs args)
@@ -166,17 +170,17 @@ public class CarouselView :
     }
 
     private void ArrangeItems(int newIndex,
-        int oldIndex = -1, bool isAnimating = false)
+        int oldIndex = -1, 
+        bool isAnimating = false)
     {
         if (compositor is not null 
             && container is not null 
             && items is not null 
             && indicatorVisual is not null)
         {
-            animationCancellation = new CancellationTokenSource();
-
-            double containerHeight = container.Bounds.Height;
-            double containerWidth = container.Bounds.Width;
+            double containerHeight = Bounds.Height;
+            double containerWidth = Bounds.Width;
+            container.Height = containerHeight;
 
             double targetSize = containerHeight;
 
@@ -206,13 +210,12 @@ public class CarouselView :
             ];
 
             double centreOffset = spacing * (columnCount - 1) / 2 + spacing;
-
             if (!isAnimating)
             {
                 for (int i = 0; i < columnCount; i++)
                 {
                     itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset =
-                        new Vector3((float)(offsets[i] - centreOffset), 0, 0);
+                        new Vector3((float)(offsets[i] - centreOffset), 0, 100);
                 }
 
                 SetItems();
@@ -220,7 +223,6 @@ public class CarouselView :
             else
             {
                 int difference = newIndex - oldIndex;
-
                 finalOffset = difference switch
                 {
                     0 => new Vector3D(0, 0, 0),
@@ -237,7 +239,7 @@ public class CarouselView :
 
                 scopedBatch.Completed += () =>
                 {
-                    isAnimating = false;                    
+                    this.isAnimating = false;                    
                     for (int i = 0; i < columnCount; i++)
                     {
                         itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset =
@@ -250,15 +252,12 @@ public class CarouselView :
                 indicatorVisual.StartAnimation("Offset", indicatorAnimation);
                 scopedBatch.Start(animationDuration);
 
-                isAnimating = true;
+                this.isAnimating = true;
             }
         }
     }
     private void OnCollectionChanged(object? sender,
         NotifyCollectionChangedEventArgs args) => ArrangeItems(newIndex);
-
-    private void OnContainerSizeChanged(object? sender,
-        SizeChangedEventArgs args) => ArrangeItems(newIndex);
 
     private void PrepareAnimations()
     {

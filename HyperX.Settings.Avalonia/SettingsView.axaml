@@ -10,6 +10,10 @@
         <Interaction.Behaviors>
             <EventTriggerBehavior EventName="Loaded">
                 <InvokeCommandAction Command="{Binding InitializeCommand}" />
+                <NavigateAction
+                    Name="Header"
+                    Context="Header"
+                    Scope="SettingsComponent" />
             </EventTriggerBehavior>
         </Interaction.Behaviors>
     </NavigationView>

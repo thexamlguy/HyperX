@@ -11,6 +11,9 @@ public class SettingsComponent :
                 services.AddViewModelTemplate<SettingsViewModel,
                     SettingsView>("Settings");
 
+                services.AddViewModelTemplate<SettingHeaderViewModel,
+                    SettingHeaderView>("Header");
+
                 services.AddHandler<SettingNavigationsHandler>();
             });
     }

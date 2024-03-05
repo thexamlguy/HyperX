@@ -4,6 +4,7 @@ using HyperX.UI.Windows;
 namespace HyperX.Launcher.Avalonia;
 
 [NavigationTarget("Root")]
+[NavigationTarget("Header")]
 public partial class MainView : 
     UserControl
 {

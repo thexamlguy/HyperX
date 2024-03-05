@@ -2,29 +2,30 @@
     x:Class="HyperX.Launcher.Avalonia.MainView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
     <LayoutTransformControl>
         <LayoutTransformControl.LayoutTransform>
             <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
         </LayoutTransformControl.LayoutTransform>
-        <Grid RowDefinitions="Auto,24,*,48">
+        <Grid RowDefinitions="84,24,*,48">
             <FastRendererBackground Grid.Row="0" Grid.RowSpan="4" />
             <Grid Margin="24,24,24,0" ColumnDefinitions="Auto,*,Auto">
-                <ContentControl Grid.Column="0" IsVisible="{Binding #Root.CanGoBack}">
+                <ContentControl
+                    Grid.Column="0"
+                    Margin="0,0,12,0"
+                    IsVisible="{Binding #Root.CanGoBack}">
                     <Interaction.Behaviors>
                         <EventTriggerBehavior EventName="Loaded">
                             <NavigateAction Name="Back" Context="{Binding $self}" />
                         </EventTriggerBehavior>
                     </Interaction.Behaviors>
                 </ContentControl>
-                <ContentControl Grid.Column="1">
-                    <Interaction.Behaviors>
-                        <EventTriggerBehavior EventName="Loaded">
-                            <NavigateAction Name="Header" Context="{Binding $self}" />
-                        </EventTriggerBehavior>
-                    </Interaction.Behaviors>
-                </ContentControl>
-                <ContentControl Grid.Column="2">
+                <ContentControl
+                    x:Name="Header"
+                    Grid.Column="1"
+                    Margin="0,-4,0,0"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center" />
+                <ContentControl Grid.Column="2" IsVisible="{Binding !#Root.CanGoBack}">
                     <Interaction.Behaviors>
                         <EventTriggerBehavior EventName="Loaded">
                             <NavigateAction Name="Settings" Context="{Binding $self}" />
@@ -32,14 +33,27 @@
                     </Interaction.Behaviors>
                 </ContentControl>
             </Grid>
-            <Frame x:Name="Root" Grid.Row="2">
+            <Frame
+                x:Name="Root"
+                Grid.Row="2"
+                VerticalAlignment="Stretch">
                 <Interaction.Behaviors>
                     <EventTriggerBehavior EventName="Loaded">
                         <NavigateAction
                             Name="Widgets"
                             Context="Root"
                             Scope="WidgetsComponent" />
+                        <NavigateAction
+                            Name="DateTime"
+                            Context="Header"
+                            Scope="DateTimeComponent" />
                     </EventTriggerBehavior>
+                    <DataTriggerBehavior Binding="{Binding #Root.CanGoBack}" Value="False">
+                        <NavigateAction
+                            Name="DateTime"
+                            Context="Header"
+                            Scope="DateTimeComponent" />
+                    </DataTriggerBehavior>
                 </Interaction.Behaviors>
             </Frame>
         </Grid>

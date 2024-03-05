@@ -43,8 +43,6 @@ public partial class App :
                 services.AddViewModelTemplate<MainViewModel, MainView>("Main");
                 services.AddViewModelTemplate<BackButtonViewModel, BackButtonView>("Back");
                 services.AddViewModelTemplate<SettingsButtonViewModel, SettingsButtonView>("Settings");
-                services.AddViewModelTemplate<HeaderViewModel, HeaderView>("Header");
-
             })
         .Build();
 
