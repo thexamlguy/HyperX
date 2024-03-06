@@ -5,7 +5,7 @@ public class WiFiComponent :
 {
     public IComponentBuilder Create() =>
         ComponentBuilder.Create()
-            .ConfigureServices(services =>
+            .AddServices(services =>
             {
                 services.AddViewModelTemplate<WiFiViewModel,
                     WiFiView>("WiFi");

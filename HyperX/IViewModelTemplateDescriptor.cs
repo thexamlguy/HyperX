@@ -7,8 +7,4 @@ public interface IViewModelTemplateDescriptor
     Type ViewModelType { get; }
 
     Type ViewType { get; }
-
-    object? GetView();
-
-    object? GetViewModel(object?[]? parameters = null);
 }

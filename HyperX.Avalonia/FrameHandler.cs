@@ -168,12 +168,6 @@ public class FrameHandler(IViewModelContentBinder binder,
                                 await navigatedTo.NavigatedToAsync();
                             }
                         }
-
-                        if (args.Title is not null)
-                        {
-                            await publisher.Proxy.PublishAsync(new NavigationChanged<string>(args.Title),
-                                cancellationToken);
-                        }
                     }
 
                     template.AddHandler(Frame.NavigatedToEvent, HandleNavigatedTo);

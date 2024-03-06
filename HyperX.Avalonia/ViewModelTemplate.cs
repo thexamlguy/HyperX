@@ -15,8 +15,8 @@ public class ViewModelTemplate :
         {
             if (observableViewModel.ServiceProvider is IServiceProvider provider)
             {
-                if (provider.GetService<IViewModelTemplateProvider>()
-                    is IViewModelTemplateProvider viewModelTemplateProvider)
+                if (provider.GetService<IViewModelTemplateDescriptorProvider>()
+                    is IViewModelTemplateDescriptorProvider viewModelTemplateProvider)
                 {
                     if (viewModelTemplateProvider.Get(item.GetType().Name.Replace("ViewModel", "")) 
                         is IViewModelTemplateDescriptor descriptor)
@@ -24,7 +24,7 @@ public class ViewModelTemplate :
                         if (provider.GetService<IViewModelContentBinder>()
                             is IViewModelContentBinder viewModelContentBinder)
                         {
-                            if (descriptor.GetView() is TemplatedControl view)
+                            if (provider.GetRequiredKeyedService(descriptor.ViewType, descriptor.Key) is TemplatedControl view)
                             {
                                 viewModelContentBinder.Bind(view);
                                 return view;

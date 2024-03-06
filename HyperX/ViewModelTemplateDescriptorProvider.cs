@@ -1,7 +1,7 @@
 ﻿namespace HyperX;
 
-public class ViewModelTemplateProvider(IEnumerable<IViewModelTemplateDescriptor> viewModelTemplates) :
-    IViewModelTemplateProvider
+public class ViewModelTemplateDescriptorProvider(IEnumerable<IViewModelTemplateDescriptor> viewModelTemplates) :
+    IViewModelTemplateDescriptorProvider
 {
     public IViewModelTemplateDescriptor? Get(object key)
     {

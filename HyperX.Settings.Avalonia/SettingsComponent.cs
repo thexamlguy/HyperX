@@ -6,13 +6,16 @@ public class SettingsComponent :
     public IComponentBuilder Create()
     {
         return ComponentBuilder.Create()
-            .ConfigureServices(services =>
+            .AddServices(services =>
             {
                 services.AddViewModelTemplate<SettingsViewModel,
                     SettingsView>("Settings");
 
                 services.AddViewModelTemplate<SettingHeaderViewModel,
                     SettingHeaderView>("Header");
+
+                services.AddViewModelTemplate<NavigationViewModel,
+                    SettingsNavigationView>();
 
                 services.AddHandler<SettingNavigationsHandler>();
             });

@@ -36,9 +36,12 @@ public class DefaultBuilder :
                 services.AddScoped<IProxyService<INavigationContextProvider>>(provider =>
                     new ProxyService<INavigationContextProvider>(provider.GetRequiredService<INavigationContextProvider>()));
 
+                services.AddScoped<IProxyService<IComponentHostCollection>>(provider =>
+                    new ProxyService<IComponentHostCollection>(provider.GetRequiredService<IComponentHostCollection>()));
+
                 services.AddScoped<IDisposer, Disposer>();
 
-                services.AddTransient<IViewModelTemplateProvider, ViewModelTemplateProvider>();
+                services.AddTransient<IViewModelTemplateDescriptorProvider, ViewModelTemplateDescriptorProvider>();
 
                 services.AddTransient<INavigationProvider, NavigationProvider>();
 

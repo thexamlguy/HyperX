@@ -5,7 +5,7 @@ public class DateTimeComponent :
 {
     public IComponentBuilder Create() =>
         ComponentBuilder.Create()
-            .ConfigureServices(services =>
+            .AddServices(services =>
             {
                 services.AddViewModelTemplate<DateTimeViewModel,
                     DateTimeView>("DateTime");

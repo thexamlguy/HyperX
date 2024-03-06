@@ -9,7 +9,7 @@ public class WidgetsComponent :
             .AddConfiguration<WidgetsConfiguration>(args =>
             {
                 args.Name = "Widgets";
-                args.Name = "Widgets board";
+                args.Description = "Widgets board";
                 args.Layouts =
                 [
                     new() {
@@ -41,7 +41,7 @@ public class WidgetsComponent :
                     }
                 ];
             })
-            .ConfigureServices(services =>
+            .AddServices(services =>
             {
                 services.AddViewModelTemplate<WidgetsViewModel,
                     WidgetsView>("Widgets");

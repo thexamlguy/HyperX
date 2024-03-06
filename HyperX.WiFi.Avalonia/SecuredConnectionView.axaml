@@ -9,7 +9,6 @@
         <EventTriggerBehavior EventName="Click">
             <NavigateAction
                 Name="ConnectionAuthentication"
-                Title="{Binding Name}"
                 Context="Root"
                 Scope="WiFiComponent" />
         </EventTriggerBehavior>

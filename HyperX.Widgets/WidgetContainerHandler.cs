@@ -26,16 +26,16 @@ public class WidgetContainerHandler(IPublisher publisher,
                             IServiceProvider? serviceProvider = 
                                 componentScopeProvider.Get(widget.Component);
 
-                            IViewModelTemplateProvider? viewModelTemplateProvider = 
-                                serviceProvider?.GetService<IViewModelTemplateProvider>();
+                            IViewModelTemplateDescriptorProvider? viewModelTemplateDescriptorProvider = 
+                                serviceProvider?.GetService<IViewModelTemplateDescriptorProvider>();
 
                             IViewModelTemplateDescriptor? viewModelTemplateDescriptor =
-                                viewModelTemplateProvider?.Get(widget.Name);
+                                viewModelTemplateDescriptorProvider?.Get(widget.Name);
 
-                            if (serviceFactory is not null && viewModelTemplateDescriptor is not null)
+                            if (viewModelTemplateDescriptor is not null)
                             {
                                 Dictionary<string, object> arguments = new(widget.Arguments,
-                                                       StringComparer.InvariantCultureIgnoreCase);
+                                    StringComparer.InvariantCultureIgnoreCase);
 
                                 object?[]? parameters = viewModelTemplateDescriptor.ViewModelType
                                     .GetConstructors()
@@ -47,7 +47,7 @@ public class WidgetContainerHandler(IPublisher publisher,
                                     .ToArray();
 
                                 if (serviceFactory.Create<WidgetContainerViewModel>(widget.Row, widget.Column,
-                                    widget.RowSpan, widget.ColumnSpan, viewModelTemplateDescriptor.GetViewModel(parameters))
+                                    widget.RowSpan, widget.ColumnSpan, widget.Component, widget.Name, parameters)
                                         is WidgetContainerViewModel widgetContainerViewModel)
                                 {
                                     await publisher.PublishUIAsync(new Create<WidgetContainerViewModel>(widgetContainerViewModel),

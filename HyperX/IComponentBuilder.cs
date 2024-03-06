@@ -9,5 +9,5 @@ public interface IComponentBuilder
 
     IComponentHost Build();
 
-    IComponentBuilder ConfigureServices(Action<IServiceCollection> configureDelegate);
+    IComponentBuilder AddServices(Action<IServiceCollection> configureDelegate);
 }

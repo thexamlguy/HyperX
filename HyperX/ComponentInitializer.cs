@@ -14,10 +14,13 @@ public class ComponentInitializer(IEnumerable<IComponent> components,
         foreach (IComponent component in components)
         {
             IComponentBuilder builder = component.Create();
-            builder.ConfigureServices(services =>
+            builder.AddServices(services =>
             {
                 services.AddTransient(_ => 
                     provider.GetRequiredService<IProxyService<IPublisher>>());
+
+                services.AddTransient(_ =>
+                    provider.GetRequiredService<IProxyService<IComponentHostCollection>>());
 
                 services.AddScoped(_ => 
                     provider.GetRequiredService<INavigationContextCollection>());

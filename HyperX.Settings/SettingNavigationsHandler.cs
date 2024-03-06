@@ -1,11 +1,24 @@
 ﻿namespace HyperX.Settings;
 
-public class SettingNavigationsHandler : 
-    INotificationHandler<Enumerate<INavigationViewModel>>
+public class SettingNavigationsHandler(IPublisher publisher,
+    IServiceFactory factory,
+    IProxyService<IComponentHostCollection> proxyHosts) : 
+    INotificationHandler<Enumerate<NavigationViewModel>>
 {
-    public Task Handle(Enumerate<INavigationViewModel> args,
+    public async Task Handle(Enumerate<NavigationViewModel> args,
         CancellationToken cancellationToken = default)
     {
-        return Task.CompletedTask;
+        if (proxyHosts.Proxy is IComponentHostCollection hosts)
+        {
+            foreach (IComponentHost host in hosts)
+            {
+                if (host.Configuration is ComponentConfiguration configuration)
+                {
+                    await publisher.PublishAsync(new Create<NavigationViewModel>(factory
+                        .Create<NavigationViewModel>(configuration.Name)),
+                            nameof(SettingsViewModel), cancellationToken);
+                }
+            }
+        }
     }
 }

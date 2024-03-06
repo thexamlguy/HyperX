@@ -6,9 +6,9 @@
     WindowState="FullScreen">
     <ContentControl x:Name="Window">
         <Interaction.Behaviors>
-            <EventTriggerBehavior EventName="Loaded">
+            <AttachedBehavior>
                 <NavigateAction Name="Main" Context="Window" />
-            </EventTriggerBehavior>
+            </AttachedBehavior>
         </Interaction.Behaviors>
     </ContentControl>
 </Window>

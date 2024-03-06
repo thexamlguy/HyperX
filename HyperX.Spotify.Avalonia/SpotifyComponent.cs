@@ -10,9 +10,12 @@ public class SpotifyComponent :
                 args.Name = "Spotify";
                 args.Description = "Spotify remote player";
             })
-            .ConfigureServices(services =>
+            .AddServices(services =>
             {
                 services.AddViewModelTemplate<NowPlaying,
                     NowPlayingView>("NowPlaying");
+
+                //services.AddConfigurationTemplate<ComponentConfigurationViewModel<SpotifyConfiguration, bool>,
+                //    NowPlayingView>();
             });
 }

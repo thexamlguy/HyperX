@@ -28,7 +28,7 @@ public static class IServiceCollectionExtensions
             {
                 services.AddSingleton(provider.GetRequiredService<IDispatcher>());
 
-                services.AddTransient<IViewModelTemplateProvider, ViewModelTemplateProvider>();
+                services.AddTransient<IViewModelTemplateDescriptorProvider, ViewModelTemplateDescriptorProvider>();
                 services.AddTransient<IViewModelTemplate, ViewModelTemplate>();
 
                 services.AddTransient<IViewModelContentBinder, ViewModelContentBinder>();

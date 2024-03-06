@@ -1,6 +1,6 @@
 ﻿namespace HyperX;
 
-public interface IViewModelTemplateProvider
+public interface IViewModelTemplateDescriptorProvider
 {
     IViewModelTemplateDescriptor? Get(object key);
 }

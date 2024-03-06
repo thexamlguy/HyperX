@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace HyperX;
 
@@ -8,6 +9,9 @@ public sealed class ComponentHost(IServiceProvider services,
     IComponentHost
 {
     public IServiceProvider Services => services;
+
+    public ComponentConfiguration? Configuration =>
+        Services.GetService<ComponentConfiguration>();
 
     public void Dispose()
     {

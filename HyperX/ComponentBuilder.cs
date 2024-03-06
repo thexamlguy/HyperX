@@ -68,6 +68,9 @@ public class ComponentBuilder :
 
         hostBuilder.ConfigureServices(services =>
         {
+            services.AddConfiguration<ComponentConfiguration>(section: configuration.GetType().Name,
+                configuration: configuration);
+
             services.AddConfiguration(configuration);
         });
 
@@ -80,7 +83,7 @@ public class ComponentBuilder :
         return host.Services.GetRequiredService<IComponentHost>();
     }
 
-    public IComponentBuilder ConfigureServices(Action<IServiceCollection> configureDelegate)
+    public IComponentBuilder AddServices(Action<IServiceCollection> configureDelegate)
     {
         hostBuilder.ConfigureServices(configureDelegate);
         return this;

@@ -1,43 +1,49 @@
-﻿namespace HyperX;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace HyperX;
 
 public class NavigationScope(IPublisher publisher,
+    IServiceProvider serviceProvider,
+    IServiceFactory serviceFactory,
     INavigationProvider navigationProvider,
     INavigationContextProvider navigationContextProvider,
-    IViewModelTemplateProvider viewModelTemplateProvider) : 
+    IViewModelTemplateDescriptorProvider viewModelTemplateProvider) : 
     INavigationScope
 {
     public async Task NavigateAsync(object key, object? sender, 
-        object? context, 
-        string? title, 
-        CancellationToken cancellationToken = default)
+        object? context, object[]? parameters = null, CancellationToken cancellationToken = default)
     {
         if (viewModelTemplateProvider.Get(key)
             is IViewModelTemplateDescriptor descriptor)
         {
-            if (descriptor.GetView() is object view && 
-                descriptor.GetViewModel() is object viewModel)
+            if (serviceProvider.GetRequiredKeyedService(descriptor.ViewType, key) is object view)
             {
-                if (context is not null)
+                if ((parameters is { Length: > 0 }
+                    ? serviceFactory.Create(descriptor.ViewModelType, parameters)
+                    : serviceProvider.GetRequiredKeyedService(descriptor.ViewModelType, key)) is object viewModel)
                 {
-                    if (navigationContextProvider.TryGet(context, out object? scopedContext))
+                    if (context is not null)
                     {
-                        context = scopedContext;
-                    }
-                }
-                else
-                {
-                    context = view;
-                }
-
-                if (context is not null)
-                {
-                    if (navigationProvider.Get(context is Type type ? type : context.GetType())
-                        is INavigation navigation)
-                    {
-                        Type navigateType = typeof(Navigate<>).MakeGenericType(navigation.Type);
-                        if (Activator.CreateInstance(navigateType, [context, view, viewModel, sender, title]) is object navigate)
+                        if (navigationContextProvider.TryGet(context, out object? scopedContext))
                         {
-                            await publisher.PublishAsync(navigate, cancellationToken);
+                            context = scopedContext;
+                        }
+                    }
+                    else
+                    {
+                        context = view;
+                    }
+
+                    if (context is not null)
+                    {
+                        if (navigationProvider.Get(context is Type type ? type : context.GetType())
+                            is INavigation navigation)
+                        {
+                            Type navigateType = typeof(Navigate<>).MakeGenericType(navigation.Type);
+                            if (Activator.CreateInstance(navigateType, [context, view, viewModel, sender, parameters]) is object navigate)
+                            {
+                                await publisher.PublishAsync(navigate, cancellationToken);
+                            }
                         }
                     }
                 }

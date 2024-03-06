@@ -5,6 +5,8 @@
     <NavigationView
         IsPaneToggleButtonVisible="False"
         IsSettingsVisible="False"
+        MenuItemTemplate="{Binding Template}"
+        MenuItemsSource="{Binding}"
         PaneDisplayMode="Left">
         <ContentControl
             x:Name="Settings"
