@@ -7,28 +7,28 @@ public class WiFiComponent :
         ComponentBuilder.Create()
             .AddServices(services =>
             {
-                services.AddViewModelTemplate<WiFiViewModel,
+                services.AddTemplate<WiFiViewModel,
                     WiFiView>("WiFi");
 
-                services.AddViewModelTemplate<ConnectedConnectionViewModel,
+                services.AddTemplate<ConnectedConnectionViewModel,
                     ConnectedConnectionView>();
 
-                services.AddViewModelTemplate<SecuredConnectionViewModel,
+                services.AddTemplate<SecuredConnectionViewModel,
                     SecuredConnectionView>();
 
-                services.AddViewModelTemplate<OpenConnectionViewModel,
+                services.AddTemplate<OpenConnectionViewModel,
                     OpenConnectionView>();
 
-                services.AddViewModelTemplate<ConnectionAuthenticationViewModel,
+                services.AddTemplate<ConnectionAuthenticationViewModel,
                     ConnectionAuthenticationView>("ConnectionAuthentication");
 
-                services.AddViewModelTemplate<ConnectionInformationViewModel,
+                services.AddTemplate<ConnectionInformationViewModel,
                     ConnectionInformationView>("ConnectionInformation");
 
-                services.AddViewModelTemplate<ConnectionPasswordViewModel,
+                services.AddTemplate<ConnectionPasswordViewModel,
                     ConnectionPasswordView>();
 
-                services.AddViewModelTemplate<ConnectViewModel,
+                services.AddTemplate<ConnectViewModel,
                     ConnectView>();
             });
 }

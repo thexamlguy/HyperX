@@ -37,12 +37,12 @@ public partial class App :
 
                 if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime)
                 {
-                    services.AddViewModelTemplate<MainWindowViewModel, MainWindow>("Shell");
+                    services.AddTemplate<MainWindowViewModel, MainWindow>("Shell");
                 }
 
-                services.AddViewModelTemplate<MainViewModel, MainView>("Main");
-                services.AddViewModelTemplate<BackButtonViewModel, BackButtonView>("Back");
-                services.AddViewModelTemplate<SettingsButtonViewModel, SettingsButtonView>("Settings");
+                services.AddTemplate<MainViewModel, MainView>("Main");
+                services.AddTemplate<BackButtonViewModel, BackButtonView>("Back");
+                services.AddTemplate<SettingsButtonViewModel, SettingsButtonView>("Settings");
             })
         .Build();
 

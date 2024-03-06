@@ -7,43 +7,43 @@ public class KeyboardComponent :
         ComponentBuilder.Create()
             .AddServices(services =>
             {
-                services.AddViewModelTemplate<KeyboardViewModel,
+                services.AddTemplate<KeyboardViewModel,
                     KeyboardView>();
 
-                services.AddViewModelTemplate<CharacterLayoutViewModel,
+                services.AddTemplate<CharacterLayoutViewModel,
                     CharacterLayoutView>();
 
-                services.AddViewModelTemplate<FunctionLayoutViewModel,
+                services.AddTemplate<FunctionLayoutViewModel,
                     FunctionLayoutView>();
 
-                services.AddViewModelTemplate<LowerCharacterLayoutViewModel,
+                services.AddTemplate<LowerCharacterLayoutViewModel,
                     LowerCharacterLayoutView>("LowerCharacterLayout");
 
-                services.AddViewModelTemplate<UpperCharacterLayoutViewModel,
+                services.AddTemplate<UpperCharacterLayoutViewModel,
                     UpperCharacterLayoutView>("UpperCharacterLayout");
 
-                services.AddViewModelTemplate<NumericalLayoutViewModel,
+                services.AddTemplate<NumericalLayoutViewModel,
                     NumericalLayoutView>();
 
-                services.AddViewModelTemplate<CharacterButtonViewModel,
+                services.AddTemplate<CharacterButtonViewModel,
                     CharacterButtonView>();
 
-                services.AddViewModelTemplate<ShiftButtonViewModel,
+                services.AddTemplate<ShiftButtonViewModel,
                     ShiftButtonView>();
 
-                services.AddViewModelTemplate<DeleteButtonViewModel,
+                services.AddTemplate<DeleteButtonViewModel,
                     DeleteButtonView>();
 
-                services.AddViewModelTemplate<SpaceButtonViewModel,
+                services.AddTemplate<SpaceButtonViewModel,
                     SpaceButtonView>();
 
-                services.AddViewModelTemplate<PreviousButtonViewModel,
+                services.AddTemplate<PreviousButtonViewModel,
                     PreviousButtonView>();
 
-                services.AddViewModelTemplate<NextButtonViewModel,
+                services.AddTemplate<NextButtonViewModel,
                     NextButtonView>();
 
-                services.AddViewModelTemplate<EnterButtonViewModel,
+                services.AddTemplate<EnterButtonViewModel,
                     EnterButtonView>();
             });
 }

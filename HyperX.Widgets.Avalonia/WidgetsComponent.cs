@@ -43,13 +43,13 @@ public class WidgetsComponent :
             })
             .AddServices(services =>
             {
-                services.AddViewModelTemplate<WidgetsViewModel,
+                services.AddTemplate<WidgetsViewModel,
                     WidgetsView>("Widgets");
 
-                services.AddViewModelTemplate<WidgetLayoutViewModel,
+                services.AddTemplate<WidgetLayoutViewModel,
                     WidgetLayoutView>();
 
-                services.AddViewModelTemplate<WidgetContainerViewModel,
+                services.AddTemplate<WidgetContainerViewModel,
                     WidgetContainerView>();
 
                 services.AddHandler<WidgetLayoutHandler>();

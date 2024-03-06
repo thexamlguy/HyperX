@@ -11,4 +11,7 @@
 		<ProjectReference Include="..\HyperX.UI.Controls.Avalonia\HyperX.UI.Controls.Avalonia.csproj" />
 		<ProjectReference Include="..\HyperX\HyperX.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="ToggleConfigurationView.axaml" />
+	</ItemGroup>
 </Project>

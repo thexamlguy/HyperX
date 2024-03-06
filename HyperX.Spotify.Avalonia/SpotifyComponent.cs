@@ -1,4 +1,6 @@
-﻿namespace HyperX.Spotify.Avalonia;
+﻿using HyperX.Avalonia;
+
+namespace HyperX.Spotify.Avalonia;
 
 public class SpotifyComponent : 
     IComponent
@@ -8,14 +10,14 @@ public class SpotifyComponent :
             .AddConfiguration<SpotifyConfiguration>(args => 
             {
                 args.Name = "Spotify";
-                args.Description = "Spotify remote player";
+                args.Description = "Spotify remote";
             })
             .AddServices(services =>
             {
-                services.AddViewModelTemplate<NowPlaying,
+                services.AddTemplate<NowPlaying,
                     NowPlayingView>("NowPlaying");
 
-                //services.AddConfigurationTemplate<ComponentConfigurationViewModel<SpotifyConfiguration, bool>,
-                //    NowPlayingView>();
+                services.AddConfigurationTemplate<ComponentConfigurationViewModel<SpotifyConfiguration, bool>,
+                    ToggleConfigurationView>("Account", "Spotify Account", "Connect to your Spotify account");
             });
 }

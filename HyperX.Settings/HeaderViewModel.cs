@@ -1,6 +1,6 @@
 ﻿namespace HyperX.Settings;
 
-public partial class SettingHeaderViewModel(IServiceProvider serviceProvider,
+public partial class HeaderViewModel(IServiceProvider serviceProvider,
     IServiceFactory serviceFactory,
     IPublisher publisher,
     ISubscriber subscriber,

@@ -7,7 +7,7 @@ public partial class SettingsViewModel(IServiceProvider serviceProvider,
     ISubscriber subscriber,
     IDisposer disposer,
     IViewModelTemplate template) :
-    ObservableCollectionViewModel<NavigationViewModel>(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+    ObservableCollectionViewModel<INavigationViewModel>(serviceProvider, serviceFactory, publisher, subscriber, disposer)
 {
     public IViewModelTemplate Template => template;
 }

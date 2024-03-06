@@ -9,9 +9,18 @@
 		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.0.9.2" />
 	</ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\HyperX.Avalonia\HyperX.Avalonia.csproj" />
 		<ProjectReference Include="..\HyperX.UI.Avalonia\HyperX.UI.Avalonia.csproj" />
 		<ProjectReference Include="..\HyperX.UI.Controls.Avalonia\HyperX.UI.Controls.Avalonia.csproj" />
 		<ProjectReference Include="..\HyperX.Settings\HyperX.Settings.csproj" />
 		<ProjectReference Include="..\HyperX\HyperX.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="ComponentNavigationView.axaml.cs">
+	    <DependentUpon>ComponentNavigationView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="HeaderView.axaml.cs">
+	    <DependentUpon>HeaderView.axaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 </Project>

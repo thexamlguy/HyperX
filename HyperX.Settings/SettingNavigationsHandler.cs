@@ -3,9 +3,9 @@
 public class SettingNavigationsHandler(IPublisher publisher,
     IServiceFactory factory,
     IProxyService<IComponentHostCollection> proxyHosts) : 
-    INotificationHandler<Enumerate<NavigationViewModel>>
+    INotificationHandler<Enumerate<INavigationViewModel>>
 {
-    public async Task Handle(Enumerate<NavigationViewModel> args,
+    public async Task Handle(Enumerate<INavigationViewModel> args,
         CancellationToken cancellationToken = default)
     {
         if (proxyHosts.Proxy is IComponentHostCollection hosts)
@@ -14,8 +14,8 @@ public class SettingNavigationsHandler(IPublisher publisher,
             {
                 if (host.Configuration is ComponentConfiguration configuration)
                 {
-                    await publisher.PublishAsync(new Create<NavigationViewModel>(factory
-                        .Create<NavigationViewModel>(configuration.Name)),
+                    await publisher.PublishAsync(new Create<INavigationViewModel>(factory
+                        .Create<ComponentNavigationViewModel>(configuration.Name)),
                             nameof(SettingsViewModel), cancellationToken);
                 }
             }

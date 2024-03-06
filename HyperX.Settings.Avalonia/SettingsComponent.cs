@@ -8,14 +8,17 @@ public class SettingsComponent :
         return ComponentBuilder.Create()
             .AddServices(services =>
             {
-                services.AddViewModelTemplate<SettingsViewModel,
+                services.AddTemplate<ComponentNavigationViewModel,
+                    ComponentNavigationView>();
+
+                services.AddTemplate<HeaderViewModel,
+                    HeaderView>("Header");
+
+                services.AddTemplate<SettingsViewModel,
                     SettingsView>("Settings");
 
-                services.AddViewModelTemplate<SettingHeaderViewModel,
-                    SettingHeaderView>("Header");
-
-                services.AddViewModelTemplate<NavigationViewModel,
-                    SettingsNavigationView>();
+                services.AddTemplate<ComponentViewModel,
+                    ComponentView>("Component");
 
                 services.AddHandler<SettingNavigationsHandler>();
             });

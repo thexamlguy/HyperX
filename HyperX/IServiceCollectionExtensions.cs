@@ -123,7 +123,7 @@ public static class IServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddViewModelTemplate<TViewModel, TView>(this IServiceCollection services,
+    public static IServiceCollection AddTemplate<TViewModel, TView>(this IServiceCollection services,
         object? key = null,
         params object[]? parameters)
     {

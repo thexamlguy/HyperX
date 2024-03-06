@@ -7,7 +7,7 @@ public class ReolinkComponent :
         ComponentBuilder.Create()
             .AddServices(services =>
             {
-                services.AddViewModelTemplate<LiveViewModel,
+                services.AddTemplate<LiveViewModel,
                     LiveView>("Live");
             });
 }
