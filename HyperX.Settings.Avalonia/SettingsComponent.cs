@@ -20,7 +20,9 @@ public class SettingsComponent :
                 services.AddTemplate<ComponentViewModel,
                     ComponentView>("Component");
 
-                services.AddHandler<SettingNavigationsHandler>();
+                services.AddHandler<SettingsHandler>();
+
+                services.AddHandler<ComponentHandler>();
             });
     }
 }

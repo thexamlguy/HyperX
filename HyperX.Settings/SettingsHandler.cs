@@ -1,6 +1,6 @@
 ﻿namespace HyperX.Settings;
 
-public class SettingNavigationsHandler(IPublisher publisher,
+public class SettingsHandler(IPublisher publisher,
     IServiceFactory factory,
     IProxyService<IComponentHostCollection> proxyHosts) : 
     INotificationHandler<Enumerate<INavigationViewModel>>
