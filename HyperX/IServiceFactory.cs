@@ -2,8 +2,7 @@
 
 public interface IServiceFactory
 {
-    object Create(Type type,
-        params object?[] parameters);
+    object Create(Type type, params object?[]? parameters);
 
-    TService Create<TService>(params object?[] parameters);
+    TService Create<TService>(params object?[]? parameters);
 }

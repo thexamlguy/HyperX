@@ -34,6 +34,8 @@ public class WidgetContainerHandler(IPublisher publisher,
 
                             if (viewModelTemplateDescriptor is not null)
                             {
+                                IServiceFactory? componentServiceFactory = serviceProvider?.GetService<IServiceFactory>();
+
                                 Dictionary<string, object> arguments = new(widget.Arguments,
                                     StringComparer.InvariantCultureIgnoreCase);
 
@@ -46,13 +48,17 @@ public class WidgetContainerHandler(IPublisher publisher,
                                     .Where(argument => argument != null)
                                     .ToArray();
 
-                                if (serviceFactory.Create<WidgetContainerViewModel>(widget.Row, widget.Column,
-                                    widget.RowSpan, widget.ColumnSpan, widget.Component, widget.Name, parameters)
-                                        is WidgetContainerViewModel widgetContainerViewModel)
+                                if (componentServiceFactory?.Create(viewModelTemplateDescriptor.ViewModelType, parameters) 
+                                    is object viewModel)
                                 {
-                                    await publisher.PublishUIAsync(new Create<WidgetContainerViewModel>(widgetContainerViewModel),
-                                        args.Key, cancellationToken);
-                                }                             
+                                    if (serviceFactory.Create<WidgetContainerViewModel>(widget.Row, widget.Column,
+                                        widget.RowSpan, widget.ColumnSpan, viewModel)
+                                        is WidgetContainerViewModel widgetContainerViewModel)
+                                    {
+                                        await publisher.PublishUIAsync(new Create<WidgetContainerViewModel>(widgetContainerViewModel),
+                                            args.Key, cancellationToken);
+                                    }
+                                }                           
                             }
                         }
                     }

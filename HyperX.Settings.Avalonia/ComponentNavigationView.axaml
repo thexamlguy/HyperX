@@ -8,7 +8,9 @@
             <NavigateAction
                 Name="Component"
                 Context="Settings"
-                Scope="SettingsComponent" />
+                Scope="SettingsComponent">
+                <ParameterBinding Key="foo" Value="foo" />
+            </NavigateAction>
         </EventTriggerBehavior>
     </Interaction.Behaviors>
 </NavigationViewItem>
