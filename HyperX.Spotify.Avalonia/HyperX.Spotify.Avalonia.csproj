@@ -21,6 +21,9 @@
 		<ProjectReference Include="..\HyperX\HyperX.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Update="AddConnectionView.axaml.cs">
+	    <DependentUpon>AddConnectionView.axaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="NowPlayingView.axaml.cs">
 	    <DependentUpon>NowPlayingView.axaml</DependentUpon>
 	  </Compile>

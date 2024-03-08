@@ -1,8 +1,9 @@
 ﻿namespace HyperX.Spotify;
 
-public class NowPlaying : ObservableViewModel
+public class NowPlayingViewModel : 
+    ObservableViewModel
 {
-    public NowPlaying(IServiceProvider serviceProvider, 
+    public NowPlayingViewModel(IServiceProvider serviceProvider, 
         IServiceFactory serviceFactory,
         IPublisher publisher,
         ISubscriber subscriber, 

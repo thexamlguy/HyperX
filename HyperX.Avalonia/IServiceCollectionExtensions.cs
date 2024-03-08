@@ -89,6 +89,7 @@ public static class IServiceCollectionExtensions
         services.AddNavigateHandler<SingleViewApplicationHandler>();
         services.AddNavigateHandler<ContentControlHandler>();
         services.AddNavigateHandler<FrameHandler>();
+        services.AddNavigateHandler<ContentDialogHandler>();
 
         services.AddScoped<INavigationContextCollection, NavigationContextCollection>(provider => new NavigationContextCollection
         {
@@ -108,6 +109,7 @@ public static class IServiceCollectionExtensions
 
                 services.AddNavigateHandler<ContentControlHandler>();
                 services.AddNavigateHandler<FrameHandler>();
+                services.AddNavigateHandler<ContentDialogHandler>();
             })));
 
         return services;

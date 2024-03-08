@@ -16,8 +16,11 @@ public class SpotifyComponent :
             })
             .AddServices(services =>
             {
-                services.AddTemplate<NowPlaying,
+                services.AddTemplate<NowPlayingViewModel,
                     NowPlayingView>("NowPlaying");
+
+                services.AddTemplate<AddConnectionViewModel,
+                    AddConnectionView>("AddConnection");
 
                 services.AddComponentConfigurationTemplate<SpotifyConfiguration, bool, ConnectionButtonView>(args => args.IsConnected, 
                     "Spotify Account",  "Connect to your Spotify account");
