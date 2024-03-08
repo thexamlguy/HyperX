@@ -5,6 +5,11 @@ public class WiFiComponent :
 {
     public IComponentBuilder Create() =>
         ComponentBuilder.Create()
+            .AddConfiguration<WiFiConfiguration>(args =>
+            {
+                args.Name = "WiFi";
+                args.Description = "Manage WiFi connections";
+            })
             .AddServices(services =>
             {
                 services.AddTemplate<WiFiViewModel,
