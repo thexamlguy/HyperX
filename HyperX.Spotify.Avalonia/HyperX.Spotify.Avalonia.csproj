@@ -25,4 +25,7 @@
 	    <DependentUpon>NowPlayingView.axaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="ConnectionButtonView.axaml" />
+	</ItemGroup>
 </Project>
