@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace HyperX.Avalonia
 {
-    public partial class ToggleConfigurationView : UserControl
+    public partial class ComponentConfigurationView : UserControl
     {
-        public ToggleConfigurationView()
+        public ComponentConfigurationView()
         {
             InitializeComponent();
         }

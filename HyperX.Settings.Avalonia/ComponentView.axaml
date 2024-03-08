@@ -7,4 +7,5 @@
             <InvokeCommandAction Command="{Binding InitializeCommand}" />
         </EventTriggerBehavior>
     </Interaction.Behaviors>
+    <ItemsControl ItemTemplate="{Binding Template}" ItemsSource="{Binding}" />
 </UserControl>

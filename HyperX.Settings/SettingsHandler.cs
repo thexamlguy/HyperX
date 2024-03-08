@@ -1,21 +1,23 @@
-﻿namespace HyperX.Settings;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace HyperX.Settings;
 
 public class SettingsHandler(IPublisher publisher,
     IServiceFactory factory,
-    IProxyService<IComponentHostCollection> proxyHosts) : 
+    IComponentScopeCollection scopes) :
     INotificationHandler<Enumerate<INavigationViewModel>>
 {
     public async Task Handle(Enumerate<INavigationViewModel> args,
         CancellationToken cancellationToken = default)
     {
-        if (proxyHosts.Proxy is IComponentHostCollection hosts)
+        foreach (KeyValuePair<string, IServiceProvider> scope in scopes)
         {
-            foreach (IComponentHost host in hosts)
+            if (scope.Value is IServiceProvider serviceProvider)
             {
-                if (host.Configuration is ComponentConfiguration configuration)
+                if (serviceProvider.GetService<ComponentConfiguration>() is ComponentConfiguration configuration)
                 {
                     await publisher.PublishAsync(new Create<INavigationViewModel>(factory
-                        .Create<ComponentNavigationViewModel>(configuration.Name)),
+                        .Create<ComponentNavigationViewModel>(configuration.Name, scope.Key)),
                             nameof(SettingsViewModel), cancellationToken);
                 }
             }

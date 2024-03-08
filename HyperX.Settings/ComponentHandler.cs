@@ -1,12 +1,24 @@
-﻿namespace HyperX.Settings;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-public class ComponentHandler(IEnumerable<IComponentConfigurationViewModel> viewModels) :
+namespace HyperX.Settings;
+
+public class ComponentHandler(IPublisher publisher,
+    IComponentScopeProvider componentScopeProvider) :
     INotificationHandler<Enumerate<IComponentConfigurationViewModel>>
 {
-    public Task Handle(Enumerate<IComponentConfigurationViewModel> args, 
+    public async Task Handle(Enumerate<IComponentConfigurationViewModel> args, 
         CancellationToken cancellationToken = default)
     {
-        var d = viewModels;
-        throw new NotImplementedException();
+        if (componentScopeProvider.Get($"{args.Key}") is IServiceProvider serviceProvider)
+        {
+            if (serviceProvider.GetService<IEnumerable<IComponentConfigurationViewModel>>() 
+                is IEnumerable<IComponentConfigurationViewModel> viewModels)
+            {
+                foreach (IComponentConfigurationViewModel viewModel in viewModels)
+                {
+                    await publisher.PublishUIAsync(new Create<IComponentConfigurationViewModel>(viewModel), args.Key);
+                }
+            }
+        }
     }
 }

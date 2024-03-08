@@ -3,6 +3,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Metadata;
 using Avalonia.Xaml.Interactivity;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace HyperX.UI.Avalonia;
 
@@ -61,16 +62,18 @@ public class NavigateAction :
     {
         if (sender is TemplatedControl control)
         {
-            
-            foreach (ParameterBinding binding in ParameterBindings)
-            {
-                var d = binding.Value;
-            }
+            Dictionary<string, object> arguments = 
+                new(StringComparer.InvariantCultureIgnoreCase);
 
             if (control.DataContext is IObservableViewModel observableViewModel)
             {
+                object[] parameters = [.. Parameters ?? Enumerable.Empty<object?>(), ..
+                    ParameterBindings is { Count: > 0 } ?
+                    ParameterBindings.Select(binding => new KeyValuePair<string, object>(binding.Key, binding.Value)).ToArray() :
+                    Enumerable.Empty<KeyValuePair<string, object>>()];
+
                 observableViewModel.Publisher.PublishAsync(new Navigate(Name, Context 
-                    ?? null, Scope ?? null, control.DataContext, Parameters)).GetAwaiter().GetResult();
+                    ?? null, Scope ?? null, control.DataContext, parameters)).GetAwaiter().GetResult();
             }
         }
 

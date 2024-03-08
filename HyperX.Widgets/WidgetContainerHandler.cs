@@ -34,21 +34,21 @@ public class WidgetContainerHandler(IPublisher publisher,
 
                             if (viewModelTemplateDescriptor is not null)
                             {
-                                IServiceFactory? componentServiceFactory = serviceProvider?.GetService<IServiceFactory>();
+                                IServiceFactory? componentServiceFactory = 
+                                    serviceProvider?.GetService<IServiceFactory>();
 
                                 Dictionary<string, object> arguments = new(widget.Arguments,
                                     StringComparer.InvariantCultureIgnoreCase);
 
-                                object?[]? parameters = viewModelTemplateDescriptor.ViewModelType
-                                    .GetConstructors()
-                                    .FirstOrDefault()?
-                                    .GetParameters()
-                                    .Select(parameter => parameter?.Name != null && arguments
-                                        .TryGetValue(parameter.Name, out object? argument) ? argument : default)
-                                    .Where(argument => argument != null)
-                                    .ToArray();
+                                IEnumerable<object?>? mappedParameters = viewModelTemplateDescriptor.ViewModelType
+                                     .GetConstructors()
+                                     .FirstOrDefault()?
+                                     .GetParameters()
+                                     .Select(parameter => parameter?.Name != null && arguments
+                                         .TryGetValue(parameter.Name, out object? argument) ? argument : default)
+                                     .Where(argument => argument != null);
 
-                                if (componentServiceFactory?.Create(viewModelTemplateDescriptor.ViewModelType, parameters) 
+                                if (componentServiceFactory?.Create(viewModelTemplateDescriptor.ViewModelType, [.. mappedParameters ?? Enumerable.Empty<object?>()]) 
                                     is object viewModel)
                                 {
                                     if (serviceFactory.Create<WidgetContainerViewModel>(widget.Row, widget.Column,

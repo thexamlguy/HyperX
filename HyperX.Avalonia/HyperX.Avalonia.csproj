@@ -12,6 +12,6 @@
 		<ProjectReference Include="..\HyperX\HyperX.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <UpToDateCheckInput Remove="ToggleConfigurationView.axaml" />
+	  <UpToDateCheckInput Remove="ComponentConfigurationView.axaml" />
 	</ItemGroup>
 </Project>

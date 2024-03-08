@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileProviders.Physical;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.Text.Json;
 
 namespace HyperX;
@@ -132,37 +133,20 @@ public static class IServiceCollectionExtensions
 
         key ??= viewModelType.Name.Replace("ViewModel", "");
 
-        services.AddTransient(viewModelType);
+        services.AddTransient(viewModelType, provider => 
+            provider.GetRequiredService<IServiceFactory>().Create<TViewModel>(parameters)!);
+
         services.AddTransient(viewType);
 
-        services.AddKeyedTransient(viewModelType, key);
+        services.AddKeyedTransient(viewModelType, key, (provider, key) =>
+            provider.GetRequiredService<IServiceFactory>().Create<TViewModel>(parameters)!);
+
         services.AddKeyedTransient(viewType, key);
 
         services.AddTransient<IViewModelTemplateDescriptor>(provider => 
             new ViewModelTemplateDescriptor(key, viewModelType, viewType, parameters));
 
         return services;
-    }
-
-    public static IServiceCollection AddConfigurationTemplate<TViewModel, TView>(this IServiceCollection services,
-        object? key = null, 
-        params object[]? parameters)
-        {
-            Type viewModelType = typeof(TViewModel);
-            Type viewType = typeof(TView);
-
-            key ??= viewModelType.Name.Replace("ViewModel", "");
-
-            services.AddTransient(typeof(IComponentConfigurationViewModel), viewModelType);
-            services.AddTransient(viewType);
-
-            services.AddKeyedTransient(typeof(IComponentConfigurationViewModel), key, viewModelType);
-            services.AddKeyedTransient(viewType, key);
-
-            services.AddTransient<IViewModelTemplateDescriptor>(provider =>
-                new ViewModelTemplateDescriptor(key, viewModelType, viewType, parameters));
-
-            return services;
     }
 
     public static IServiceCollection AddHandler<THandler>(

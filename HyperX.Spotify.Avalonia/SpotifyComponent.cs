@@ -1,4 +1,5 @@
-﻿using HyperX.Avalonia;
+﻿using Avalonia.Controls.Primitives;
+using HyperX.Avalonia;
 
 namespace HyperX.Spotify.Avalonia;
 
@@ -17,7 +18,7 @@ public class SpotifyComponent :
                 services.AddTemplate<NowPlaying,
                     NowPlayingView>("NowPlaying");
 
-                services.AddConfigurationTemplate<ComponentConfigurationViewModel<SpotifyConfiguration, bool>,
-                    ToggleConfigurationView>("Account", "Spotify Account", "Connect to your Spotify account");
+                services.AddComponentConfigurationTemplate<SpotifyConfiguration, bool, ToggleButton>(args => args.IsConnected, 
+                    "Spotify Account",  "Connect to your Spotify account");
             });
 }

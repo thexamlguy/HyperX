@@ -9,7 +9,7 @@
                 Name="Component"
                 Context="Settings"
                 Scope="SettingsComponent">
-                <ParameterBinding Key="foo" Value="foo" />
+                <ParameterBinding Key="Component" Value="{Binding Component}" />
             </NavigateAction>
         </EventTriggerBehavior>
     </Interaction.Behaviors>
