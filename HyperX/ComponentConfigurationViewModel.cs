@@ -1,4 +1,6 @@
-﻿namespace HyperX;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace HyperX;
 
 public interface IComponentConfigurationViewModel
 {
@@ -24,20 +26,25 @@ public partial class ComponentConfigurationViewModel<TConfiguration, TValue, THe
     }
 }
 
-public partial class ComponentConfigurationViewModel<TConfiguration, TValue, TAction> :
-    ValueViewModel<TValue>,
+public partial class ComponentConfigurationViewModel<TConfiguration, TValue, TAction>(IServiceProvider serviceProvider,
+    IServiceFactory serviceFactory,
+    IPublisher publisher,
+    ISubscriber subscriber,
+    IDisposer disposer,
+    TAction action,
+    Func<TConfiguration, TValue> valueDelegate,
+    object header,
+    object description) :
+    ValueViewModel<TValue>(serviceProvider, serviceFactory, publisher, subscriber, disposer),
     IComponentConfigurationViewModel
     where TConfiguration : class
 {
-    public ComponentConfigurationViewModel(IServiceProvider serviceProvider,
-        IServiceFactory serviceFactory,
-        IPublisher publisher,
-        ISubscriber subscriber,
-        IDisposer disposer,
-        Func<TConfiguration, TValue> valueDelegate,
-        object header,
-        object description) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
-    {
+    [ObservableProperty]
+    private TAction action = action;
 
-    }
+    [ObservableProperty]
+    private object header = header;
+
+    [ObservableProperty]
+    private object description = description;
 }

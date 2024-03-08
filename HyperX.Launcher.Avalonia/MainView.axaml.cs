@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using HyperX.UI.Controls.Avalonia;
 using HyperX.UI.Windows;
 
 namespace HyperX.Launcher.Avalonia;
