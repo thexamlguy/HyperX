@@ -11,28 +11,85 @@
             <ControlTemplate>
                 <Grid x:Name="Container" Background="{TemplateBinding Background}">
                     <Border HorizontalAlignment="Left">
-                        <ContentControl />
+                        <controls:CarouselViewItem />
                     </Border>
                     <Border HorizontalAlignment="Left">
-                        <ContentControl />
+                        <controls:CarouselViewItem />
                     </Border>
                     <Border HorizontalAlignment="Left">
-                        <ContentControl />
+                        <controls:CarouselViewItem />
                     </Border>
                     <Border HorizontalAlignment="Left">
-                        <ContentControl />
+                        <controls:CarouselViewItem />
                     </Border>
                     <Border HorizontalAlignment="Left">
-                        <ContentControl />
+                        <controls:CarouselViewItem />
                     </Border>
                     <Rectangle
                         x:Name="Indicator"
                         Width="10"
                         Height="10"
-                        VerticalAlignment="Top"
-                        Fill="Red" />
+                        VerticalAlignment="Top" />
                 </Grid>
             </ControlTemplate>
         </Setter>
+    </ControlTheme>
+    <ControlTheme x:Key="{x:Type controls:CarouselViewItem}" TargetType="controls:CarouselViewItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ContentPresenter
+                    x:Name="Content"
+                    Content="{TemplateBinding Content}"
+                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                    FontFamily="{StaticResource ContentControlThemeFontFamily}"
+                    FontSize="{StaticResource ControlContentThemeFontSize}"
+                    Foreground="{TemplateBinding Foreground}" />
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:selected /template/ ContentPresenter#Content">
+            <Style.Animations>
+                <Animation FillMode="Forward" Duration="00:00:00.500">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="0.4" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="1.0" />
+                    </KeyFrame>
+                </Animation>
+                <Animation FillMode="Forward" Duration="00:00:00.500">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="ScaleTransform.ScaleX" Value="0.9" />
+                        <Setter Property="ScaleTransform.ScaleY" Value="0.9" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%" KeySpline="0,0 0,1">
+                        <Setter Property="ScaleTransform.ScaleX" Value="1.0" />
+                        <Setter Property="ScaleTransform.ScaleY" Value="1.0" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="^:not(:selected) /template/ ContentPresenter#Content">
+            <Style.Animations>
+                <Animation FillMode="Forward" Duration="00:00:00.500">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="1.0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="0.4" />
+                    </KeyFrame>
+                </Animation>
+                <Animation FillMode="Forward" Duration="00:00:00.500">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="ScaleTransform.ScaleX" Value="1.0" />
+                        <Setter Property="ScaleTransform.ScaleY" Value="1.0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%" KeySpline="0,0 0,1">
+                        <Setter Property="ScaleTransform.ScaleX" Value="0.9" />
+                        <Setter Property="ScaleTransform.ScaleY" Value="0.9" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
     </ControlTheme>
 </ResourceDictionary>

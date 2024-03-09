@@ -6,11 +6,8 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Rendering.Composition;
 using Avalonia.Rendering.Composition.Animations;
-using Avalonia.Threading;
 using System.Collections.Specialized;
 using System.Numerics;
-using Avalonia;
-using Vector = Avalonia.Vector;
 
 namespace HyperX.UI.Controls.Avalonia;
 
@@ -47,7 +44,7 @@ public class CarouselView :
             items = container.Children.OfType<Border>().ToList();
             foreach (Border item in items)
             {
-                if (item.Child is ContentControl contentControl)
+                if (item.Child is CarouselViewItem contentControl)
                 {
                     contentControl.ContentTemplate = ItemTemplate;
                 }
@@ -186,10 +183,10 @@ public class CarouselView :
 
             foreach (Border item in items)
             {
-                if (item.Child is ContentControl contentControl)
+                if (item.Child is CarouselViewItem content)
                 {
-                    contentControl.Width = targetSize;
-                    contentControl.Height = targetSize;
+                    content.Width = targetSize;
+                    content.Height = targetSize;
                 }
 
                 item.Width = targetSize;
@@ -304,9 +301,10 @@ public class CarouselView :
                     index = 0;
                 }
 
-                if (items[indexOffsets[i]] is Border border && border.Child is ContentControl contentControl)
+                if (items[indexOffsets[i]] is Border border && border.Child is CarouselViewItem content)
                 {
-                    contentControl.Content = ItemsView[index];
+                    content.Content = ItemsView[index];
+                    content.SetSelected(indexOffsets.Length / 2 == i);
                 }
             }
         }
