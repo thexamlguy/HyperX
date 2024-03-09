@@ -1,6 +1,4 @@
-﻿using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
-using HyperX.Avalonia;
+﻿using HyperX.Avalonia;
 
 namespace HyperX.Spotify.Avalonia;
 

@@ -10,6 +10,7 @@ public class ContentDialogHandler(IViewModelContentBinder binder) :
     {
         if (args.Context is ContentDialog contentDialog)
         {
+            contentDialog.DataContext = args.ViewModel;
             await contentDialog.ShowAsync();
         }
     }

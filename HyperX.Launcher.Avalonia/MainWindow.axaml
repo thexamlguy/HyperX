@@ -2,8 +2,8 @@
     x:Class="HyperX.Launcher.Avalonia.MainWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    SystemDecorations="None"
-    WindowState="FullScreen">
+    Width="1024"
+    Height="600">
     <ContentControl x:Name="Window">
         <Interaction.Behaviors>
             <AttachedBehavior>

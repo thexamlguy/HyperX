@@ -40,7 +40,7 @@
                         <VisualLayerManager IsPopup="True">
                             <LayoutTransformControl>
                                 <LayoutTransformControl.LayoutTransform>
-                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+                                    <ScaleTransform ScaleX="1.4" ScaleY="1.4" />
                                 </LayoutTransformControl.LayoutTransform>
                                 <ContentPresenter
                                     Name="PART_ContentPresenter"
@@ -60,5 +60,7 @@
         <FontFamily x:Key="SymbolFontFamily">avares://HyperX.Launcher.Avalonia/Assets/SegoeIcons.ttf#Segoe Fluent Icons</FontFamily>
         <StaticResource x:Key="TextControlBackground" ResourceKey="ControlFillColorTransparentBrush" />
         <StaticResource x:Key="TextControlBackgroundPointerOver" ResourceKey="ControlFillColorTransparentBrush" />
+        <x:Double x:Key="SettingsExpanderItemAdaptiveWidthTrigger">0</x:Double>
+        <Thickness x:Key="SettingsExpanderItemBottomFooterMargin">0,8,0,0</Thickness>
     </Application.Resources>
 </Application>

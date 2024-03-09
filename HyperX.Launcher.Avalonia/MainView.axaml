@@ -5,7 +5,7 @@
     xmlns:qr="clr-namespace:Avalonia.Labs.Qr;assembly=Avalonia.Labs.Qr">
     <LayoutTransformControl>
         <LayoutTransformControl.LayoutTransform>
-            <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+            <ScaleTransform ScaleX="1.4" ScaleY="1.4" />
         </LayoutTransformControl.LayoutTransform>
         <Grid RowDefinitions="84,24,*,48">
             <FastRendererBackground Grid.Row="0" Grid.RowSpan="4" />

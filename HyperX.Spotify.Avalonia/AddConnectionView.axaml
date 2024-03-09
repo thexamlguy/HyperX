@@ -4,14 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Connect to your Spotify account"
     CloseButtonText="Cancel">
-    <StackPanel Width="500" Spacing="18">
+    <StackPanel Width="400" Spacing="18">
         <TextBlock Text="Scan the QR code below using your mobile or tablet device to set up your Spotify account." TextWrapping="Wrap" />
         <QrCode
-            Width="250"
-            Height="250"
+            Width="192"
+            Height="192"
             Background="{DynamicResource TextFillColorPrimaryBrush}"
             CornerRadius="{DynamicResource OverlayCornerRadius}"
-            Data="I'm a very long text that you might find somewhere as a link or something else.  It's rendered with smooth edges and gradients for the foreground and background"
+            Data="{Binding Code}"
             Foreground="{DynamicResource TextFillColorInverseBrush}" />
     </StackPanel>
 </ContentDialog>

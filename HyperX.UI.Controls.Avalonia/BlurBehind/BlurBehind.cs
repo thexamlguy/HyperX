@@ -72,7 +72,6 @@ public class BlurBehind :
 
         public bool HitTest(Point point) => bounds.Contains(point);
 
-
         public void Render(ImmediateDrawingContext context)
         {
             if (context.TryGetFeature<ISkiaSharpApiLeaseFeature>() is ISkiaSharpApiLeaseFeature  leaseFeature)
@@ -92,13 +91,13 @@ public class BlurBehind :
                                 new SKImageInfo((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height),
                                     SKImageInfo.PlatformColorType, SKAlphaType.Premul));
 
-                            using (SKImageFilter filter = SKImageFilter.CreateBlur(6, 6, SKShaderTileMode.Clamp))
+                            using (SKImageFilter filter = SKImageFilter.CreateBlur(8, 8, SKShaderTileMode.Clamp))
                             using (SKPaint blurPaint = new() { Shader = backdropShader, ImageFilter = filter }) 
                                 blurred.Canvas.DrawRect(5, 5, (float)bounds.Width - 20, (float)bounds.Height - 20, blurPaint);
 
                             using SKImage blurSnap = blurred.Snapshot();
                             using SKShader blurSnapShader = SKShader.CreateImage(blurSnap);
-                            using SKPaint blurSnapPaint = new SKPaint
+                            using SKPaint blurSnapPaint = new()
                             {
                                 Shader = blurSnapShader,
                                 IsAntialias = true

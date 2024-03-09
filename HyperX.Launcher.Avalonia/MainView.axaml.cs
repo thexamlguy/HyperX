@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Media;
 using HyperX.UI.Controls.Avalonia;
 using HyperX.UI.Windows;
 
