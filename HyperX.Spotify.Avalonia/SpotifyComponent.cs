@@ -21,8 +21,6 @@ public class SpotifyComponent :
 
                 services.AddTemplate<AddConnectionViewModel,
                     AddConnectionView>("AddConnection");
-
-                services.AddComponentConfigurationTemplate<SpotifyConfiguration, bool, ConnectionButtonView>(args => args.IsConnected, 
-                    "Spotify Account",  "Connect to your Spotify account");
             });
+
 }

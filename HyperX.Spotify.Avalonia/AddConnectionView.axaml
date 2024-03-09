@@ -2,5 +2,16 @@
     x:Class="HyperX.Spotify.Avalonia.AddConnectionView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Connect to Spotify"
-    CloseButtonText="Cancel" />
+    Title="Connect to your Spotify account"
+    CloseButtonText="Cancel">
+    <StackPanel Width="500" Spacing="18">
+        <TextBlock Text="Scan the QR code below using your mobile or tablet device to set up your Spotify account." TextWrapping="Wrap" />
+        <QrCode
+            Width="250"
+            Height="250"
+            Background="{DynamicResource TextFillColorPrimaryBrush}"
+            CornerRadius="{DynamicResource OverlayCornerRadius}"
+            Data="I'm a very long text that you might find somewhere as a link or something else.  It's rendered with smooth edges and gradients for the foreground and background"
+            Foreground="{DynamicResource TextFillColorInverseBrush}" />
+    </StackPanel>
+</ContentDialog>
