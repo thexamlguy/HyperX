@@ -1,0 +1,10 @@
+<UserControl
+    x:Class="HyperX.Spotify.Avalonia.NowPlayingArtistView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <TextBlock
+        FontWeight="SemiLight"
+        Opacity="0.6"
+        Text="{Binding Value}"
+        Theme="{DynamicResource CaptionTextBlockStyle}" />
+</UserControl>

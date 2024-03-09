@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace HyperX.Spotify.Avalonia;
 
-public partial class ConnectionButtonView : 
+public partial class SkipPreviousButtonView : 
     UserControl
 {
-    public ConnectionButtonView() => 
+    public SkipPreviousButtonView() => 
         InitializeComponent();
 }

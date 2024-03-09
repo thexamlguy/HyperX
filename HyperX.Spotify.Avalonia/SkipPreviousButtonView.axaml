@@ -1,21 +1,22 @@
 <UserControl
-    x:Class="HyperX.Launcher.Avalonia.BackButtonView"
+    x:Class="HyperX.Spotify.Avalonia.SkipPreviousButtonView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Button
+        Grid.Column="1"
         Width="{DynamicResource ButtonWidth}"
         Height="{DynamicResource ButtonHeight}"
         Padding="{DynamicResource ButtonPadding}"
-        Content="&#xE72B;"
+        Content="&#xE622;"
         CornerRadius="{DynamicResource ButtonCornerRadius}"
-        FontFamily="{DynamicResource SymbolFontFamily}">
+        FontFamily="{DynamicResource SymbolFontFamily}"
+        FontSize="12">
         <Button.Resources>
             <ResourceDictionary>
-                <x:Double x:Key="ButtonHeight">42</x:Double>
-                <x:Double x:Key="ButtonWidth">42</x:Double>
+                <x:Double x:Key="ButtonHeight">36</x:Double>
+                <x:Double x:Key="ButtonWidth">36</x:Double>
                 <Thickness x:Key="ButtonPadding">0</Thickness>
                 <CornerRadius x:Key="ButtonCornerRadius">44</CornerRadius>
-                <StaticResource x:Key="ButtonBackground" ResourceKey="ControlFillColorTransparentBrush" />
                 <StaticResource x:Key="ButtonBorderBrush" ResourceKey="ControlFillColorTransparentBrush" />
             </ResourceDictionary>
         </Button.Resources>

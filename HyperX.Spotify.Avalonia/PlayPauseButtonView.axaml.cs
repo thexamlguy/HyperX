@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace HyperX.Spotify.Avalonia;
 
-public partial class ConnectionButtonView : 
+public partial class PlayPauseButtonView : 
     UserControl
 {
-    public ConnectionButtonView() => 
+    public PlayPauseButtonView() => 
         InitializeComponent();
 }

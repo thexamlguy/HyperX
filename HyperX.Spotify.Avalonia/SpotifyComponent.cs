@@ -17,6 +17,21 @@ public class SpotifyComponent :
                 services.AddTemplate<NowPlayingViewModel,
                     NowPlayingView>("NowPlaying");
 
+                services.AddTemplate<NowPlayingTrackViewModel,
+                    NowPlayingTrackView>("NowPlayingTrack");
+
+                services.AddTemplate<NowPlayingArtistViewModel,
+                    NowPlayingArtistView>("NowPlayingArtist");
+
+                services.AddTemplate<SkipPreviousButtonViewModel,
+                    SkipPreviousButtonView>("SkipPreviousButton");
+
+                services.AddTemplate<PlayPauseButtonViewModel,
+                    PlayPauseButtonView>("PlayPauseButton");
+
+                services.AddTemplate<SkipNextButtonViewModel,
+                    SkipNextButtonView>("SkipNextButton");
+
                 services.AddTemplate<AddConnectionViewModel,
                     AddConnectionView>("AddConnection");
 

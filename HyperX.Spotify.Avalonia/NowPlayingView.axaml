@@ -2,8 +2,8 @@
     x:Class="HyperX.Spotify.Avalonia.NowPlayingView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid Background="{DynamicResource SubtleFillColorSecondary}">
-        <Rectangle  Effect="blur(60)">
+    <Grid>
+        <Rectangle Effect="blur(60)">
             <Rectangle.Fill>
                 <VisualBrush
                     AlignmentX="Left"
@@ -11,7 +11,7 @@
                     Visual="{Binding #Image}" />
             </Rectangle.Fill>
         </Rectangle>
-        <Grid RowDefinitions="*,Auto">
+        <Grid RowDefinitions="*,12,Auto,Auto,12,Auto,12">
             <Border
                 Grid.Row="0"
                 Margin="0,24,0,0"
@@ -24,35 +24,62 @@
                     Source="avares://HyperX.Spotify.Avalonia/Assets/mbid-a5ea66ca-8a47-4dd2-b2d4-bc467a72c280-27232009759.jpg"
                     Stretch="Uniform" />
             </Border>
-            <Grid
-                Grid.Row="1"
-                Margin="12"
-                ColumnDefinitions="*,Auto,*">
-                <Button
-                    Grid.Column="1"
-                    Width="{DynamicResource ButtonWidth}"
-                    Height="{DynamicResource ButtonHeight}"
-                    Padding="{DynamicResource ButtonPadding}"
-                    Content="&#xE72B;"
-                    CornerRadius="{DynamicResource ButtonCornerRadius}"
-                    FontFamily="{DynamicResource SymbolFontFamily}">
-                    <Button.Resources>
-                        <ResourceDictionary>
-                            <x:Double x:Key="ButtonHeight">44</x:Double>
-                            <x:Double x:Key="ButtonWidth">44</x:Double>
-                            <Thickness x:Key="ButtonPadding">0</Thickness>
-                            <CornerRadius x:Key="ButtonCornerRadius">44</CornerRadius>
-                            <StaticResource x:Key="ButtonBackground" ResourceKey="ControlFillColorTransparentBrush" />
-                            <StaticResource x:Key="ButtonBorderBrush" ResourceKey="ControlFillColorTransparentBrush" />
-                        </ResourceDictionary>
-                    </Button.Resources>
+            <ContentControl Grid.Row="2" HorizontalAlignment="Center">
+                <Interaction.Behaviors>
+                    <AttachedBehavior>
+                        <NavigateAction
+                            Name="NowPlayingTrack"
+                            Context="{Binding $self}"
+                            Scope="SpotifyComponent" />
+                    </AttachedBehavior>
+                </Interaction.Behaviors>
+            </ContentControl>
+            <ContentControl Grid.Row="3" HorizontalAlignment="Center">
+                <Interaction.Behaviors>
+                    <AttachedBehavior>
+                        <NavigateAction
+                            Name="NowPlayingArtist"
+                            Context="{Binding $self}"
+                            Scope="SpotifyComponent" />
+                    </AttachedBehavior>
+                </Interaction.Behaviors>
+            </ContentControl>
+            <StackPanel
+                Grid.Row="5"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="4">
+                <ContentControl>
                     <Interaction.Behaviors>
-                        <EventTriggerBehavior EventName="Click">
-                            <NavigateBackAction Context="Root" />
-                        </EventTriggerBehavior>
+                        <AttachedBehavior>
+                            <NavigateAction
+                                Name="SkipPreviousButton"
+                                Context="{Binding $self}"
+                                Scope="SpotifyComponent" />
+                        </AttachedBehavior>
                     </Interaction.Behaviors>
-                </Button>
-            </Grid>
+                </ContentControl>
+                <ContentControl>
+                    <Interaction.Behaviors>
+                        <AttachedBehavior>
+                            <NavigateAction
+                                Name="PlayPauseButton"
+                                Context="{Binding $self}"
+                                Scope="SpotifyComponent" />
+                        </AttachedBehavior>
+                    </Interaction.Behaviors>
+                </ContentControl>
+                <ContentControl>
+                    <Interaction.Behaviors>
+                        <AttachedBehavior>
+                            <NavigateAction
+                                Name="SkipNextButton"
+                                Context="{Binding $self}"
+                                Scope="SpotifyComponent" />
+                        </AttachedBehavior>
+                    </Interaction.Behaviors>
+                </ContentControl>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>
