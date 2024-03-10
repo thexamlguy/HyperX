@@ -2,9 +2,9 @@
 
 public class PlayHandler(IHttpClientFactory factory, 
     IPublisher publisher) :
-    INotificationHandler<Spotify<Play>>
+    INotificationHandler<Request<Play>>
 {
-    public async Task Handle(Spotify<Play> args,
+    public async Task Handle(Request<Play> args,
         CancellationToken cancellationToken = default)
     {
         if (factory.CreateClient("Spotify") is HttpClient client)
@@ -14,7 +14,7 @@ public class PlayHandler(IHttpClientFactory factory,
 
             if (response.IsSuccessStatusCode)
             {
-                await publisher.PublishUIAsync(new Spotify<Playing>(), 
+                await publisher.PublishUIAsync(new Request<Playing>(), 
                     cancellationToken);
             }
         }

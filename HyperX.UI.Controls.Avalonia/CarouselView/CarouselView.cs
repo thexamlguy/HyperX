@@ -14,11 +14,11 @@ namespace HyperX.UI.Controls.Avalonia;
 public class CarouselView :
     ItemsControl
 {
-    private readonly TimeSpan animationDuration = TimeSpan.FromMilliseconds(200);
+    private readonly TimeSpan animationDuration = TimeSpan.FromMilliseconds(500);
     private readonly List<ExpressionAnimation> animations = [];
     private readonly int columnCount = 5;
     private readonly List<CompositionVisual> itemVisuals = [];
-    private readonly ScopedBatchHelper scopedBatch = new ScopedBatchHelper();
+    private readonly ScopedBatchHelper scopedBatch = new();
     private readonly double spacing = 12;
     private Compositor? compositor;
     private Grid? container;
@@ -143,7 +143,7 @@ public class CarouselView :
             isPressed = false;
 
             double itemWidth = items[0].Bounds.Width;
-            double threshold = itemWidth / 2;
+            double threshold = itemWidth / 3;
 
             int oldSelectedIndex = newIndex;
             double offset = indicatorVisual.Offset.X;
@@ -233,6 +233,7 @@ public class CarouselView :
                 indicatorAnimation.InsertKeyFrame(1.0f, finalOffset);
                 indicatorAnimation.Duration = animationDuration;
                 indicatorAnimation.StopBehavior = AnimationStopBehavior.LeaveCurrentValue;
+                SetItems();
 
                 scopedBatch.Completed += () =>
                 {
@@ -242,7 +243,6 @@ public class CarouselView :
                         itemVisuals[(newIndex + i - 2 + columnCount) % columnCount].Offset =
                             new Vector3((float)(offsets[i] - centreOffset), 0, 0);
 
-                        SetItems();
                     }
                 };
                 

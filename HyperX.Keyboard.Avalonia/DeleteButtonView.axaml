@@ -5,7 +5,7 @@
     <RepeatButton
         Width="{DynamicResource ButtonWidth}"
         Height="{DynamicResource ButtonHeight}"
-        Command="{Binding ClickCommand}"
+        Command="{Binding InvokeCommand}"
         Content="&#xE750;"
         Focusable="False"
         FontFamily="{DynamicResource SymbolFontFamily}" />

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spotify Authorization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-top: 0;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div id="error" class="hidden">
+            <h1>Error</h1>
+            <p>Authorization was not successful. Please try again.</p>
+        </div>
+        <div id="success" class="hidden">
+            <h1>Success</h1>
+            <p>Authorization was successful. You can now close this page and return to your app.</p>
+        </div>
+    </main>
+
+    <script>
+        function getUrlParams(string, delimiter) {
+            const start = string.indexOf(delimiter);
+            if (start === -1) return null;
+            const params = {};
+            string.slice(start + 1).split("&").forEach(param => {
+                const [key, val] = param.split("=");
+                params[key] = decodeURIComponent(val);
+            });
+            return params;
+        }
+
+        function handleGrant(type) {
+            const locationValue = type === "#" ? window.location.hash : window.location.search;
+            const params = getUrlParams(locationValue, type === "#" ? "#" : "?");
+            if (!params) return;
+            params.request_type = type === "#" ? "token" : "code";
+            alert("");
+            fetch(`?${new URLSearchParams(params).toString()}`, { method: "POST" });
+        }
+
+        ["#", "?"].forEach(type => handleGrant(type));
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const [errorContainer, successContainer] = ["#error", "#success"].map(selector => document.querySelector(selector));
+            const params = new URLSearchParams(window.location.search);
+            params.has("error") ? errorContainer.classList.remove("hidden") : successContainer.classList.remove("hidden");
+        });
+    </script>
+</body>
+</html>

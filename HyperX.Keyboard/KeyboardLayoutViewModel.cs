@@ -5,4 +5,4 @@ public class KeyboardLayoutViewModel(IServiceProvider serviceProvider,
     IPublisher publisher,
     ISubscriber subscriber,
     IDisposer disposer) :
-    ObservableCollectionViewModel<KeyboardButtonViewModel>(serviceProvider, serviceFactory, publisher, subscriber, disposer);
+    ObservableCollectionViewModel<CommandViewModel>(serviceProvider, serviceFactory, publisher, subscriber, disposer);

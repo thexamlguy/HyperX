@@ -1,13 +1,12 @@
 ﻿namespace HyperX.Spotify;
 
-public partial class PlayPauseButtonViewModel :
-    ObservableViewModel
+public partial class PlayPauseButtonViewModel(IServiceProvider serviceProvider,
+    IServiceFactory serviceFactory,
+    IPublisher publisher,
+    ISubscriber subscriber,
+    IDisposer disposer) :
+    CommandValueViewModel<bool>(serviceProvider, serviceFactory, publisher, subscriber, disposer)
 {
-    public PlayPauseButtonViewModel(IServiceProvider serviceProvider,
-        IServiceFactory serviceFactory, 
-        IPublisher publisher, 
-        ISubscriber subscriber,
-        IDisposer disposer) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
-    {
-    }
+    protected override async Task InvokeAsync() =>
+        await Publisher.PublishUIAsync(new Request<Play>());
 }

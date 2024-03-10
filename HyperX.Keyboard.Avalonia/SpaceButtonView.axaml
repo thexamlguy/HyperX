@@ -5,6 +5,6 @@
     <Button
         Height="{DynamicResource ButtonHeight}"
         HorizontalAlignment="Stretch"
-        Command="{Binding ClickCommand}"
+        Command="{Binding InvokeCommand}"
         Focusable="False" />
 </UserControl>

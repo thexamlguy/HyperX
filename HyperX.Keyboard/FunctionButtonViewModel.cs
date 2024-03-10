@@ -1,10 +1,9 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace HyperX.Keyboard;
 
 public partial class FunctionButtonViewModel :
-    KeyboardButtonViewModel
+    CommandViewModel
 {
     private readonly Func<Task>? function;
 
@@ -33,7 +32,7 @@ public partial class FunctionButtonViewModel :
         Column = column;
     }
 
-    protected override async Task OnClickAsync()
+    protected override async Task InvokeAsync()
     {
         if (function is not null)
         {

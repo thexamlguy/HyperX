@@ -1,9 +1,9 @@
 ﻿namespace HyperX.Spotify;
 
 public class ConnectHandler :
-    INotificationHandler<Spotify<Connect>>
+    INotificationHandler<Request<Connect>>
 {
-    public Task Handle(Spotify<Connect> args, 
+    public Task Handle(Request<Connect> args, 
         CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();

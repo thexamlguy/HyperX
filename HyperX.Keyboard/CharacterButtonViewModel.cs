@@ -8,11 +8,11 @@ public partial class CharacterButtonViewModel(IServiceProvider serviceProvider,
     ISubscriber subscriber,
     IDisposer disposer,
     char character) :
-    KeyboardButtonViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+    CommandViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer)
 {
     [ObservableProperty]
     private char character = character;
 
-    protected override async Task OnClickAsync() =>
+    protected override async Task InvokeAsync() =>
         await Publisher.PublishUIAsync(new Keyboard<char>(Character));
 }

@@ -1,17 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 
-namespace HyperX.Keyboard;
+namespace HyperX;
 
-public partial class KeyboardButtonViewModel(IServiceProvider serviceProvider,
+public partial class CommandViewModel(IServiceProvider serviceProvider,
     IServiceFactory serviceFactory,
     IPublisher publisher,
     ISubscriber subscriber,
     IDisposer disposer) :
     ObservableViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer)
 {
-    public IRelayCommand ClickCommand => 
-        new AsyncRelayCommand(OnClickAsync);
+    public IRelayCommand InvokeCommand => 
+        new AsyncRelayCommand(InvokeAsync);
 
-    protected virtual Task OnClickAsync() => 
+    protected virtual Task InvokeAsync() => 
         Task.CompletedTask;
 }

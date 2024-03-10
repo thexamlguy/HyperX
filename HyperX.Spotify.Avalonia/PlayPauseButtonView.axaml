@@ -7,6 +7,7 @@
         Width="{DynamicResource ButtonWidth}"
         Height="{DynamicResource ButtonHeight}"
         Padding="{DynamicResource ButtonPadding}"
+        Command="{Binding InvokeCommand}"
         Content="&#xF5B0;"
         CornerRadius="{DynamicResource ButtonCornerRadius}"
         FontFamily="{DynamicResource SymbolFontFamily}"

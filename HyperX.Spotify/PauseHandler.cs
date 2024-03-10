@@ -1,9 +1,9 @@
 ﻿namespace HyperX.Spotify;
 
 public class PauseHandler(IHttpClientFactory factory) :
-    INotificationHandler<Spotify<Play>>
+    INotificationHandler<Request<Play>>
 {
-    public async Task Handle(Spotify<Play> args,
+    public async Task Handle(Request<Play> args,
         CancellationToken cancellationToken = default)
     {
         if (factory.CreateClient("Spotify") is HttpClient client)

@@ -1,4 +1,5 @@
 ﻿using HyperX.Avalonia;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HyperX.Spotify.Avalonia;
 
@@ -7,13 +8,22 @@ public class SpotifyComponent :
 {
     public IComponentBuilder Create() =>
         ComponentBuilder.Create()
-            .AddConfiguration<SpotifyConfiguration>(args => 
+            .AddConfiguration<SpotifyConfiguration>(args =>
             {
                 args.Name = "Spotify";
-                args.Description = "Spotify remote";
+                args.Description = "Spotify remote player";
+                args.AuthenticationUrl = "https://accounts.spotify.com/authorize";
+                args.AccountUrl = "https://accounts.spotify.com/api/";
+                args.CallbackUrl = "http://localhost:5543/callback";
+                args.ClientId = "f944e321fb164a2ba7f64d742e73dc6d";
+                args.ClientSecret = "229e8651f62a4dec8487367a7cdf20c8";
+                args.Port = 5543;
             })
             .AddServices(services =>
             {
+                services.AddTransient<IChallengeFactory, ChallengeFactory>();
+                services.AddTransient<IVerifierFactory, VerifierFactory>();
+
                 services.AddTemplate<NowPlayingViewModel,
                     NowPlayingView>("NowPlaying");
 
@@ -35,8 +45,13 @@ public class SpotifyComponent :
                 services.AddTemplate<AddConnectionViewModel,
                     AddConnectionView>("AddConnection");
 
-                services.AddComponentConfigurationTemplate<SpotifyConfiguration, bool, ConnectionButtonView>(args => args.IsConnected, 
-                    "Spotify Account",  "Connect to your Spotify account");
+                services.AddComponentConfigurationTemplate<SpotifyConfiguration, bool, ConnectionButtonView>(args => args.IsConnected,
+                    "Spotify Account", "Connect to your Spotify account");
+
+                services.AddHandler<AuthorizationHandler>();
+                services.AddHandler<PlayHandler>();
+
+                services.AddSpotify();
             });
 
 }

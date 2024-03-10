@@ -5,8 +5,15 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Assets\Authorization\index.html" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="Assets\Authorization\index.html" />
+	</ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="EmbedIO" Version="3.5.2" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0-preview.1.24080.9" />
+		<PackageReference Include="Spotify.NetStandard" Version="2.1.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\HyperX\HyperX.csproj" />
