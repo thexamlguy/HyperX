@@ -9,6 +9,11 @@ public static class IServiceCollectionExtensions
 {
     public static IServiceCollection AddSpotify(this IServiceCollection services)
     {
+        services.AddHandler<AuthenticationHandler>();
+        services.AddHandler<AccessTokenHandler>();
+
+        services.AddHandler<PlayHandler>();
+
         services.AddHttpClient("Account", (provider, args) =>
         {
             SpotifyConfiguration configuration = provider.GetRequiredService<SpotifyConfiguration>();

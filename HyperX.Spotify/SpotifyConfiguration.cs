@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace HyperX.Spotify;
+﻿namespace HyperX.Spotify;
 
 public record SpotifyConfiguration : 
     ComponentConfiguration

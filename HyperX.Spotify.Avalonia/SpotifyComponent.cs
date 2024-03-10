@@ -48,9 +48,6 @@ public class SpotifyComponent :
                 services.AddComponentConfigurationTemplate<SpotifyConfiguration, bool, ConnectionButtonView>(args => args.IsConnected,
                     "Spotify Account", "Connect to your Spotify account");
 
-                services.AddHandler<AuthorizationHandler>();
-                services.AddHandler<PlayHandler>();
-
                 services.AddSpotify();
             });
 
