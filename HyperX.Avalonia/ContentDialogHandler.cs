@@ -41,7 +41,7 @@ public class ContentDialogHandler :
                     if (content is IInitializer initializer)
                     {
                         // A hack to wait for the dialog to finish loading up to make it appear more responsive
-                        await Task.Delay(250);
+                        await Task.Delay(250, cancellationToken);
                         await initializer.Initialize();
                     }
                 }
