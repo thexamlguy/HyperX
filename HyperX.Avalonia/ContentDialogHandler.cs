@@ -2,7 +2,7 @@
 
 namespace HyperX.Avalonia;
 
-public class ContentDialogHandler : 
+public class ContentDialogHandler(IDispatcher dispatcher) : 
     INavigateHandler<ContentDialog>
 {
     public async Task Handle(Navigate<ContentDialog> args,
@@ -41,10 +41,10 @@ public class ContentDialogHandler :
                 {
                     if (content is IDeactivatable deactivatable)
                     {
-                        void DeactivateHandler(object? sender, EventArgs args)
+                        async void DeactivateHandler(object? sender, EventArgs args)
                         {
                             deactivatable.DeactivateHandler -= DeactivateHandler;
-                            contentDialog.Hide();
+                            await dispatcher.InvokeAsync(contentDialog.Hide);
                         }
 
                         deactivatable.DeactivateHandler += DeactivateHandler;
