@@ -6,7 +6,10 @@ public class ObservableViewModel :
     ObservableObject,
     IObservableViewModel,
     IInitializer,
-    IActivated
+    IActivated,
+    IDeactivating,
+    IDeactivated,
+    IDeactivatable
 {
     private bool isInitialized;
 
@@ -24,6 +27,8 @@ public class ObservableViewModel :
         subscriber.Add(this);
     }
 
+    public event EventHandler? DeactivateHandler;
+
     public IDisposer Disposer { get; }
 
     public IPublisher Publisher { get; }
@@ -33,6 +38,18 @@ public class ObservableViewModel :
     public IServiceProvider ServiceProvider { get; }
 
     public virtual Task Activated() =>
+        Task.CompletedTask;
+
+    public Task Deactivate()
+    {
+        DeactivateHandler?.Invoke(this, new EventArgs());
+        return Task.CompletedTask;
+    }
+
+    public virtual Task Deactivated() =>
+        Task.CompletedTask;
+
+    public virtual Task Deactivating() =>
         Task.CompletedTask;
 
     public void Dispose()

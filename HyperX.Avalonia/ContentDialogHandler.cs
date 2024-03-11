@@ -10,7 +10,8 @@ public class ContentDialogHandler :
     {
         if (args.Context is ContentDialog contentDialog)
         {
-            contentDialog.DataContext = args.Content;    
+            contentDialog.DataContext = args.Content;
+
             async void HandleClosing(FluentAvalonia.UI.Controls.ContentDialog sender,
                  FluentAvalonia.UI.Controls.ContentDialogClosingEventArgs args)
             {
@@ -37,7 +38,18 @@ public class ContentDialogHandler :
             {
                 contentDialog.Opened -= HandleOpened;
                 if (contentDialog.DataContext is object content)
-                {                        
+                {
+                    if (content is IDeactivatable deactivatable)
+                    {
+                        void DeactivateHandler(object? sender, EventArgs args)
+                        {
+                            deactivatable.DeactivateHandler -= DeactivateHandler;
+                            contentDialog.Hide();
+                        }
+
+                        deactivatable.DeactivateHandler += DeactivateHandler;
+                    }
+
                     // A hack to wait for the dialog to finish loading up to make it appear more responsive
                     await Task.Delay(250, cancellationToken);
 
@@ -48,7 +60,6 @@ public class ContentDialogHandler :
 
                     if (content is IActivated activated)
                     {           
-
                         await activated.Activated();
                     }
                 }

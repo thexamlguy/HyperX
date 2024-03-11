@@ -17,11 +17,8 @@ public partial class AddConnectionViewModel(IServiceProvider serviceProvider,
         CancellationToken cancellationToken = default) => 
             Task.FromResult(Code = args.Value);
 
-    public Task Handle(Authentication<bool> args, 
-        CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
+    public Task Handle(Authentication<bool> args,
+        CancellationToken cancellationToken = default) => Deactivate();
 
     [ObservableProperty]
     private string? code;

@@ -10,6 +10,9 @@ public partial class ObservableCollectionViewModel<TViewModel> :
     IObservableCollectionViewModel<TViewModel>,
     IInitializer,
     IActivated,
+    IDeactivating,
+    IDeactivated,
+    IDeactivatable,
     IList<TViewModel>,
     IList,
     IReadOnlyList<TViewModel>,
@@ -42,7 +45,7 @@ public partial class ObservableCollectionViewModel<TViewModel> :
         collection.CollectionChanged += OnCollectionChanged;
     }
 
-    public ObservableCollectionViewModel(IServiceProvider serviceProvider, 
+    public ObservableCollectionViewModel(IServiceProvider serviceProvider,
         IServiceFactory serviceFactory,
         IPublisher publisher,
         ISubscriber subscriber,
@@ -61,6 +64,8 @@ public partial class ObservableCollectionViewModel<TViewModel> :
     }
 
     public event NotifyCollectionChangedEventHandler? CollectionChanged;
+
+    public event EventHandler? DeactivateHandler;
 
     public int Count => collection.Count;
 
@@ -197,6 +202,18 @@ public partial class ObservableCollectionViewModel<TViewModel> :
     void ICollection.CopyTo(Array array, int index) =>
         collection.CopyTo((TViewModel[])array, index);
 
+    public Task Deactivate()
+    {
+        DeactivateHandler?.Invoke(this, new EventArgs());
+        return Task.CompletedTask;
+    }
+
+    public virtual Task Deactivated() =>
+        Task.CompletedTask;
+
+    public virtual Task Deactivating() =>
+        Task.CompletedTask;
+
     public virtual void Dispose()
     {
         GC.SuppressFinalize(this);
@@ -290,6 +307,7 @@ public partial class ObservableCollectionViewModel<TViewModel> :
 
         await Publisher.PublishUI(new Enumerate<TViewModel>(key));
     }
+
     public void Insert(int index, TViewModel item) =>
         InsertItem(index, item);
 

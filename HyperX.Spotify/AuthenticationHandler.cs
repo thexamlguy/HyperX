@@ -20,6 +20,9 @@ public class AuthenticationHandler(IPublisher publisher,
     public async Task Handle(Authentication args,
         CancellationToken cancellationToken = default)
     {
+        await publisher.Publish(Authentication.Create(true),
+                 cancellationToken);
+
         TaskCompletionSource taskCompletionSource = new(cancellationToken);
 
         string scope = "user-read-private user-read-email";
