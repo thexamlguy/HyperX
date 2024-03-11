@@ -44,7 +44,10 @@ public static class IServiceCollectionExtensions
     }
 
     public static IServiceCollection AddComponentConfigurationTemplate<TConfiguration, TValue, TAction>(this IServiceCollection services,
-        Func<TConfiguration, TValue> valueDelegate, object header, object description, params object[]? parameters)
+        Func<TConfiguration, TValue> valueDelegate, 
+        object header, 
+        object description, 
+        params object[]? parameters)
         where TConfiguration : class
         where TAction : class
     {
@@ -77,6 +80,44 @@ public static class IServiceCollectionExtensions
         return services;
     }
 
+    public static IServiceCollection AddComponentConfigurationTemplate<TConfiguration, TValue, 
+        TDescription, TAction>(this IServiceCollection services,
+        Func<TConfiguration, TValue> valueDelegate,
+        object description,
+        params object[]? parameters)
+        where TConfiguration : class
+        where TDescription : class
+        where TAction : class
+    {
+        Type viewModelType = typeof(ComponentConfigurationViewModel<TConfiguration, TValue, TDescription, TAction>);
+        Type viewType = typeof(ComponentConfigurationView);
+
+        object key = viewModelType.Name.Replace("ViewModel", "");
+
+        parameters = [valueDelegate, description, .. parameters ?? Enumerable.Empty<object?>()];
+
+        services.AddTransient<IComponentConfigurationViewModel,
+            ComponentConfigurationViewModel<TConfiguration, TValue, TDescription, TAction>>(provider =>
+            provider.GetRequiredService<IServiceFactory>()
+                .Create<ComponentConfigurationViewModel<TConfiguration, TValue, TDescription, TAction>>(parameters)!);
+
+        services.TryAddTransient(viewType);
+
+        services.AddKeyedTransient<IComponentConfigurationViewModel,
+            ComponentConfigurationViewModel<TConfiguration, TValue, TDescription, TAction>>(key, (provider, key) =>
+            provider.GetRequiredService<IServiceFactory>()
+                .Create<ComponentConfigurationViewModel<TConfiguration, TValue, TDescription, TAction>>(parameters)!);
+
+        services.TryAddKeyedTransient(viewType, key);
+
+        services.AddTransient<IContentTemplateDescriptor>(provider =>
+            new ContentTemplateDescriptor(key, viewModelType, viewType, parameters));
+
+        services.TryAddTransient<TDescription>();
+        services.TryAddTransient<TAction>();
+
+        return services;
+    }
 
     public static IServiceCollection AddAvalonia(this IServiceCollection services)
     {

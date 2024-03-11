@@ -28,7 +28,7 @@ public class ConfigurationSource<TConfiguration>(IConfigurationFile<TConfigurati
         };
     });
 
-    public void Set(TConfiguration value) => Set(value);
+    public void Set(TConfiguration value) => Set((object)value);
 
     public void Set(object value)
     {

@@ -1,6 +1,7 @@
 ﻿using EmbedIO;
 using EmbedIO.Actions;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Json;
 using System.Net.Sockets;
@@ -41,7 +42,8 @@ public class AuthenticationHandler(IPublisher publisher,
         string url = $"{configuration.AuthenticationUrl}?response_type=code&client_id={configuration.ClientId}&scope={scope}" +
             $"&redirect_uri={callbackUrl}&state={challenge}";
 
-        await publisher.Publish(Authentication.Create(url), 
+        Debug.WriteLine(url);
+        await publisher.Publish(Authentication.Create(url),
             cancellationToken);
 
         using WebServer? server = new WebServer(configuration.Port)
@@ -53,7 +55,7 @@ public class AuthenticationHandler(IPublisher publisher,
                 await publisher.Publish(Authentication.Create(false),
                   cancellationToken);
             }
-           
+
             if (query["request_type"] is string requestType)
             {
                 if (requestType == "code")
@@ -79,18 +81,18 @@ public class AuthenticationHandler(IPublisher publisher,
                         if (await response.Content.ReadFromJsonAsync<AuthorizationCodeToken>()
                             is AuthorizationCodeToken result)
                         {
-                            await publisher.Publish(Authentication.Create(true), 
+                            await publisher.Publish(Authentication.Create(true),
                                 cancellationToken);
 
-                            await publisher.Publish(Authentication.Create(new AccessToken(result.AccessToken, 
+                            await publisher.Publish(Authentication.Create(new AccessToken(result.AccessToken,
                                 result.RefreshToken)), cancellationToken);
                         }
                     }
                 }
             }
-            
-            taskCompletionSource.SetResult();
+
             await args.SendStringAsync("OK", "text/plain", Encoding.UTF8);
+            taskCompletionSource.SetResult();
 
         })).WithEmbeddedResources(callbackPath, Assembly.GetExecutingAssembly(), "HyperX.Spotify.Assets.Authorization");
 

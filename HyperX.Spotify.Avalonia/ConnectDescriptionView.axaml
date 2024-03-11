@@ -1,0 +1,9 @@
+<UserControl
+    x:Class="HyperX.Spotify.Avalonia.ConnectDescriptionView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <TextBlock IsVisible="{Binding !Value}" Text="Connect to your Spotify account." />
+        <TextBlock IsVisible="{Binding Value}" Text="Remove connection to your Spotify account." />
+    </Grid>
+</UserControl>

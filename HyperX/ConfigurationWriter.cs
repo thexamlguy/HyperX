@@ -7,10 +7,13 @@ public class ConfigurationWriter<TConfiguration>(IConfigurationSource<TConfigura
 {
     public void Write(Action<TConfiguration> updateDelegate)
     {
-        if (source.TryGet(out TConfiguration? value) is TConfiguration updatedValue)
+        if (source.TryGet(out TConfiguration? value))
         {
-            updateDelegate?.Invoke(updatedValue);
-            Write(updatedValue);
+            if (value is not null)
+            {
+                updateDelegate?.Invoke(value);
+                Write(value);
+            }
         }
     }
 
