@@ -8,12 +8,12 @@ public partial class WidgetLayoutViewModel(IServiceProvider serviceProvider,
     IPublisher publisher,
     ISubscriber subscriber, 
     IDisposer disposer,
-    IViewModelTemplate template,
+    IContentTemplate template,
     string id) : 
     ObservableCollectionViewModel<WidgetContainerViewModel>(serviceProvider, serviceFactory, publisher, subscriber, disposer)
 {
     [ObservableProperty]
     private string id = id;
 
-    public IViewModelTemplate Template => template;
+    public IContentTemplate Template => template;
 }

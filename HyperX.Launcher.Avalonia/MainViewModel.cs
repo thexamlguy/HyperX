@@ -7,8 +7,8 @@ public partial class MainViewModel(IServiceProvider serviceProvider,
     IPublisher publisher,
     ISubscriber subscriber,
     IDisposer disposer,
-    IViewModelTemplate template) :
+    IContentTemplate template) :
     ObservableCollectionViewModel<IDisposable>(serviceProvider, serviceFactory, publisher, subscriber, disposer)
 {
-    public IViewModelTemplate Template => template;
+    public IContentTemplate Template => template;
 }

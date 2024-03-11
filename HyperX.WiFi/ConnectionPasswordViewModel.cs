@@ -7,9 +7,9 @@ public class ConnectionPasswordViewModel(IServiceProvider serviceProvider,
     ISubscriber subscriber,
     IDisposer disposer) :
     ValueViewModel<string>(serviceProvider, serviceFactory, publisher, subscriber, disposer),
-    INavigatedTo<string>
+    INavigated<string>
 {
-    [NavigationParameter("Input")]
-    public Task NavigatedToAsync(string result) =>
+    [NavigationContext("Input")]
+    public Task NavigatedAsync(string result) =>
         Task.FromResult(Value = result);
 }

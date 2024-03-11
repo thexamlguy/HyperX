@@ -25,7 +25,7 @@ public partial class WidgetContainerViewModel :
         IPublisher publisher,
         ISubscriber subscriber,
         IDisposer disposer,
-        IViewModelTemplate template,
+        IContentTemplate template,
         int row,
         int column,
         int rowSpan,
@@ -40,5 +40,5 @@ public partial class WidgetContainerViewModel :
         Content = content;
     }
 
-    public IViewModelTemplate Template { get; }
+    public IContentTemplate Template { get; }
 }

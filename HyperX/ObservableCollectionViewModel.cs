@@ -10,11 +10,11 @@ namespace HyperX;
 public partial class ObservableCollectionViewModel<TViewModel> :
     ObservableObject,
     IObservableCollectionViewModel<TViewModel>,
+    IInitializer,
     IList<TViewModel>,
     IList,
     IReadOnlyList<TViewModel>,
     INotifyCollectionChanged,
-    IConfirmNavigation,
     INotificationHandler<Remove<TViewModel>>,
     INotificationHandler<Create<TViewModel>>,
     INotificationHandler<Insert<TViewModel>>,
@@ -66,9 +66,6 @@ public partial class ObservableCollectionViewModel<TViewModel> :
     public int Count => collection.Count;
 
     public IDisposer Disposer { get; private set; }
-
-    public ICommand InitializeCommand =>
-        new AsyncRelayCommand(CoreInitializeAsync);
 
     bool IList.IsFixedSize => false;
 
@@ -186,24 +183,8 @@ public partial class ObservableCollectionViewModel<TViewModel> :
         ClearItems();
     }
 
-    public async Task<bool> ConfirmNavigationAsync()
-    {
-        foreach (TViewModel item in this)
-        {
-            if (item is IConfirmNavigation confirmNavigation)
-            {
-                if (!await confirmNavigation.ConfirmNavigationAsync())
-                {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
     public bool Contains(TViewModel item) =>
-            collection.Contains(item);
+        collection.Contains(item);
 
     bool IList.Contains(object? value) =>
         IsCompatibleObject(value) && Contains((TViewModel)value!);
@@ -291,8 +272,22 @@ public partial class ObservableCollectionViewModel<TViewModel> :
         IsCompatibleObject(value) ?
         IndexOf((TViewModel)value!) : -1;
 
-    public virtual Task InitializeAsync() => 
-        Task.CompletedTask;
+    public virtual async Task Initialize()
+    {
+        if (isInitialized)
+        {
+            return;
+        }
+
+        isInitialized = true;
+
+        object? key = this.GetAttribute<NotificationHandlerAttribute>()
+            is NotificationHandlerAttribute attribute
+            ? this.GetPropertyValue(() => attribute.Key) is { } value ? value : attribute.Key
+            : null;
+
+        await Publisher.PublishUI(new Enumerate<TViewModel>(key));
+    }
 
     public void Insert(int index, TViewModel item) =>
         InsertItem(index, item);
@@ -387,24 +382,6 @@ public partial class ObservableCollectionViewModel<TViewModel> :
 
     private static bool IsCompatibleObject(object? value) =>
         (value is TViewModel) || (value == null && default(TViewModel) == null);
-
-    private async Task CoreInitializeAsync()
-    {
-        if (isInitialized)
-        {
-            return;
-        }
-
-        isInitialized = true;
-
-        object? key = this.GetAttribute<NotificationHandlerAttribute>()
-            is NotificationHandlerAttribute attribute
-            ? this.GetPropertyValue(() => attribute.Key) is { } value ? value : attribute.Key
-            : null;
-
-        await Publisher.PublishUIAsync(new Enumerate<TViewModel>(key));
-        await InitializeAsync();
-    }
 
     private void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs args) => 
         CollectionChanged?.Invoke(this, args);

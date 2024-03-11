@@ -8,7 +8,7 @@ public class NumericalLayoutViewModel :
         IPublisher publisher,
         ISubscriber subscriber,
         IDisposer disposer,
-        IViewModelTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+        IContentTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
         Template = template;
 
@@ -24,5 +24,5 @@ public class NumericalLayoutViewModel :
         Add<CharacterButtonViewModel>('0');
     }
 
-    public IViewModelTemplate Template { get; }
+    public IContentTemplate Template { get; }
 }

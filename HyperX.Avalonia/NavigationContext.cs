@@ -6,28 +6,28 @@ using System.Reflection;
 
 namespace HyperX.Avalonia;
 
-public class ViewModelContentBinder(INavigationContextCollection contexts) :
-    IViewModelContentBinder
+public class NavigationContext(INavigationContextCollection contexts) :
+    INavigationContext
 {
-    public void Bind(TemplatedControl view)
+    public void Set(Control control)
     {
-        if (view.GetType().GetCustomAttributes<NavigationTargetAttribute>()
+        if (control.GetType().GetCustomAttributes<NavigationTargetAttribute>()
             is IEnumerable<NavigationTargetAttribute> attributes)
         {
             foreach (NavigationTargetAttribute attribute in attributes)
             {
                 if (!contexts.ContainsKey(attribute.Name))
                 {
-                    if (view.Find<TemplatedControl>(attribute.Name) is TemplatedControl content)
+                    if (control.Find<TemplatedControl>(attribute.Name) is TemplatedControl content)
                     {
                         contexts.Add(attribute.Name, content);
                         void HandleUnloaded(object? sender, RoutedEventArgs args)
                         {
-                            view.Unloaded -= HandleUnloaded;
+                            control.Unloaded -= HandleUnloaded;
                             contexts.Remove(attribute.Name);
                         }
 
-                        view.Unloaded += HandleUnloaded;
+                        control.Unloaded += HandleUnloaded;
                     }
                 }
             }

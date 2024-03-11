@@ -1,12 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System.Windows.Input;
 
 namespace HyperX;
 
 public class ObservableViewModel : 
     ObservableObject,
-    IObservableViewModel
+    IObservableViewModel,
+    IInitializer
 {
     private bool isInitialized;
 
@@ -26,9 +25,6 @@ public class ObservableViewModel :
 
     public IDisposer Disposer { get; }
 
-    public ICommand InitializeCommand =>
-        new AsyncRelayCommand(CoreInitializeAsync);
-
     public IPublisher Publisher { get; }
 
     public IServiceFactory ServiceFactory { get; }
@@ -41,16 +37,15 @@ public class ObservableViewModel :
         Disposer.Dispose(this);
     }
 
-    public virtual Task InitializeAsync() => Task.CompletedTask;
-
-    private async Task CoreInitializeAsync()
+    public virtual Task Initialize()
     {
         if (isInitialized)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         isInitialized = true;
-        await InitializeAsync();
+
+        return Task.CompletedTask;
     }
 }

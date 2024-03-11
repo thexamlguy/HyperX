@@ -1,9 +1,9 @@
 ﻿using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
+using Avalonia.Interactivity;
 
 namespace HyperX.Avalonia;
 
-public class ContentControlHandler(IViewModelContentBinder binder) : 
+public class ContentControlHandler(INavigationContext navigationContext) : 
     INavigateHandler<ContentControl>
 {
     public Task Handle(Navigate<ContentControl> args,
@@ -11,12 +11,26 @@ public class ContentControlHandler(IViewModelContentBinder binder) :
     {
         if (args.Context is ContentControl contentControl)
         {
-            if (args.View is TemplatedControl content)
+            if (args.Template is Control control)
             {
-                contentControl.Content = content;
-                contentControl.DataContext = args.ViewModel;
+                async void HandleLoaded(object? sender, RoutedEventArgs args)
+                {
+                    control.Loaded -= HandleLoaded;
+                    if (control.DataContext is object content)
+                    {
+                        if (content is IInitializer initializer)
+                        {
+                            await initializer.Initialize();
+                        }
+                    }
+                }
 
-                binder.Bind(content);
+                control.Loaded += HandleLoaded;
+
+                contentControl.Content = control;
+                contentControl.DataContext = args.Content;
+
+                navigationContext.Set(control);
             }
         }
 

@@ -9,7 +9,7 @@ public class ComponentInitializer(IEnumerable<IComponent> components,
     IServiceProvider provider) :
     IInitializer
 {
-    public async Task InitializeAsync()
+    public async Task Initialize()
     {
         foreach (IComponent component in components)
         {

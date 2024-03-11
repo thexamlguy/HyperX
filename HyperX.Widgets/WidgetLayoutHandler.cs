@@ -13,7 +13,7 @@ public class WidgetLayoutHandler(IPublisher publisher,
             if (factory.Create<WidgetLayoutViewModel>($"WidgetLayoutViewModel:{index}")
                 is WidgetLayoutViewModel item)
             {
-                await publisher.PublishUIAsync(new Create<WidgetLayoutViewModel>(item), cancellationToken);
+                await publisher.PublishUI(new Create<WidgetLayoutViewModel>(item), cancellationToken);
             }
         }
     }

@@ -16,7 +16,8 @@ public class ComponentHandler(IPublisher publisher,
             {
                 foreach (IComponentConfigurationViewModel viewModel in viewModels)
                 {
-                    await publisher.PublishUIAsync(new Create<IComponentConfigurationViewModel>(viewModel), args.Key);
+                    await publisher.PublishUI(new Create<IComponentConfigurationViewModel>(viewModel), args.Key,
+                        cancellationToken);
                 }
             }
         }

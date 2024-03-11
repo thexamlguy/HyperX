@@ -1,3 +1,4 @@
 ﻿namespace HyperX;
 
-public interface INavigationContextCollection : IDictionary<object, object?>;
+public interface INavigationContextCollection :
+    IDictionary<object, object?>;

@@ -2,5 +2,5 @@
 
 public interface IConfirmNavigation
 {
-    Task<bool> ConfirmNavigationAsync();
+    Task<bool> ConfirmNavigation();
 }

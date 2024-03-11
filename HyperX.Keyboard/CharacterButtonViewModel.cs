@@ -14,5 +14,5 @@ public partial class CharacterButtonViewModel(IServiceProvider serviceProvider,
     private char character = character;
 
     protected override async Task InvokeAsync() =>
-        await Publisher.PublishUIAsync(new Keyboard<char>(Character));
+        await Publisher.PublishUI(new Keyboard<char>(Character));
 }

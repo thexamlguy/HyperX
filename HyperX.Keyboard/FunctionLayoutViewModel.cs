@@ -8,17 +8,17 @@ public partial class FunctionLayoutViewModel :
         IPublisher publisher, 
         ISubscriber subscriber,
         IDisposer disposer,
-        IViewModelTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+        IContentTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
         Template = template;
 
         Add<ShiftButtonViewModel>(0);
-        Add<SpaceButtonViewModel>(1, async () => await Publisher.PublishUIAsync(new Keyboard<Space>()));
-        Add<DeleteButtonViewModel>(2, async () => await Publisher.PublishUIAsync(new Keyboard<Delete>()));
-        Add<PreviousButtonViewModel>(3, async () => await Publisher.PublishUIAsync(new Keyboard<Previous>()));
-        Add<NextButtonViewModel>(4, async () => await Publisher.PublishUIAsync(new Keyboard<Next>()));
+        Add<SpaceButtonViewModel>(1, async () => await Publisher.PublishUI(new Keyboard<Space>()));
+        Add<DeleteButtonViewModel>(2, async () => await Publisher.PublishUI(new Keyboard<Delete>()));
+        Add<PreviousButtonViewModel>(3, async () => await Publisher.PublishUI(new Keyboard<Previous>()));
+        Add<NextButtonViewModel>(4, async () => await Publisher.PublishUI(new Keyboard<Next>()));
         Add<EnterButtonViewModel>(5);
     }
 
-    public IViewModelTemplate Template { get; }
+    public IContentTemplate Template { get; }
 }

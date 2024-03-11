@@ -143,8 +143,8 @@ public static class IServiceCollectionExtensions
 
         services.AddKeyedTransient(viewType, key);
 
-        services.AddTransient<IViewModelTemplateDescriptor>(provider => 
-            new ViewModelTemplateDescriptor(key, viewModelType, viewType, parameters));
+        services.AddTransient<IContentTemplateDescriptor>(provider => 
+            new ContentTemplateDescriptor(key, viewModelType, viewType, parameters));
 
         return services;
     }

@@ -1,7 +1,6 @@
 ﻿namespace HyperX;
 
 public interface IObservableViewModel :
-    IInitialization,
     IDisposable
 {
     public IDisposer Disposer { get; }

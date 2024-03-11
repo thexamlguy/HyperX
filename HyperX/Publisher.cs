@@ -8,27 +8,27 @@ public class Publisher(ISubscriptionManager subscriptionManager,
     IDispatcher dispatcher) : 
     IPublisher
 {
-    public Task PublishAsync<TNotification>(object key,
+    public Task Publish<TNotification>(object key,
         CancellationToken cancellationToken = default)
         where TNotification :
         INotification,
-        new() => PublishAsync(new TNotification(), async args => await args(),
+        new() => Publish(new TNotification(), async args => await args(),
                 key, cancellationToken);
 
-    public Task PublishAsync<TNotification>(TNotification notification,
+    public Task Publish<TNotification>(TNotification notification,
         CancellationToken cancellationToken = default)
         where TNotification :
-        INotification => PublishAsync(notification, async args => await args(),
+        INotification => Publish(notification, async args => await args(),
                 null, cancellationToken);
 
-    public Task PublishAsync<TNotification>(TNotification notification,
+    public Task Publish<TNotification>(TNotification notification,
         object key,
         CancellationToken cancellationToken = default)
         where TNotification :
-        INotification => PublishAsync(notification, 
+        INotification => Publish(notification, 
             async args => await args(), key, cancellationToken);
 
-    public Task PublishAsync(object notification,
+    public Task Publish(object notification,
         Func<Func<Task>, Task> marshal,
         object? key = null,
         CancellationToken cancellationToken = default)
@@ -62,46 +62,46 @@ public class Publisher(ISubscriptionManager subscriptionManager,
         return Task.CompletedTask;
     }
 
-    public Task PublishAsync(object notification,
-        CancellationToken cancellationToken = default) => PublishAsync(notification,
+    public Task Publish(object notification,
+        CancellationToken cancellationToken = default) => Publish(notification,
             async args => await args(),
                 null, cancellationToken);
 
-    public Task PublishAsync<TNotification>(CancellationToken cancellationToken = default) 
+    public Task Publish<TNotification>(CancellationToken cancellationToken = default) 
         where TNotification : 
-        INotification, new() => PublishAsync(new TNotification(),
+        INotification, new() => Publish(new TNotification(),
             async args => await args(),
                 null, cancellationToken);
 
-    public Task PublishUIAsync<TNotification>(object key,
+    public Task PublishUI<TNotification>(object key,
         CancellationToken cancellationToken = default)
         where TNotification :
-        INotification, new() => PublishAsync(new TNotification(), 
+        INotification, new() => Publish(new TNotification(), 
             args =>  dispatcher.InvokeAsync(async () => await args()),
                 key, cancellationToken);
 
-    public Task PublishUIAsync<TNotification>(TNotification notification,
+    public Task PublishUI<TNotification>(TNotification notification,
         CancellationToken cancellationToken = default)
         where TNotification :
-        INotification => PublishAsync(notification, 
+        INotification => Publish(notification, 
             args => dispatcher.InvokeAsync(async () => await args()),
                 null, cancellationToken);
 
-    public Task PublishUIAsync<TNotification>(TNotification notification,
+    public Task PublishUI<TNotification>(TNotification notification,
         object key,
         CancellationToken cancellationToken = default)
         where TNotification :
-        INotification => PublishAsync(notification, 
+        INotification => Publish(notification, 
             args => dispatcher.InvokeAsync(async () => await args()),
                 key, cancellationToken);
     public Task PublishUIAsync<TNotification>(CancellationToken cancellationToken = default)
         where TNotification :
-        INotification, new() => PublishAsync(new TNotification(), 
+        INotification, new() => Publish(new TNotification(), 
             args => dispatcher.InvokeAsync(async () => await args()),
                 null, cancellationToken);
 
-    public Task PublishUIAsync(object notification,
-        CancellationToken cancellationToken = default) => PublishAsync(notification, args =>
+    public Task PublishUI(object notification,
+        CancellationToken cancellationToken = default) => Publish(notification, args =>
             dispatcher.InvokeAsync(async () => await args()),
                 null, cancellationToken);
 }

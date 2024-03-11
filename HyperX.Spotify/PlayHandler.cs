@@ -14,7 +14,7 @@ public class PlayHandler(IHttpClientFactory factory,
 
             if (response.IsSuccessStatusCode)
             {
-                await publisher.PublishUIAsync(new Request<Playing>(), 
+                await publisher.PublishUI(new Request<Playing>(), 
                     cancellationToken);
             }
         }

@@ -9,7 +9,7 @@ public class ConnectionAuthenticationViewModel :
         IPublisher publisher,
         ISubscriber subscriber,
         IDisposer disposer,
-        IViewModelTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+        IContentTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
         Template = template;
 
@@ -17,5 +17,5 @@ public class ConnectionAuthenticationViewModel :
         Add<ConnectViewModel>();
     }
 
-    public IViewModelTemplate Template { get; }
+    public IContentTemplate Template { get; }
 }

@@ -7,19 +7,20 @@ public class NavigationScope(IPublisher publisher,
     IServiceFactory serviceFactory,
     INavigationProvider navigationProvider,
     INavigationContextProvider navigationContextProvider,
-    IViewModelTemplateDescriptorProvider viewModelTemplateProvider) : 
+    IContentTemplateDescriptorProvider contentTemplateDescriptorProvider) : 
     INavigationScope
 {
     public async Task NavigateAsync(object key, object? sender, 
-        object? context, object[]? parameters = null, CancellationToken cancellationToken = default)
+        object? context, object[]? parameters = null, 
+        CancellationToken cancellationToken = default)
     {
-        if (viewModelTemplateProvider.Get(key)
-            is IViewModelTemplateDescriptor descriptor)
+        if (contentTemplateDescriptorProvider.Get(key)
+            is IContentTemplateDescriptor descriptor)
         {
             Dictionary<string, object>? arguments = parameters?.OfType<KeyValuePair<string, object>>()
                 .ToDictionary(x => x.Key, x => x.Value, StringComparer.InvariantCultureIgnoreCase) ?? [];
 
-            IEnumerable<object?>? mappedParameters = descriptor.ViewModelType
+            IEnumerable<object?>? mappedParameters = descriptor.ContentType
                  .GetConstructors()
                  .FirstOrDefault()?
                  .GetParameters()
@@ -29,11 +30,11 @@ public class NavigationScope(IPublisher publisher,
 
             parameters = [.. parameters?.Where(x => x.GetType() != typeof(KeyValuePair<string, object>)) ?? Enumerable.Empty<object?>(), .. mappedParameters ?? Enumerable.Empty<object?>()];
 
-            if (serviceProvider.GetRequiredKeyedService(descriptor.ViewType, key) is object view)
+            if (serviceProvider.GetRequiredKeyedService(descriptor.TemplateType, key) is object view)
             {
                 if ((parameters is { Length: > 0 }
-                    ? serviceFactory.Create(descriptor.ViewModelType, parameters)
-                    : serviceProvider.GetRequiredKeyedService(descriptor.ViewModelType, key)) is object viewModel)
+                    ? serviceFactory.Create(descriptor.ContentType, parameters)
+                    : serviceProvider.GetRequiredKeyedService(descriptor.ContentType, key)) is object viewModel)
                 {
                     if (context is not null)
                     {
@@ -55,7 +56,7 @@ public class NavigationScope(IPublisher publisher,
                             Type navigateType = typeof(Navigate<>).MakeGenericType(navigation.Type);
                             if (Activator.CreateInstance(navigateType, [context, view, viewModel, sender, parameters]) is object navigate)
                             {
-                                await publisher.PublishAsync(navigate, cancellationToken);
+                                await publisher.Publish(navigate, cancellationToken);
                             }
                         }
                     }
@@ -80,7 +81,7 @@ public class NavigationScope(IPublisher publisher,
                 Type navigateType = typeof(NavigateBack<>).MakeGenericType(navigation.Type);
                 if (Activator.CreateInstance(navigateType, [context]) is object navigate)
                 {
-                    await publisher.PublishAsync(navigate, cancellationToken);
+                    await publisher.Publish(navigate, cancellationToken);
                 }
             }
         }

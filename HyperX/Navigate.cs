@@ -8,8 +8,8 @@ public record Navigate(object Name,
     INotification;
 
 public record Navigate<TNavigation>(object Context, 
-    object View, 
-    object ViewModel,
+    object Template, 
+    object Content,
     object? Sender = null,
     object[]? Parameters = null) :
     INotification;

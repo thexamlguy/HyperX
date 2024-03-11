@@ -20,10 +20,5 @@
                     RowSpacing="12" />
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
-        <Interaction.Behaviors>
-            <EventTriggerBehavior EventName="Loaded">
-                <InvokeCommandAction Command="{Binding InitializeCommand}" />
-            </EventTriggerBehavior>
-        </Interaction.Behaviors>
     </ItemsControl>
 </UserControl>

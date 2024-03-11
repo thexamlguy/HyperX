@@ -41,7 +41,7 @@ public class AuthenticationHandler(IPublisher publisher,
         string url = $"{configuration.AuthenticationUrl}?response_type=code&client_id={configuration.ClientId}&scope={scope}" +
             $"&redirect_uri={callbackUrl}&state={challenge}";
 
-        await publisher.PublishAsync(Authentication.Create(url), 
+        await publisher.Publish(Authentication.Create(url), 
             cancellationToken);
 
         using WebServer? server = new WebServer(configuration.Port)
@@ -50,7 +50,7 @@ public class AuthenticationHandler(IPublisher publisher,
             NameValueCollection query = args.Request.QueryString;
             if (query["error"] is string error)
             {
-                await publisher.PublishAsync(Authentication.Create(false),
+                await publisher.Publish(Authentication.Create(false),
                   cancellationToken);
             }
            
@@ -79,10 +79,10 @@ public class AuthenticationHandler(IPublisher publisher,
                         if (await response.Content.ReadFromJsonAsync<AuthorizationCodeToken>()
                             is AuthorizationCodeToken result)
                         {
-                            await publisher.PublishAsync(Authentication.Create(true), 
+                            await publisher.Publish(Authentication.Create(true), 
                                 cancellationToken);
 
-                            await publisher.PublishAsync(Authentication.Create(new AccessToken(result.AccessToken, 
+                            await publisher.Publish(Authentication.Create(new AccessToken(result.AccessToken, 
                                 result.RefreshToken)), cancellationToken);
                         }
                     }

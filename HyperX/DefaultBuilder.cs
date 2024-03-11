@@ -41,7 +41,7 @@ public class DefaultBuilder :
 
                 services.AddScoped<IDisposer, Disposer>();
 
-                services.AddTransient<IViewModelTemplateDescriptorProvider, ViewModelTemplateDescriptorProvider>();
+                services.AddTransient<IContentTemplateDescriptorProvider, ContentTemplateDescriptorProvider>();
 
                 services.AddTransient<INavigationProvider, NavigationProvider>();
 

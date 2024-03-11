@@ -8,7 +8,7 @@ public partial class NavigationViewModel(IServiceProvider serviceProvider,
     ISubscriber subscriber,
     IDisposer disposer,
     string text) :
-    ObservableCollectionViewModel<INavigationViewModel>(serviceProvider, serviceFactory, publisher, subscriber, disposer),
+    ObservableViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer),
     INavigationViewModel
 {
     [ObservableProperty]
@@ -21,7 +21,7 @@ public partial class NavigationViewModel<TNavigationViewModel>(IServiceProvider 
     ISubscriber subscriber,
     IDisposer disposer,
     string text) :
-    ObservableCollectionViewModel<TNavigationViewModel>(serviceProvider, serviceFactory, publisher, subscriber, disposer),
+    ObservableViewModel(serviceProvider, serviceFactory, publisher, subscriber, disposer),
     INavigationViewModel
     where TNavigationViewModel :
     INavigationViewModel

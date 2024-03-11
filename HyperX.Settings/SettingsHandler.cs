@@ -14,9 +14,10 @@ public class SettingsHandler(IPublisher publisher,
         {
             if (scope.Value is IServiceProvider serviceProvider)
             {
-                if (serviceProvider.GetService<ComponentConfiguration>() is ComponentConfiguration configuration)
+                if (serviceProvider.GetService<ComponentConfiguration>() is
+                    ComponentConfiguration configuration)
                 {
-                    await publisher.PublishAsync(new Create<INavigationViewModel>(factory
+                    await publisher.Publish(new Create<INavigationViewModel>(factory
                         .Create<ComponentNavigationViewModel>(configuration.Name, scope.Key)),
                             nameof(SettingsViewModel), cancellationToken);
                 }

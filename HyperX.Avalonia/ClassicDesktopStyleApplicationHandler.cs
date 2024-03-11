@@ -4,7 +4,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 
 namespace HyperX.Avalonia;
 
-public class ClassicDesktopStyleApplicationHandler(IViewModelContentBinder binder) :
+public class ClassicDesktopStyleApplicationHandler(INavigationContext navigationContext) :
     INavigateHandler<IClassicDesktopStyleApplicationLifetime>
 {
     public Task Handle(Navigate<IClassicDesktopStyleApplicationLifetime> args,
@@ -13,12 +13,12 @@ public class ClassicDesktopStyleApplicationHandler(IViewModelContentBinder binde
         if (Application.Current?.ApplicationLifetime is 
             IClassicDesktopStyleApplicationLifetime lifeTime)
         {
-            if (args.View is Window window)
+            if (args.Template is Window window)
             {
                 lifeTime.MainWindow = window;
-                window.DataContext = args.ViewModel;
+                window.DataContext = args.Content;
 
-                binder.Bind(window);
+                navigationContext.Set(window);
             }
         }
 

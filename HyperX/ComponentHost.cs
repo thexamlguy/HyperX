@@ -22,7 +22,7 @@ public sealed class ComponentHost(IServiceProvider services,
     {
         foreach (IInitializer initializer in initializers)
         {
-            await initializer.InitializeAsync();
+            await initializer.Initialize();
         }
 
         foreach (IHostedService service in hostedServices)

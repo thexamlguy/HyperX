@@ -8,7 +8,7 @@ public class WiFiViewModel :
         IPublisher publisher,
         ISubscriber subscriber, 
         IDisposer disposer,
-        IViewModelTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+        IContentTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
         Template = template;
 
@@ -20,5 +20,5 @@ public class WiFiViewModel :
         Add<OpenConnectionViewModel>($"{Guid.NewGuid()}");
     }
 
-    public IViewModelTemplate Template { get; }
+    public IContentTemplate Template { get; }
 }

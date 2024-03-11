@@ -21,7 +21,7 @@ public partial class KeyboardViewModel :
         IPublisher publisher,
         ISubscriber subscriber,
         IDisposer disposer,
-        IViewModelTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+        IContentTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
         Template = template;
 
@@ -30,7 +30,7 @@ public partial class KeyboardViewModel :
         Add<FunctionLayoutViewModel>();
     }
 
-    public IViewModelTemplate Template { get; }
+    public IContentTemplate Template { get; }
 
     public Task Handle(Keyboard<char> args, 
         CancellationToken cancellationToken = default)
@@ -84,7 +84,7 @@ public partial class KeyboardViewModel :
         return Task.CompletedTask;
     }
 
-    [NavigationParameter("Input")]
+    [NavigationContext("Input")]
     public Task<string> NavigatingFromAsync() =>
         Task.FromResult(Text);
 

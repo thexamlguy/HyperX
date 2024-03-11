@@ -1,17 +1,12 @@
 ﻿namespace HyperX.Widgets;
 
-public class WidgetsViewModel : 
-    ObservableCollectionViewModel<WidgetLayoutViewModel>
+public class WidgetsViewModel(IServiceProvider serviceProvider,
+    IServiceFactory serviceFactory,
+    IPublisher publisher,
+    ISubscriber subscriber,
+    IDisposer disposer,
+    IContentTemplate template) : 
+    ObservableCollectionViewModel<WidgetLayoutViewModel>(serviceProvider, serviceFactory, publisher, subscriber, disposer)
 {
-    public WidgetsViewModel(IServiceProvider serviceProvider, 
-        IServiceFactory serviceFactory,
-        IPublisher publisher, 
-        ISubscriber subscriber, 
-        IDisposer disposer,
-        IViewModelTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
-    {
-        Template = template;
-    }
-
-    public IViewModelTemplate Template { get; }
+    public IContentTemplate Template => template;
 }

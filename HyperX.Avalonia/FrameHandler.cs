@@ -1,12 +1,12 @@
-﻿using Avalonia.Controls.Primitives;
+﻿using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using FluentAvalonia.UI.Navigation;
 using HyperX.UI.Controls.Avalonia;
 using System.Reflection;
 
 namespace HyperX.Avalonia;
 
-public class FrameHandler(IViewModelContentBinder binder,
-    IProxyService<IPublisher> publisher) : 
+public class FrameHandler(INavigationContext navigationContext) : 
     INavigateHandler<Frame>,
     INavigateBackHandler<Frame>
 {
@@ -16,23 +16,23 @@ public class FrameHandler(IViewModelContentBinder binder,
         if (args.Context is Frame frame)
         {
             frame.NavigationPageFactory ??= new NavigationPageFactory();
-            if (args.View is TemplatedControl template)
+            if (args.Template is Control control)
             {
                 void NavigatingFrom(object? sender, 
-                    TemplatedControl template)
+                    Control control)
                 {
                     async void HandleNavigatingFrom(object? _, 
                         NavigatingCancelEventArgs args)
                     {
                         Dictionary<string,object> results = [];
 
-                        template.RemoveHandler(Frame.NavigatingFromEvent, HandleNavigatingFrom);
-                        NavigatedFrom(sender, template, () => results);
+                        control.RemoveHandler(Frame.NavigatingFromEvent, HandleNavigatingFrom);
+                        NavigatedFrom(sender, control, () => results);
 
-                        if (template.DataContext is object content)
+                        if (control.DataContext is object content)
                         {
                             if (content is IConfirmNavigation confirmNavigation &&
-                                !await confirmNavigation.ConfirmNavigationAsync())
+                                !await confirmNavigation.ConfirmNavigation())
                             {
                                 args.Cancel = true;
                             }
@@ -57,8 +57,8 @@ public class FrameHandler(IViewModelContentBinder binder,
                                                     .MakeGenericType(arguments[0]))
                                                         is MethodInfo methodInfo)
                                             {
-                                                if (methodInfo.GetCustomAttribute<NavigationParameterAttribute>()
-                                                    is NavigationParameterAttribute attribute)
+                                                if (methodInfo.GetCustomAttribute<NavigationContextAttribute>()
+                                                    is NavigationContextAttribute attribute)
                                                 {
                                                     if (await methodInfo.InvokeAsync<object?>(content) is object result)
                                                     {
@@ -73,24 +73,24 @@ public class FrameHandler(IViewModelContentBinder binder,
                         }      
                     }
 
-                    template.AddHandler(Frame.NavigatingFromEvent, HandleNavigatingFrom);
+                    control.AddHandler(Frame.NavigatingFromEvent, HandleNavigatingFrom);
                 }
 
                 void NavigatedFrom(object? sender, 
-                    TemplatedControl template,
+                    Control control,
                     Func<Dictionary<string, object>> resultCallBack)
                 {
                     async void HandleNavigatedFrom(object? _,
                         NavigationEventArgs args)
                     {
-                        template.RemoveHandler(Frame.NavigatedFromEvent, HandleNavigatedFrom);
+                        control.RemoveHandler(Frame.NavigatedFromEvent, HandleNavigatedFrom);
                         if (args.NavigationMode == NavigationMode.New)
                         {
-                            NavigatedTo(sender, template);
+                            NavigatedTo(sender, control);
                         }
 
                         Dictionary<string, object> results = resultCallBack.Invoke();
-                        async Task DoNavigatedFromRoutineAsync(object? content)
+                        async Task DoNavigatedFromAsync(object? content)
                         {
                             if (content is not null)
                             {
@@ -104,17 +104,17 @@ public class FrameHandler(IViewModelContentBinder binder,
                                 {
                                     foreach (Type contract in contracts)
                                     {
-                                        if (contract.Name == typeof(INavigatedTo<>).Name &&
+                                        if (contract.Name == typeof(INavigated<>).Name &&
                                             contract.GetGenericArguments() is { Length: 1 } arguments)
                                         {
                                             if (contentType.GetMethods().FirstOrDefault(x =>
                                                 x.Name == "NavigatedToAsync" && 
-                                                        x.GetCustomAttribute<NavigationParameterAttribute>()
-                                                    is NavigationParameterAttribute attribute && results.ContainsKey(attribute.Name)) 
+                                                    x.GetCustomAttribute<NavigationContextAttribute>()
+                                                    is NavigationContextAttribute attribute && results.ContainsKey(attribute.Name)) 
                                                 is MethodInfo methodInfo)
                                             {
-                                                if (methodInfo.GetCustomAttribute<NavigationParameterAttribute>()
-                                                    is NavigationParameterAttribute attribute)
+                                                if (methodInfo.GetCustomAttribute<NavigationContextAttribute>()
+                                                    is NavigationContextAttribute attribute)
                                                 {
                                                     if (results.TryGetValue(attribute.Name, out object? value))
                                                     {
@@ -132,7 +132,7 @@ public class FrameHandler(IViewModelContentBinder binder,
                         {
                             if (sourceTemplate.DataContext is object content)
                             {
-                                await DoNavigatedFromRoutineAsync(content);
+                                await DoNavigatedFromAsync(content);
                             }
                         }
 
@@ -140,44 +140,49 @@ public class FrameHandler(IViewModelContentBinder binder,
                         {
                             if (senderTemplate.DataContext is object content)
                             {
-                                await DoNavigatedFromRoutineAsync(content);
+                                await DoNavigatedFromAsync(content);
                             }
                         }
                         else
                         {
-                            await DoNavigatedFromRoutineAsync(sender);
+                            await DoNavigatedFromAsync(sender);
                         }
                     }
 
-                    template.AddHandler(Frame.NavigatedFromEvent, HandleNavigatedFrom);
+                    control.AddHandler(Frame.NavigatedFromEvent, HandleNavigatedFrom);
                 }
 
                 void NavigatedTo(object? sender, 
-                    TemplatedControl template)
+                    Control control)
                 {
                     async void HandleNavigatedTo(object? _, 
                         NavigationEventArgs __)
                     {
-                        template.RemoveHandler(Frame.NavigatedToEvent, HandleNavigatedTo);
-                        NavigatingFrom(sender, template);
+                        control.RemoveHandler(Frame.NavigatedToEvent, HandleNavigatedTo);
+                        NavigatingFrom(sender, control);
 
-                        if (template.DataContext is object content)
+                        if (control.DataContext is object content)
                         {
-                            if (content is INavigatedTo navigatedTo)
+                            if (content is IInitializer initializer)
                             {
-                                await navigatedTo.NavigatedToAsync();
+                                await initializer.Initialize();
+                            }
+
+                            if (content is INavigated navigated)
+                            {
+                                await navigated.NavigatedAsync();
                             }
                         }
                     }
 
-                    template.AddHandler(Frame.NavigatedToEvent, HandleNavigatedTo);
+                    control.AddHandler(Frame.NavigatedToEvent, HandleNavigatedTo);
                 }
 
-                template.DataContext = args.ViewModel;
-                binder.Bind(template);
+                control.DataContext = args.Content;
+                navigationContext.Set(control);
 
-                NavigatedTo(args.Sender, template);
-                frame.NavigateFromObject(template);
+                NavigatedTo(args.Sender, control);
+                frame.NavigateFromObject(control);
             }
         }
 

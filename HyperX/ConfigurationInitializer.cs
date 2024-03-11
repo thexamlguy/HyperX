@@ -9,7 +9,7 @@ public class ConfigurationInitializer<TConfiguration>(IPublisher publisher,
     where TConfiguration :
     class
 {
-    public async Task InitializeAsync()
+    public async Task Initialize()
     {
         if (!reader.TryRead(out TConfiguration? configuration))
         {
@@ -20,6 +20,6 @@ public class ConfigurationInitializer<TConfiguration>(IPublisher publisher,
             }
         }
 
-        await publisher.PublishUIAsync(new Changed<TConfiguration>(configuration));
+        await publisher.PublishUI(new Changed<TConfiguration>(configuration));
     }
 }

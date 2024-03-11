@@ -4,7 +4,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 
 namespace HyperX.Avalonia;
 
-public class SingleViewApplicationHandler(IViewModelContentBinder binder) :
+public class SingleViewApplicationHandler(INavigationContext navigationContext) :
     INavigateHandler<ISingleViewApplicationLifetime>
 {
     public Task Handle(Navigate<ISingleViewApplicationLifetime> args,
@@ -13,12 +13,12 @@ public class SingleViewApplicationHandler(IViewModelContentBinder binder) :
         if (Application.Current?.ApplicationLifetime is
             ISingleViewApplicationLifetime lifeTime)
         {
-            if (args.View is ContentControl content)
+            if (args.Template is Control control)
             {
-                lifeTime.MainView = content;
-                content.DataContext = args.ViewModel;
+                lifeTime.MainView = control;
+                control.DataContext = args.Content;
 
-                binder.Bind(content);
+                navigationContext.Set(control);
             }
         }
 

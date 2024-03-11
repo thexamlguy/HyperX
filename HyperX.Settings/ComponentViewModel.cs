@@ -8,12 +8,12 @@ public partial class ComponentViewModel(IServiceProvider serviceProvider,
     IPublisher publisher,
     ISubscriber subscriber,
     IDisposer disposer,
-    IViewModelTemplate template,
+    IContentTemplate template,
     string component) :
     ObservableCollectionViewModel<IComponentConfigurationViewModel>(serviceProvider, serviceFactory, publisher, subscriber, disposer)
 {
     [ObservableProperty]
     private string component = component;
 
-    public IViewModelTemplate Template => template;
+    public IContentTemplate Template => template;
 }

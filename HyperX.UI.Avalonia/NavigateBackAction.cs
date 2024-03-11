@@ -33,7 +33,7 @@ public class NavigateBackAction :
         {
             if (control.DataContext is IObservableViewModel observableViewModel)
             {
-                observableViewModel.Publisher.PublishAsync(new NavigateBack(Context
+                observableViewModel.Publisher.Publish(new NavigateBack(Context
                     ?? null, Scope ?? null)).GetAwaiter().GetResult();
             }
         }

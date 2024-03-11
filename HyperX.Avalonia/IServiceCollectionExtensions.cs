@@ -33,8 +33,8 @@ public static class IServiceCollectionExtensions
 
         services.TryAddKeyedTransient(viewType, key);
 
-        services.AddTransient<IViewModelTemplateDescriptor>(provider =>
-            new ViewModelTemplateDescriptor(key, viewModelType, viewType, parameters));
+        services.AddTransient<IContentTemplateDescriptor>(provider =>
+            new ContentTemplateDescriptor(key, viewModelType, viewType, parameters));
 
         services.TryAddTransient<THeader>();
         services.TryAddTransient<TDescription>();
@@ -69,8 +69,8 @@ public static class IServiceCollectionExtensions
 
         services.TryAddKeyedTransient(viewType, key);
 
-        services.AddTransient<IViewModelTemplateDescriptor>(provider =>
-            new ViewModelTemplateDescriptor(key, viewModelType, viewType, parameters));
+        services.AddTransient<IContentTemplateDescriptor>(provider =>
+            new ContentTemplateDescriptor(key, viewModelType, viewType, parameters));
 
         services.TryAddTransient<TAction>();
 
@@ -82,8 +82,8 @@ public static class IServiceCollectionExtensions
     {
         services.AddTransient<IDispatcher, AvaloniaDispatcher>();
 
-        services.AddTransient<IViewModelTemplate, ViewModelTemplate>();
-        services.AddTransient<IViewModelContentBinder, ViewModelContentBinder>();
+        services.AddTransient<IContentTemplate, ContentTemplate>();
+        services.AddTransient<INavigationContext, NavigationContext>();
 
         services.AddNavigateHandler<ClassicDesktopStyleApplicationHandler>();
         services.AddNavigateHandler<SingleViewApplicationHandler>();
@@ -102,10 +102,10 @@ public static class IServiceCollectionExtensions
             {
                 services.AddSingleton(provider.GetRequiredService<IDispatcher>());
 
-                services.AddTransient<IViewModelTemplateDescriptorProvider, ViewModelTemplateDescriptorProvider>();
-                services.AddTransient<IViewModelTemplate, ViewModelTemplate>();
+                services.AddTransient<IContentTemplateDescriptorProvider, ContentTemplateDescriptorProvider>();
+                services.AddTransient<IContentTemplate, ContentTemplate>();
 
-                services.AddTransient<IViewModelContentBinder, ViewModelContentBinder>();
+                services.AddTransient<INavigationContext, NavigationContext>();
 
                 services.AddNavigateHandler<ContentControlHandler>();
                 services.AddNavigateHandler<FrameHandler>();

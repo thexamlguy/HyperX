@@ -1,16 +1,16 @@
 ﻿namespace HyperX;
 
-public class ViewModelTemplateDescriptor(object key,
+public class ContentTemplateDescriptor(object key,
     Type viewModelType, 
     Type viewType,
     params object[]? parameters) :
-    IViewModelTemplateDescriptor
+    IContentTemplateDescriptor
 {
     public object Key => key;
 
     public object[]? Parameters => parameters;
 
-    public Type ViewModelType => viewModelType;
+    public Type ContentType => viewModelType;
 
-    public Type ViewType => viewType;
+    public Type TemplateType => viewType;
 }

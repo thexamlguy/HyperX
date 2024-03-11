@@ -14,7 +14,7 @@ public class AppStartedHandler(IPublisher publisher) :
         {
             if (application.ApplicationLifetime is IApplicationLifetime lifetime)
             {
-                await publisher.PublishAsync(new Navigate(lifetime is IClassicDesktopStyleApplicationLifetime ? "Shell" : "Main", 
+                await publisher.Publish(new Navigate(lifetime is IClassicDesktopStyleApplicationLifetime ? "Shell" : "Main", 
                     lifetime is IClassicDesktopStyleApplicationLifetime ? typeof(IClassicDesktopStyleApplicationLifetime) :
                     typeof(ISingleViewApplicationLifetime)), cancellationToken);
             }

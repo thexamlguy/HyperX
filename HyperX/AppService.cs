@@ -10,10 +10,10 @@ public class AppService(IEnumerable<IInitializer> initializers,
     {
         foreach (IInitializer initializer in initializers)
         {
-            await initializer.InitializeAsync();
+            await initializer.Initialize();
         }
 
-        await publisher.PublishAsync<Started>(cancellationToken);
+        await publisher.Publish<Started>(cancellationToken);
     }
 
     public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;

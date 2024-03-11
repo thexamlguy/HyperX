@@ -1,9 +1,9 @@
 ﻿namespace HyperX;
 
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-public class NavigationParameterAttribute : Attribute
+public class NavigationContextAttribute : Attribute
 {
-    public NavigationParameterAttribute(string name)
+    public NavigationContextAttribute(string name)
     {
         Name = name;
     }

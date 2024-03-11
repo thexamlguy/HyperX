@@ -10,8 +10,8 @@ public partial class AddConnectionViewModel(IServiceProvider serviceProvider,
     INotificationHandler<Authentication<string>>,
     INotificationHandler<Authentication<bool>>
 {
-    public override async Task InitializeAsync() => 
-        await Publisher.PublishAsync(new Authentication());
+    public override async Task Initialize() => 
+        await Publisher.Publish(new Authentication());
 
     public Task Handle(Authentication<string> args,
         CancellationToken cancellationToken = default) => 

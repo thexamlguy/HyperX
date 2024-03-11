@@ -8,7 +8,7 @@ public class LowerCharacterLayoutViewModel :
         IPublisher publisher, 
         ISubscriber subscriber, 
         IDisposer disposer,
-        IViewModelTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+        IContentTemplate template) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
         Template = template;
 
@@ -44,5 +44,5 @@ public class LowerCharacterLayoutViewModel :
         Add<CharacterButtonViewModel>('?');
     }
 
-    public IViewModelTemplate Template { get; }
+    public IContentTemplate Template { get; }
 }
