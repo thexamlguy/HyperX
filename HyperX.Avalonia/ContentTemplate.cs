@@ -31,6 +31,11 @@ public class ContentTemplate :
                                 {
                                     await initializer.Initialize();
                                 }
+
+                                if (content is IActivated activated)
+                                {
+                                    await activated.Activated();
+                                }
                             }
                         }
 

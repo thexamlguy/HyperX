@@ -9,7 +9,7 @@ public partial class KeyboardViewModel :
     INotificationHandler<Keyboard<Space>>,
     INotificationHandler<Keyboard<Previous>>,
     INotificationHandler<Keyboard<Next>>,
-    INavigatingFrom<string>
+    IDeactivating<string>
 {
     [ObservableProperty]
     private int position;
@@ -85,7 +85,7 @@ public partial class KeyboardViewModel :
     }
 
     [NavigationContext("Input")]
-    public Task<string> NavigatingFromAsync() =>
+    public Task<string> Deactivating() =>
         Task.FromResult(Text);
 
     private void InsertCharacter(char character)

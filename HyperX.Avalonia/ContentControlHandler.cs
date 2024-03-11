@@ -22,6 +22,11 @@ public class ContentControlHandler(INavigationContext navigationContext) :
                         {
                             await initializer.Initialize();
                         }
+
+                        if (content is IActivated activated)
+                        {
+                            await activated.Activated();
+                        }
                     }
                 }
 

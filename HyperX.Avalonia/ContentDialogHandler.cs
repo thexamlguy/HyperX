@@ -37,12 +37,19 @@ public class ContentDialogHandler :
             {
                 contentDialog.Opened -= HandleOpened;
                 if (contentDialog.DataContext is object content)
-                {
+                {                        
+                    // A hack to wait for the dialog to finish loading up to make it appear more responsive
+                    await Task.Delay(250, cancellationToken);
+
                     if (content is IInitializer initializer)
                     {
-                        // A hack to wait for the dialog to finish loading up to make it appear more responsive
-                        await Task.Delay(250, cancellationToken);
                         await initializer.Initialize();
+                    }
+
+                    if (content is IActivated activated)
+                    {           
+
+                        await activated.Activated();
                     }
                 }
             }

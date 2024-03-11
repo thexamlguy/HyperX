@@ -1,16 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reactive.Disposables;
-using System.Windows.Input;
 
 namespace HyperX;
 public partial class ObservableCollectionViewModel<TViewModel> :
     ObservableObject,
     IObservableCollectionViewModel<TViewModel>,
     IInitializer,
+    IActivated,
     IList<TViewModel>,
     IList,
     IReadOnlyList<TViewModel>,
@@ -108,6 +107,9 @@ public partial class ObservableCollectionViewModel<TViewModel> :
             this[index] = item!;
         }
     }
+
+    public virtual Task Activated() =>
+        Task.CompletedTask;
 
     public TViewModel Add()
     {
@@ -272,7 +274,7 @@ public partial class ObservableCollectionViewModel<TViewModel> :
         IsCompatibleObject(value) ?
         IndexOf((TViewModel)value!) : -1;
 
-    public virtual async Task Initialize()
+    public async Task Initialize()
     {
         if (isInitialized)
         {
@@ -288,7 +290,6 @@ public partial class ObservableCollectionViewModel<TViewModel> :
 
         await Publisher.PublishUI(new Enumerate<TViewModel>(key));
     }
-
     public void Insert(int index, TViewModel item) =>
         InsertItem(index, item);
 

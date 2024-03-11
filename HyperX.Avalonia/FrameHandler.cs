@@ -39,9 +39,9 @@ public class FrameHandler(INavigationContext navigationContext) :
 
                             if (!args.Cancel)
                             {
-                                if (content is INavigatingFrom navigatingFrom)
+                                if (content is IDeactivating deactivating)
                                 {
-                                    await navigatingFrom.NavigatingFromAsync();
+                                    await deactivating.Deactivating();
                                 }
 
                                 Type contentType = content.GetType();
@@ -49,11 +49,11 @@ public class FrameHandler(INavigationContext navigationContext) :
                                 {
                                     foreach (Type contract in contracts)
                                     {
-                                        if (contract.Name == typeof(INavigatingFrom<>).Name &&
+                                        if (contract.Name == typeof(IDeactivating<>).Name &&
                                             contract.GetGenericArguments() is { Length: 1 } arguments)
                                         {
                                             if (contentType.GetMethods().FirstOrDefault(x =>
-                                                x.Name == "NavigatingFromAsync" && x.ReturnType == typeof(Task<>)
+                                                x.Name == "Deactivating" && x.ReturnType == typeof(Task<>)
                                                     .MakeGenericType(arguments[0]))
                                                         is MethodInfo methodInfo)
                                             {
@@ -94,9 +94,9 @@ public class FrameHandler(INavigationContext navigationContext) :
                         {
                             if (content is not null)
                             {
-                                if (content is INavigatedFrom navigatedFrom)
+                                if (content is IDeactivated deactivated)
                                 {
-                                    await navigatedFrom.NavigatedFromAsync();
+                                    await deactivated.Deactivated();
                                 }
 
                                 Type contentType = content.GetType();
@@ -104,7 +104,7 @@ public class FrameHandler(INavigationContext navigationContext) :
                                 {
                                     foreach (Type contract in contracts)
                                     {
-                                        if (contract.Name == typeof(INavigated<>).Name &&
+                                        if (contract.Name == typeof(IActivated<>).Name &&
                                             contract.GetGenericArguments() is { Length: 1 } arguments)
                                         {
                                             if (contentType.GetMethods().FirstOrDefault(x =>
@@ -168,9 +168,9 @@ public class FrameHandler(INavigationContext navigationContext) :
                                 await initializer.Initialize();
                             }
 
-                            if (content is INavigated navigated)
+                            if (content is IActivated activated)
                             {
-                                await navigated.NavigatedAsync();
+                                await activated.Activated();
                             }
                         }
                     }

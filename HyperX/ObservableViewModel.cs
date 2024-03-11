@@ -5,7 +5,8 @@ namespace HyperX;
 public class ObservableViewModel : 
     ObservableObject,
     IObservableViewModel,
-    IInitializer
+    IInitializer,
+    IActivated
 {
     private bool isInitialized;
 
@@ -31,13 +32,16 @@ public class ObservableViewModel :
 
     public IServiceProvider ServiceProvider { get; }
 
+    public virtual Task Activated() =>
+        Task.CompletedTask;
+
     public void Dispose()
     {
         GC.SuppressFinalize(this);
         Disposer.Dispose(this);
     }
 
-    public virtual Task Initialize()
+    public Task Initialize()
     {
         if (isInitialized)
         {
@@ -45,7 +49,6 @@ public class ObservableViewModel :
         }
 
         isInitialized = true;
-
         return Task.CompletedTask;
     }
 }
