@@ -1,14 +1,15 @@
-﻿using HyperX.Spotify;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace HyperX;
+namespace HyperX.Spotify;
 
 public static class IServiceCollectionExtensions
 {
     public static IServiceCollection AddSpotify(this IServiceCollection services)
     {
+        services.AddSingleton(typeof(IPipelineBehavior<>), typeof(SpotifyPipeline<>));
+
         services.AddHandler<AuthenticationHandler>();
         services.AddHandler<AccessGrantedHandler>();
         services.AddHandler<AccessRevokedHandler>();

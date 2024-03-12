@@ -21,10 +21,5 @@
                 <StaticResource x:Key="ButtonBorderBrush" ResourceKey="ControlFillColorTransparentBrush" />
             </ResourceDictionary>
         </Button.Resources>
-        <Interaction.Behaviors>
-            <EventTriggerBehavior EventName="Click">
-                <NavigateBackAction Context="Root" />
-            </EventTriggerBehavior>
-        </Interaction.Behaviors>
     </Button>
 </UserControl>

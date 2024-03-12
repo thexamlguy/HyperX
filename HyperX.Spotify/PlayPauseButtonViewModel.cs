@@ -8,5 +8,5 @@ public partial class PlayPauseButtonViewModel(IServiceProvider serviceProvider,
     CommandValueViewModel<bool>(serviceProvider, serviceFactory, publisher, subscriber, disposer)
 {
     protected override async Task InvokeAsync() =>
-        await Publisher.PublishUI(new Request<Play>());
+        await Publisher.PublishUI(Spotify.Create<Play>());
 }

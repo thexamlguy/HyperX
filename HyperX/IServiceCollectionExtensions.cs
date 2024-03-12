@@ -149,8 +149,7 @@ public static class IServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddHandler<THandler>(
-        this IServiceCollection services,
+    public static IServiceCollection AddHandler<THandler>(this IServiceCollection services,
         ServiceLifetime lifetime = ServiceLifetime.Transient)
         where THandler : IHandler
     {
@@ -162,9 +161,18 @@ public static class IServiceCollectionExtensions
                     contract.GetGenericArguments() is { Length: 1 } notificationHandlerArguments)
                 {
                     Type notificationType = notificationHandlerArguments[0];
-                    services.Add(new ServiceDescriptor(typeof(INotificationHandler<>).MakeGenericType(notificationType),
-                        typeof(THandler),
-                        lifetime));
+
+                    Type wrapperType = typeof(NotificationHandlerWrapper<>)
+                        .MakeGenericType(notificationType);
+
+                    services.TryAdd(new ServiceDescriptor(typeof(INotificationHandler<>)
+                        .MakeGenericType(notificationType), typeof(THandler), lifetime));
+
+                    services.Add(new ServiceDescriptor(wrapperType, provider => 
+                        provider.GetService<IServiceFactory>()?.Create(wrapperType,
+                            provider.GetRequiredService(typeof(INotificationHandler<>).MakeGenericType(notificationType)),
+                            provider.GetServices(typeof(IPipelineBehavior<>)
+                                .MakeGenericType(notificationType)))!, lifetime));
                 }
 
                 if (contract.Name == typeof(IHandler<,>).Name &&
@@ -173,20 +181,17 @@ public static class IServiceCollectionExtensions
                     Type requestType = handlerArguments[0];
                     Type responseType = handlerArguments[1];
 
-                    Type wrapperType = typeof(HandlerWrapper<,>).MakeGenericType(requestType, responseType);
+                    Type wrapperType = typeof(HandlerWrapper<,>)
+                        .MakeGenericType(requestType, responseType);
 
-                    services.TryAdd(new ServiceDescriptor(typeof(THandler), typeof(THandler), lifetime));
-                    services.Add(new ServiceDescriptor(
-                        wrapperType,
-                        provider =>
-                            provider.GetService<IServiceFactory>()?.Create(
-                                wrapperType,
+                    services.TryAdd(new ServiceDescriptor(typeof(THandler), 
+                        typeof(THandler), lifetime));
+
+                    services.Add(new ServiceDescriptor(wrapperType, provider => 
+                        provider.GetService<IServiceFactory>()?.Create(wrapperType,
                                 provider.GetRequiredService<THandler>(),
                                 provider.GetServices(typeof(IPipelineBehavior<,>)
-                                    .MakeGenericType(requestType, responseType))
-                            )!,
-                        lifetime
-                    ));
+                                    .MakeGenericType(requestType, responseType)))!, lifetime));
                 }
             }
 

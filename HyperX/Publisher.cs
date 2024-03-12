@@ -34,7 +34,8 @@ public class Publisher(ISubscriptionManager subscriptionManager,
         CancellationToken cancellationToken = default)
     {
         Type notificationType = notification.GetType();
-        List<object?> handlers = provider.GetServices(typeof(INotificationHandler<>)
+
+        List<object?> handlers = provider.GetServices(typeof(NotificationHandlerWrapper<>)
             .MakeGenericType(notificationType)).ToList();
 
         foreach (object? handler in subscriptionManager
