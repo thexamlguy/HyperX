@@ -1,13 +1,10 @@
 using Avalonia.Controls;
-using FluentAvalonia.UI.Controls;
 
-namespace HyperX.Spotify.Avalonia
+namespace HyperX.Spotify.Avalonia;
+
+public partial class ConnectDescriptionView : 
+    UserControl
 {
-    public partial class ConnectDescriptionView : UserControl
-    {
-        public ConnectDescriptionView()
-        {
-            InitializeComponent();
-        }
-    }
+    public ConnectDescriptionView() => 
+        InitializeComponent();
 }

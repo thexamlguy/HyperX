@@ -10,7 +10,8 @@ public static class IServiceCollectionExtensions
     public static IServiceCollection AddSpotify(this IServiceCollection services)
     {
         services.AddHandler<AuthenticationHandler>();
-        services.AddHandler<AccessTokenHandler>();
+        services.AddHandler<AccessGrantedHandler>();
+        services.AddHandler<AccessRevokedHandler>();
 
         services.AddHandler<PlayHandler>();
 

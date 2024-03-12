@@ -12,6 +12,40 @@ public class ContentDialogHandler(IDispatcher dispatcher) :
         {
             contentDialog.DataContext = args.Content;
 
+            async void HandlePrimaryButtonClick(FluentAvalonia.UI.Controls.ContentDialog sender,
+                FluentAvalonia.UI.Controls.ContentDialogButtonClickEventArgs args)
+            {
+                contentDialog.PrimaryButtonClick -= HandlePrimaryButtonClick;
+                if (contentDialog.DataContext is object content)
+                {
+                    if (content is IPrimaryConfirmation primaryConfirmation)
+                    {
+                        if (!await primaryConfirmation.Confirm())
+                        {
+                            args.Cancel = true;
+                            contentDialog.PrimaryButtonClick += HandlePrimaryButtonClick;
+                        }
+                    }
+                }
+            }
+
+            async void HandleSecondaryButtonClick(FluentAvalonia.UI.Controls.ContentDialog sender,
+                FluentAvalonia.UI.Controls.ContentDialogButtonClickEventArgs args)
+            {
+                contentDialog.SecondaryButtonClick -= HandleSecondaryButtonClick;
+                if (contentDialog.DataContext is object content)
+                {
+                    if (content is ISecondaryConfirmation secondaryConfirmation)
+                    {
+                        if (!await secondaryConfirmation.Confirm())
+                        {
+                            args.Cancel = true;
+                            contentDialog.SecondaryButtonClick += HandleSecondaryButtonClick;
+                        }
+                    }
+                }
+            }
+
             async void HandleClosing(FluentAvalonia.UI.Controls.ContentDialog sender,
                  FluentAvalonia.UI.Controls.ContentDialogClosingEventArgs args)
             {
@@ -21,9 +55,9 @@ public class ContentDialogHandler(IDispatcher dispatcher) :
                     contentDialog.Closing -= HandleClosing;
                     if (contentDialog.DataContext is object content)
                     {
-                        if (content is IConfirmNavigation confirmNavigation)
+                        if (content is IConfirmation confirmation)
                         {
-                            if (!await confirmNavigation.ConfirmNavigation())
+                            if (!await confirmation.Confirm())
                             {
                                 args.Cancel = true;
                                 contentDialog.Closing += HandleClosing;
@@ -52,7 +86,6 @@ public class ContentDialogHandler(IDispatcher dispatcher) :
 
                     // A hack to wait for the dialog to finish loading up to make it appear more responsive
                     await Task.Delay(250, cancellationToken);
-
                     if (content is IInitializer initializer)
                     {
                         await initializer.Initialize();
@@ -67,8 +100,13 @@ public class ContentDialogHandler(IDispatcher dispatcher) :
             
             contentDialog.Opened += HandleOpened;
             contentDialog.Closing += HandleClosing;
+            contentDialog.PrimaryButtonClick += HandlePrimaryButtonClick;
+            contentDialog.SecondaryButtonClick += HandleSecondaryButtonClick;
 
             await contentDialog.ShowAsync();
+
+            contentDialog.PrimaryButtonClick += HandlePrimaryButtonClick;
+            contentDialog.SecondaryButtonClick += HandleSecondaryButtonClick;
         }
     }
 }

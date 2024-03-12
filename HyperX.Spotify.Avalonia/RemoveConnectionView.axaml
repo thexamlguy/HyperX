@@ -1,0 +1,12 @@
+<ContentDialog
+    x:Class="HyperX.Spotify.Avalonia.RemoveConnectionView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Remove your Spotify account"
+    CloseButtonText="No"
+    PrimaryButtonText="Yes">
+    <StackPanel Width="400" Spacing="18">
+        <TextBlock Text="Are you certain you want to remove your Spotify account from this application?" TextWrapping="Wrap" />
+    </StackPanel>
+</ContentDialog>
+

@@ -84,7 +84,7 @@ public class AuthenticationHandler(IPublisher publisher,
                             await publisher.Publish(Authentication.Create(true),
                                 cancellationToken);
 
-                            await publisher.Publish(Authentication.Create(new AccessToken(result.AccessToken,
+                            await publisher.Publish(Authentication.Create(new AccessGranted(result.AccessToken,
                                 result.RefreshToken)), cancellationToken);
                         }
                     }
@@ -103,16 +103,16 @@ public class AuthenticationHandler(IPublisher publisher,
     private class AuthorizationCodeToken
     {
         [JsonPropertyName("access_token")]
-        public string? AccessToken { get; set; }
+        public string AccessToken { get; set; } = string.Empty;
 
         [JsonPropertyName("token_type")]
-        public string? TokenType { get; set; }
+        public string TokenType { get; set; } = string.Empty;
 
         [JsonPropertyName("expires_in")]
         public long ExpiresIn { get; set; }
 
         [JsonPropertyName("refresh_token")]
-        public string? RefreshToken { get; set; }
+        public string RefreshToken { get; set; } = string.Empty;
     }
 
 }

@@ -45,6 +45,9 @@ public class SpotifyComponent :
                 services.AddTemplate<AddConnectionViewModel,
                     AddConnectionView>("AddConnection");
 
+                services.AddTemplate<RemoveConnectionViewModel,
+                    RemoveConnectionView>("RemoveConnection");
+
                 services.AddComponentConfigurationTemplate<SpotifyConfiguration, bool, ConnectDescriptionView, 
                     ConnectView>(args => args.IsConnected, "Spotify Account");
 
