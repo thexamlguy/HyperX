@@ -11,6 +11,7 @@ public class AccessRevokedHandler(IWritableConfiguration<SpotifyConfiguration> c
             config.IsConnected = false;
             config.Token = "";
             config.RefreshToken = "";
+            config.TokenExpiry = DateTime.UtcNow;
         });
 
         return Task.CompletedTask;

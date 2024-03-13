@@ -7,11 +7,10 @@ using System.Net.Http.Json;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
-using System.Text.Json.Serialization;
 
 namespace HyperX.Spotify;
 
-public class AuthenticationHandler(IPublisher publisher,
+public partial class AuthenticationHandler(IPublisher publisher,
     IVerifierFactory verifierFactory,
     IChallengeFactory challengeFactory,
     IHttpClientFactory httpClientFactory,
@@ -23,7 +22,7 @@ public class AuthenticationHandler(IPublisher publisher,
     {
         TaskCompletionSource taskCompletionSource = new(cancellationToken);
 
-        string scope = "user-read-private user-read-email";
+        string scope = "user-read-playback-state user-modify-playback-state user-read-currently-playing app-remote-control streaming";
 
         string verifier = verifierFactory.Create();
         string challenge = challengeFactory.Create(verifier);
@@ -39,7 +38,7 @@ public class AuthenticationHandler(IPublisher publisher,
 
         callbackUrl = $"http://{host}:{port}{callbackPath}";
 
-        string url = $"{configuration.AuthenticationUrl}?response_type=code&client_id={configuration.ClientId}&scope={scope}" +
+        string url = $"{configuration.AccountUrl}/authorize?response_type=code&client_id={configuration.ClientId}&scope={scope}" +
             $"&redirect_uri={callbackUrl}&state={challenge}";
 
         Debug.WriteLine(url);
@@ -63,29 +62,26 @@ public class AuthenticationHandler(IPublisher publisher,
                     string state = query["state"]!;
                     string code = query["code"]!;
 
-                    List<KeyValuePair<string?, string?>> post =
-                    [
-                        new("grant_type", "authorization_code"),
-                        new("code", code),
-                        new("redirect_uri", callbackUrl)
-                    ];
-
                     using HttpClient client = httpClientFactory.CreateClient("Account");
-                    HttpResponseMessage response = await client.PostAsync("token", new FormUrlEncodedContent([
+                    HttpResponseMessage response = await client.PostAsync("/api/token", new FormUrlEncodedContent([
                         new("grant_type", "authorization_code"),
                         new("code", code),
                         new("redirect_uri", callbackUrl)]));
 
                     if (response.IsSuccessStatusCode)
                     {
-                        if (await response.Content.ReadFromJsonAsync<AuthorizationCodeToken>()
+                        if (await response.Content.ReadFromJsonAsync<AuthorizationCodeToken>(cancellationToken)
                             is AuthorizationCodeToken result)
                         {
                             await publisher.Publish(Authentication.Create(true),
                                 cancellationToken);
 
-                            await publisher.Publish(Authentication.Create(new AccessGranted(result.AccessToken,
-                                result.RefreshToken)), cancellationToken);
+                            string accessToken = result.AccessToken;
+                            string refreshToken = result.RefreshToken;
+
+                            DateTimeOffset expiry = DateTimeOffset.UtcNow.Add(TimeSpan.FromSeconds(result.ExpiresIn));
+                            await publisher.Publish(Authentication.Create(new AccessGranted(accessToken, refreshToken, expiry)), 
+                                cancellationToken);
                         }
                     }
                 }
@@ -98,21 +94,6 @@ public class AuthenticationHandler(IPublisher publisher,
 
         server.Start(cancellationToken: cancellationToken);
         await taskCompletionSource.Task;
-    }
-
-    private class AuthorizationCodeToken
-    {
-        [JsonPropertyName("access_token")]
-        public string AccessToken { get; set; } = string.Empty;
-
-        [JsonPropertyName("token_type")]
-        public string TokenType { get; set; } = string.Empty;
-
-        [JsonPropertyName("expires_in")]
-        public long ExpiresIn { get; set; }
-
-        [JsonPropertyName("refresh_token")]
-        public string RefreshToken { get; set; } = string.Empty;
     }
 
 }

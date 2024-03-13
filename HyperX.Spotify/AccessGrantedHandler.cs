@@ -11,6 +11,7 @@ public class AccessGrantedHandler(IWritableConfiguration<SpotifyConfiguration> c
             config.IsConnected = true;
             config.Token = args.Value.Token;
             config.RefreshToken = args.Value.RefreshToken;
+            config.TokenExpiry = args.Value.TokenExpiry;
         });
 
         return Task.CompletedTask;

@@ -13,11 +13,11 @@ public class NotificationHandlerWrapper<TNotification>(INotificationHandler<TNot
         NotificationHandlerDelegate<TNotification> currentHandler = handler.Handle;
         foreach (IPipelineBehavior<TNotification> behavior in pipelineBehaviours)
         {
-            //NotificationHandlerDelegate<TNotification> previousHandler = currentHandler;
-            //currentHandler = async (args, token) =>
-            //{
-            //    await behavior.Handle(args, previousHandler, token);
-            //};
+            NotificationHandlerDelegate<TNotification> previousHandler = currentHandler;
+            currentHandler = async (args, token) =>
+            {
+                await behavior.Handle(args, previousHandler, token);
+            };
         }
         
         await currentHandler(notification, cancellationToken);

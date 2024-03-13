@@ -12,11 +12,11 @@ public class SpotifyComponent :
             {
                 args.Name = "Spotify";
                 args.Description = "Spotify remote player";
-                args.AuthenticationUrl = "https://accounts.spotify.com/authorize";
-                args.AccountUrl = "https://accounts.spotify.com/api/";
+                args.AccountUrl = "https://accounts.spotify.com";
+                args.SpotifyUrl = "https://api.spotify.com/v1";
                 args.CallbackUrl = "http://localhost:5543/callback";
-                args.ClientId = "f944e321fb164a2ba7f64d742e73dc6d";
-                args.ClientSecret = "229e8651f62a4dec8487367a7cdf20c8";
+                args.ClientId = "862fa42da60a46a680ebae98760b7025";
+                args.ClientSecret = "f76db5cc126b43429bd6dd1306879d3f";
                 args.Port = 5543;
             })
             .AddServices(services =>

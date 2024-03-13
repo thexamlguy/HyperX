@@ -8,7 +8,7 @@ public static class IServiceCollectionExtensions
 {
     public static IServiceCollection AddSpotify(this IServiceCollection services)
     {
-        services.AddSingleton(typeof(IPipelineBehavior<>), typeof(SpotifyPipeline<>));
+        services.AddTransient(typeof(IPipelineBehavior<>), typeof(SpotifyPipeline<>));
 
         services.AddHandler<AuthenticationHandler>();
         services.AddHandler<AccessGrantedHandler>();
@@ -27,7 +27,10 @@ public static class IServiceCollectionExtensions
 
         services.AddHttpClient("Spotify", (provider, args) =>
         {
+            SpotifyConfiguration configuration = provider.GetRequiredService<SpotifyConfiguration>();
 
+            args.BaseAddress = new Uri(configuration.SpotifyUrl);
+            args.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration.Token);
         });
 
         return services;
