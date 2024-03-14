@@ -3,6 +3,15 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Border ClipToBounds="True" CornerRadius="{DynamicResource OverlayCornerRadius}">
-        <ContentControl Content="{Binding Content}" ContentTemplate="{Binding Template}" />
+        <ContentControl>
+            <Interaction.Behaviors>
+                <AttachedBehavior>
+                    <NavigateAction
+                        Route="{Binding Name}"
+                        Context="{Binding $self}"
+                        Scope="{Binding Component}" />
+                </AttachedBehavior>
+            </Interaction.Behaviors>
+        </ContentControl>
     </Border>
 </UserControl>

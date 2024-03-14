@@ -14,8 +14,8 @@ public class NavigateAction :
     public static readonly StyledProperty<object> ContextProperty =
         AvaloniaProperty.Register<NavigateAction, object>(nameof(Context));
 
-    public static readonly StyledProperty<string> NameProperty =
-        AvaloniaProperty.Register<NavigateAction, string>(nameof(Name));
+    public static readonly StyledProperty<string> RouteProperty =
+        AvaloniaProperty.Register<NavigateAction, string>(nameof(Route));
 
     public static readonly DirectProperty<NavigateAction, ParameterBindingCollection> ParameterBindingsProperty =
         AvaloniaProperty.RegisterDirect<NavigateAction, ParameterBindingCollection>(nameof(ParameterBindings),
@@ -35,10 +35,10 @@ public class NavigateAction :
         set => SetValue(ContextProperty, value);
     }
 
-    public string Name
+    public string Route
     {
-        get => GetValue(NameProperty);
-        set => SetValue(NameProperty, value);
+        get => GetValue(RouteProperty);
+        set => SetValue(RouteProperty, value);
     }
 
     [Content]
@@ -72,8 +72,8 @@ public class NavigateAction :
                     ParameterBindings.Select(binding => new KeyValuePair<string, object>(binding.Key, binding.Value)).ToArray() :
                     Enumerable.Empty<KeyValuePair<string, object>>()];
 
-                observableViewModel.Publisher.Publish(new Navigate(Name, Context 
-                    ?? null, Scope ?? null, control.DataContext, parameters)).GetAwaiter().GetResult();
+                observableViewModel.Publisher.Publish(new Navigate(Route, Context
+                    ?? null, Scope ?? null, control.DataContext, parameters));
             }
         }
 

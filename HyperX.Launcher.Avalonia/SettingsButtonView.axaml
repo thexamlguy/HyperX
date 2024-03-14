@@ -22,7 +22,7 @@
         <Interaction.Behaviors>
             <EventTriggerBehavior EventName="Click">
                 <NavigateAction
-                    Name="Settings"
+                    Route="Settings"
                     Context="Root"
                     Scope="SettingsComponent" />
             </EventTriggerBehavior>

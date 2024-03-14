@@ -16,7 +16,7 @@
                     IsVisible="{Binding #Root.CanGoBack}">
                     <Interaction.Behaviors>
                         <AttachedBehavior>
-                            <NavigateAction Name="Back" Context="{Binding $self}" />
+                            <NavigateAction Route="Back" Context="{Binding $self}" />
                         </AttachedBehavior>
                     </Interaction.Behaviors>
                 </ContentControl>
@@ -29,7 +29,7 @@
                 <ContentControl Grid.Column="2" IsVisible="{Binding !#Root.CanGoBack}">
                     <Interaction.Behaviors>
                         <AttachedBehavior>
-                            <NavigateAction Name="Settings" Context="{Binding $self}" />
+                            <NavigateAction Route="Settings" Context="{Binding $self}" />
                         </AttachedBehavior>
                     </Interaction.Behaviors>
                 </ContentControl>
@@ -41,17 +41,17 @@
                 <Interaction.Behaviors>
                     <EventTriggerBehavior EventName="Loaded">
                         <NavigateAction
-                            Name="Widgets"
+                            Route="Widgets"
                             Context="Root"
                             Scope="WidgetsComponent" />
                         <NavigateAction
-                            Name="DateTime"
+                            Route="DateTime"
                             Context="Header"
                             Scope="DateTimeComponent" />
                     </EventTriggerBehavior>
                     <DataTriggerBehavior Binding="{Binding #Root.CanGoBack}" Value="False">
                         <NavigateAction
-                            Name="DateTime"
+                            Route="DateTime"
                             Context="Header"
                             Scope="DateTimeComponent" />
                     </DataTriggerBehavior>

@@ -18,7 +18,7 @@ public class ContentTemplate :
                 IContentTemplateDescriptorProvider? contentTemplateProvider = provider.GetService<IContentTemplateDescriptorProvider>();
                 INavigationContext? viewModelContentBinder = provider.GetService<INavigationContext>();
 
-                if (contentTemplateProvider?.Get(item.GetType().Name.Replace("ViewModel", "")) is IContentTemplateDescriptor descriptor)
+                if (contentTemplateProvider?.Get(item.GetType().Name) is IContentTemplateDescriptor descriptor)
                 {
                     if (provider.GetRequiredKeyedService(descriptor.TemplateType, descriptor.Key) is Control control)
                     {
@@ -41,6 +41,7 @@ public class ContentTemplate :
 
                         control.Loaded += HandleLoaded;
                         viewModelContentBinder?.Set(control);
+
                         return control;
                     }
                 }

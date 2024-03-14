@@ -12,9 +12,8 @@ public partial class LiveViewModel :
         IServiceFactory serviceFactory,
         IPublisher publisher, 
         ISubscriber subscriber, 
-        IDisposer disposer,
-        string colour) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+        IDisposer disposer) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
-        this.colour = colour;
+
     }
 }

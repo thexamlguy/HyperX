@@ -1,6 +1,6 @@
 ﻿namespace HyperX.Settings;
 
-[NotificationHandler(nameof(SettingsViewModel))]
+[Notification(nameof(SettingsViewModel))]
 public partial class SettingsViewModel(IServiceProvider serviceProvider,
     IServiceFactory serviceFactory,
     IPublisher publisher,

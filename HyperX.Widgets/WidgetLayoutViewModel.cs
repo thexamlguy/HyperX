@@ -2,7 +2,7 @@
 
 namespace HyperX.Widgets;
 
-[NotificationHandler(nameof(Id))]
+[Notification(nameof(Id))]
 public partial class WidgetLayoutViewModel(IServiceProvider serviceProvider, 
     IServiceFactory serviceFactory, 
     IPublisher publisher,

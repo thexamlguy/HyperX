@@ -6,7 +6,7 @@
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="Tapped">
             <NavigateAction
-                Name="Component"
+                Route="Component"
                 Context="Settings"
                 Scope="SettingsComponent">
                 <ParameterBinding Key="Component" Value="{Binding Component}" />

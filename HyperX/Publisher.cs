@@ -28,7 +28,7 @@ public class Publisher(ISubscriptionManager subscriptionManager,
         INotification => Publish(notification, 
             async args => await args(), key, cancellationToken);
 
-    public Task Publish(object notification,
+    public async Task Publish(object notification,
         Func<Func<Task>, Task> marshal,
         object? key = null,
         CancellationToken cancellationToken = default)
@@ -54,13 +54,11 @@ public class Publisher(ISubscriptionManager subscriptionManager,
 
                 if (handleMethod is not null)
                 {
-                    marshal(() => (Task)handleMethod.Invoke(handler, new object[]
+                    await marshal(() => (Task)handleMethod.Invoke(handler, new object[]
                         { notification, cancellationToken })!);
                 }
             }
         }
-
-        return Task.CompletedTask;
     }
 
     public Task Publish(object notification,

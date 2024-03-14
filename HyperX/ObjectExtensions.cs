@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace HyperX;
 
@@ -23,7 +22,7 @@ public static class ObjectExtensions
         where TAttribute : Attribute
     {
         Type type = obj.GetType();
-        if (type.GetCustomAttribute<TAttribute>() is TAttribute attribute)
+        if (type.GetAttribute<TAttribute>() is TAttribute attribute)
         {
             return attribute;
         }

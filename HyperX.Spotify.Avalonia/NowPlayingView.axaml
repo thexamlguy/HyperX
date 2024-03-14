@@ -28,7 +28,7 @@
                 <Interaction.Behaviors>
                     <AttachedBehavior>
                         <NavigateAction
-                            Name="NowPlayingTrack"
+                            Route="NowPlayingTrack"
                             Context="{Binding $self}"
                             Scope="SpotifyComponent" />
                     </AttachedBehavior>
@@ -38,7 +38,7 @@
                 <Interaction.Behaviors>
                     <AttachedBehavior>
                         <NavigateAction
-                            Name="NowPlayingArtist"
+                            Route="NowPlayingArtist"
                             Context="{Binding $self}"
                             Scope="SpotifyComponent" />
                     </AttachedBehavior>
@@ -53,7 +53,7 @@
                     <Interaction.Behaviors>
                         <AttachedBehavior>
                             <NavigateAction
-                                Name="SkipPreviousButton"
+                                Route="SkipPreviousButton"
                                 Context="{Binding $self}"
                                 Scope="SpotifyComponent" />
                         </AttachedBehavior>
@@ -63,7 +63,7 @@
                     <Interaction.Behaviors>
                         <AttachedBehavior>
                             <NavigateAction
-                                Name="PlayPauseButton"
+                                Route="PlayPauseButton"
                                 Context="{Binding $self}"
                                 Scope="SpotifyComponent" />
                         </AttachedBehavior>
@@ -73,7 +73,7 @@
                     <Interaction.Behaviors>
                         <AttachedBehavior>
                             <NavigateAction
-                                Name="SkipNextButton"
+                                Route="SkipNextButton"
                                 Context="{Binding $self}"
                                 Scope="SpotifyComponent" />
                         </AttachedBehavior>

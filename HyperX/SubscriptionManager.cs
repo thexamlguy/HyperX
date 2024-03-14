@@ -66,8 +66,8 @@ public class SubscriptionManager(SubscriptionCollection subscriptions) :
 
     private static object? GetKeyFromHandler(object handler)
     {
-        return handler.GetAttribute<NotificationHandlerAttribute>()
-            is NotificationHandlerAttribute attribute
+        return handler.GetAttribute<NotificationAttribute>()
+            is NotificationAttribute attribute
             ? handler.GetPropertyValue(() => attribute.Key) is { } value ? value : attribute.Key
             : null;
     }

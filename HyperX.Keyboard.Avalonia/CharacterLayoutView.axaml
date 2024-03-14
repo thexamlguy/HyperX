@@ -6,7 +6,7 @@
         <Interaction.Behaviors>
             <EventTriggerBehavior EventName="Loaded">
                 <NavigateAction
-                    Name="LowerCharacterLayout"
+                    Route="LowerCharacterLayout"
                     Context="KeyboardLayout"
                     Scope="KeyboardComponent" />
             </EventTriggerBehavior>

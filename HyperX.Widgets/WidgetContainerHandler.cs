@@ -23,43 +23,43 @@ public class WidgetContainerHandler(IPublisher publisher,
                     {
                         foreach (Widget widget in widgetLayout)
                         {
-                            IServiceProvider? serviceProvider = 
-                                componentScopeProvider.Get(widget.Component);
-
-                            IContentTemplateDescriptorProvider? viewModelTemplateDescriptorProvider = 
-                                serviceProvider?.GetService<IContentTemplateDescriptorProvider>();
-
-                            IContentTemplateDescriptor? viewModelTemplateDescriptor =
-                                viewModelTemplateDescriptorProvider?.Get(widget.Name);
-
-                            if (viewModelTemplateDescriptor is not null)
+                            if (serviceFactory.Create<WidgetContainerViewModel>(widget.Row, widget.Column,
+                                widget.RowSpan, widget.ColumnSpan, widget.Name, widget.Component)
+                                is WidgetContainerViewModel widgetContainerViewModel)
                             {
-                                IServiceFactory? componentServiceFactory = 
-                                    serviceProvider?.GetService<IServiceFactory>();
-
-                                Dictionary<string, object> arguments = new(widget.Arguments,
-                                    StringComparer.InvariantCultureIgnoreCase);
-
-                                IEnumerable<object?>? mappedParameters = viewModelTemplateDescriptor.ContentType
-                                     .GetConstructors()
-                                     .FirstOrDefault()?
-                                     .GetParameters()
-                                     .Select(parameter => parameter?.Name != null && arguments
-                                         .TryGetValue(parameter.Name, out object? argument) ? argument : default)
-                                     .Where(argument => argument != null);
-
-                                if (componentServiceFactory?.Create(viewModelTemplateDescriptor.ContentType, [.. mappedParameters ?? Enumerable.Empty<object?>()]) 
-                                    is object viewModel)
-                                {
-                                    if (serviceFactory.Create<WidgetContainerViewModel>(widget.Row, widget.Column,
-                                        widget.RowSpan, widget.ColumnSpan, viewModel)
-                                        is WidgetContainerViewModel widgetContainerViewModel)
-                                    {
-                                        await publisher.PublishUI(new Create<WidgetContainerViewModel>(widgetContainerViewModel),
-                                            args.Key, cancellationToken);
-                                    }
-                                }                           
+                                await publisher.PublishUI(new Create<WidgetContainerViewModel>(widgetContainerViewModel),
+                                    args.Key, cancellationToken);
                             }
+
+
+                            //if (viewModelTemplateDescriptor is not null)
+                            //{
+                            //    IServiceFactory? componentServiceFactory = 
+                            //        serviceProvider?.GetService<IServiceFactory>();
+
+                            //    Dictionary<string, object> arguments = new(widget.Arguments,
+                            //        StringComparer.InvariantCultureIgnoreCase);
+
+                            //    IEnumerable<object?>? mappedParameters = viewModelTemplateDescriptor.ContentType
+                            //         .GetConstructors()
+                            //         .FirstOrDefault()?
+                            //         .GetParameters()
+                            //         .Select(parameter => parameter?.Name != null && arguments
+                            //             .TryGetValue(parameter.Name, out object? argument) ? argument : default)
+                            //         .Where(argument => argument != null);
+
+                            //    if (componentServiceFactory?.Create(viewModelTemplateDescriptor.ContentType, [.. mappedParameters ?? Enumerable.Empty<object?>()]) 
+                            //        is object viewModel)
+                            //    {
+                            //        if (serviceFactory.Create<WidgetContainerViewModel>(widget.Row, widget.Column,
+                            //            widget.RowSpan, widget.ColumnSpan, viewModel)
+                            //            is WidgetContainerViewModel widgetContainerViewModel)
+                            //        {
+                            //            await publisher.PublishUI(new Create<WidgetContainerViewModel>(widgetContainerViewModel),
+                            //                args.Key, cancellationToken);
+                            //        }
+                            //    }                           
+                            //}
                         }
                     }
                 }

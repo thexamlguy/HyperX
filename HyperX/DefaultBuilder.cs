@@ -48,7 +48,7 @@ public class DefaultBuilder :
                 services.AddScoped<INavigationContextCollection, NavigationContextCollection>();
                 services.AddTransient<INavigationContextProvider, NavigationContextProvider>();
 
-                services.AddScoped<INavigationScope, NavigationScope>();
+                services.AddTransient<INavigationScope, NavigationScope>();
          
                 services.AddScoped<IComponentScopeCollection, ComponentScopeCollection>(provider => new ComponentScopeCollection
                 {

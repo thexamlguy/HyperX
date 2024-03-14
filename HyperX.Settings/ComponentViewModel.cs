@@ -2,7 +2,7 @@
 
 namespace HyperX.Settings;
 
-[NotificationHandler(nameof(Component))]
+[Notification(nameof(Component))]
 public partial class ComponentViewModel(IServiceProvider serviceProvider,
     IServiceFactory serviceFactory,
     IPublisher publisher,

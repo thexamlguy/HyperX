@@ -16,7 +16,7 @@
         <Interaction.Behaviors>
             <EventTriggerBehavior EventName="Loaded">
                 <NavigateAction
-                    Name="Header"
+                    Route="Header"
                     Context="Header"
                     Scope="SettingsComponent" />
             </EventTriggerBehavior>

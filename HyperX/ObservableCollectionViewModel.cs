@@ -300,8 +300,8 @@ public partial class ObservableCollectionViewModel<TViewModel> :
 
         isInitialized = true;
 
-        object? key = this.GetAttribute<NotificationHandlerAttribute>()
-            is NotificationHandlerAttribute attribute
+        object? key = this.GetAttribute<NotificationAttribute>()
+            is NotificationAttribute attribute
             ? this.GetPropertyValue(() => attribute.Key) is { } value ? value : attribute.Key
             : null;
 

@@ -12,7 +12,10 @@ public partial class WidgetContainerViewModel :
     private int columnSpan;
 
     [ObservableProperty]
-    private object content;
+    private string component;
+
+    [ObservableProperty]
+    private string name;
 
     [ObservableProperty]
     private int row;
@@ -30,14 +33,16 @@ public partial class WidgetContainerViewModel :
         int column,
         int rowSpan,
         int columnSpan,
-        object content) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
+        string name,
+        string component) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
         Template = template;
         Row = row;
         Column = column;
         RowSpan = rowSpan;
         ColumnSpan = columnSpan;
-        Content = content;
+        Name = name;
+        Component = component;
     }
 
     public IContentTemplate Template { get; }

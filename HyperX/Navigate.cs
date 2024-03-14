@@ -1,6 +1,6 @@
 ﻿namespace HyperX;
 
-public record Navigate(object Name, 
+public record Navigate(string Route, 
     object? Context = null, 
     string? Scope = null, 
     object? Sender = null,

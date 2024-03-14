@@ -9,7 +9,7 @@
             IsVisible="{Binding Value}">
             <Interaction.Behaviors>
                 <EventTriggerBehavior EventName="Click">
-                    <NavigateAction Name="RemoveConnection" Scope="SpotifyComponent" />
+                    <NavigateAction Route="RemoveConnection" Scope="SpotifyComponent" />
                 </EventTriggerBehavior>
             </Interaction.Behaviors>
         </Button>
@@ -19,7 +19,7 @@
             IsVisible="{Binding !Value}">
             <Interaction.Behaviors>
                 <EventTriggerBehavior EventName="Click">
-                    <NavigateAction Name="AddConnection" Scope="SpotifyComponent" />
+                    <NavigateAction Route="AddConnection" Scope="SpotifyComponent" />
                 </EventTriggerBehavior>
             </Interaction.Behaviors>
         </Button>

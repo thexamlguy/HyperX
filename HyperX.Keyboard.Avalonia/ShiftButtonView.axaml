@@ -17,7 +17,7 @@
                         </ConditionalExpression>
                     </ConditionAction.Condition>
                     <NavigateAction
-                        Name="LowerCharacterLayout"
+                        Route="LowerCharacterLayout"
                         Context="KeyboardLayout"
                         Scope="KeyboardComponent" />
                 </ConditionAction>
@@ -28,7 +28,7 @@
                         </ConditionalExpression>
                     </ConditionAction.Condition>
                     <NavigateAction
-                        Name="UpperCharacterLayout"
+                        Route="UpperCharacterLayout"
                         Context="KeyboardLayout"
                         Scope="KeyboardComponent" />
                 </ConditionAction>

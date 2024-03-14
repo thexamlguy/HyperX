@@ -8,7 +8,7 @@
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="Click">
             <NavigateAction
-                Name="ConnectionAuthentication"
+                Route="ConnectionAuthentication"
                 Context="Root"
                 Scope="WiFiComponent" />
         </EventTriggerBehavior>
