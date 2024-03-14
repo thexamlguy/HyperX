@@ -24,7 +24,7 @@ public class WidgetContainerHandler(IPublisher publisher,
                         foreach (Widget widget in widgetLayout)
                         {
                             if (serviceFactory.Create<WidgetContainerViewModel>(widget.Row, widget.Column,
-                                widget.RowSpan, widget.ColumnSpan, widget.Name, widget.Component)
+                                widget.RowSpan, widget.ColumnSpan, widget.Route, widget.Component)
                                 is WidgetContainerViewModel widgetContainerViewModel)
                             {
                                 await publisher.PublishUI(new Create<WidgetContainerViewModel>(widgetContainerViewModel),

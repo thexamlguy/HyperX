@@ -301,7 +301,8 @@ public class CarouselView :
                     index = 0;
                 }
 
-                if (items[indexOffsets[i]] is Border border && border.Child is CarouselViewItem content)
+                if (items[indexOffsets[i]] is Border border && border.Child is
+                    CarouselViewItem content)
                 {
                     content.Content = ItemsView[index];
                     content.SetSelected(indexOffsets.Length / 2 == i);

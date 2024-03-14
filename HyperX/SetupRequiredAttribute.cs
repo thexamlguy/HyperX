@@ -1,7 +1,7 @@
 ﻿namespace HyperX;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-public class SetupRequiredAttribute(object name) : Attribute
+public class NavigationRouteAttribute(string route) : Attribute
 {
-    public object Name => name;
+    public string Route => route;
 }

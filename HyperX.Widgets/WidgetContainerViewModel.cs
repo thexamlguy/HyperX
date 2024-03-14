@@ -15,13 +15,16 @@ public partial class WidgetContainerViewModel :
     private string component;
 
     [ObservableProperty]
-    private string name;
+    private string route;
 
     [ObservableProperty]
     private int row;
 
     [ObservableProperty]
     private int rowSpan;
+
+    [ObservableProperty]
+    private string name;
 
     public WidgetContainerViewModel(IServiceProvider serviceProvider,
         IServiceFactory serviceFactory,
@@ -33,7 +36,7 @@ public partial class WidgetContainerViewModel :
         int column,
         int rowSpan,
         int columnSpan,
-        string name,
+        string route,
         string component) : base(serviceProvider, serviceFactory, publisher, subscriber, disposer)
     {
         Template = template;
@@ -41,7 +44,8 @@ public partial class WidgetContainerViewModel :
         Column = column;
         RowSpan = rowSpan;
         ColumnSpan = columnSpan;
-        Name = name;
+        Route = route;
+        Name = route[(route.LastIndexOf('/') + 1)..] ?? route;
         Component = component;
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace HyperX.Spotify;
 
-[SetupRequired("Setup")]
+[NavigationRoute("Setup")]
 public class NowPlayingViewModel(IServiceProvider serviceProvider,
     IServiceFactory serviceFactory,
     IPublisher publisher,

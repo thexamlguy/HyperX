@@ -6,10 +6,28 @@
         <ContentControl>
             <Interaction.Behaviors>
                 <AttachedBehavior>
-                    <NavigateAction
-                        Route="{Binding Name}"
-                        Context="{Binding $self}"
-                        Scope="{Binding Component}" />
+                    <ConditionAction>
+                        <ConditionAction.Condition>
+                            <ConditionalExpression>
+                                <ComparisonCondition LeftOperand="{Binding IsInitialized}" RightOperand="False" />
+                            </ConditionalExpression>
+                        </ConditionAction.Condition>
+                        <NavigateAction
+                            Context="{Binding $self}"
+                            Route="{Binding Route}"
+                            Scope="{Binding Component}" />
+                    </ConditionAction>
+                    <ConditionAction>
+                        <ConditionAction.Condition>
+                            <ConditionalExpression>
+                                <ComparisonCondition LeftOperand="{Binding IsInitialized}" RightOperand="True" />
+                            </ConditionalExpression>
+                        </ConditionAction.Condition>
+                        <NavigateAction
+                            Context="{Binding $self}"
+                            Route="{Binding Name}"
+                            Scope="{Binding Component}" />
+                    </ConditionAction>
                 </AttachedBehavior>
             </Interaction.Behaviors>
         </ContentControl>

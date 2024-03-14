@@ -10,6 +10,6 @@ public class SetupViewModel(IServiceProvider serviceProvider,
 {
     public override async Task Activated()
     {
-        await Task.Delay(50000);
+        await Task.Delay(5000);
     }
 }

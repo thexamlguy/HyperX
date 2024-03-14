@@ -10,7 +10,7 @@ public class Widget
 
     public required string Component { get; set; }
 
-    public required string Name { get; set; }
+    public required string Route { get; set; }
 
     public int Row { get; set; }
 

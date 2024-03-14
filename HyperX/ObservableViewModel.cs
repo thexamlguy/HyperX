@@ -2,7 +2,7 @@
 
 namespace HyperX;
 
-public class ObservableViewModel : 
+public  partial class ObservableViewModel : 
     ObservableObject,
     IObservableViewModel,
     IInitializer,
@@ -11,6 +11,7 @@ public class ObservableViewModel :
     IDeactivated,
     IDeactivatable
 {
+    [ObservableProperty]
     private bool isInitialized;
 
     public ObservableViewModel(IServiceProvider serviceProvider,
@@ -60,12 +61,12 @@ public class ObservableViewModel :
 
     public Task Initialize()
     {
-        if (isInitialized)
+        if (IsInitialized)
         {
             return Task.CompletedTask;
         }
 
-        isInitialized = true;
+        IsInitialized = true;
         return Task.CompletedTask;
     }
 }

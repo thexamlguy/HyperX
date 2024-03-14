@@ -6,9 +6,11 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <None Remove="Assets\mbid-a5ea66ca-8a47-4dd2-b2d4-bc467a72c280-27232009759.jpg" />
+	  <None Remove="Assets\Spotify.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <AvaloniaResource Include="Assets\mbid-a5ea66ca-8a47-4dd2-b2d4-bc467a72c280-27232009759.jpg" />
+	  <AvaloniaResource Include="Assets\Spotify.png" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />

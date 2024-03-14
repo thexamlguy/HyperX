@@ -15,7 +15,7 @@ public class WidgetsComponent :
                     new() {
                         new Widget
                         {
-                            Name = "Spotify",
+                            Route = "Setup\\NowPlaying",
                             Component = "SpotifyComponent",
                             Row = 0,
                             Column = 0,
@@ -26,7 +26,7 @@ public class WidgetsComponent :
                     new() {
                         new Widget
                         {
-                            Name = "Live",
+                            Route = "Live",
                             Component = "ReolinkComponent",
                             Row = 0,
                             Column = 0,

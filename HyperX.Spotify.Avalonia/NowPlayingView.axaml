@@ -21,6 +21,7 @@
                 CornerRadius="{DynamicResource OverlayCornerRadius}">
                 <Image
                     x:Name="Image"
+                    RenderOptions.BitmapInterpolationMode="LowQuality"
                     Source="avares://HyperX.Spotify.Avalonia/Assets/mbid-a5ea66ca-8a47-4dd2-b2d4-bc467a72c280-27232009759.jpg"
                     Stretch="Uniform" />
             </Border>
@@ -28,8 +29,8 @@
                 <Interaction.Behaviors>
                     <AttachedBehavior>
                         <NavigateAction
-                            Route="NowPlayingTrack"
                             Context="{Binding $self}"
+                            Route="NowPlayingTrack"
                             Scope="SpotifyComponent" />
                     </AttachedBehavior>
                 </Interaction.Behaviors>
@@ -38,8 +39,8 @@
                 <Interaction.Behaviors>
                     <AttachedBehavior>
                         <NavigateAction
-                            Route="NowPlayingArtist"
                             Context="{Binding $self}"
+                            Route="NowPlayingArtist"
                             Scope="SpotifyComponent" />
                     </AttachedBehavior>
                 </Interaction.Behaviors>
@@ -53,8 +54,8 @@
                     <Interaction.Behaviors>
                         <AttachedBehavior>
                             <NavigateAction
+                                Context="{Binding $self}"
                                 Route="SkipPreviousButton"
-                                Context="{Binding $self}"
                                 Scope="SpotifyComponent" />
                         </AttachedBehavior>
                     </Interaction.Behaviors>
@@ -63,8 +64,8 @@
                     <Interaction.Behaviors>
                         <AttachedBehavior>
                             <NavigateAction
+                                Context="{Binding $self}"
                                 Route="PlayPauseButton"
-                                Context="{Binding $self}"
                                 Scope="SpotifyComponent" />
                         </AttachedBehavior>
                     </Interaction.Behaviors>
@@ -73,8 +74,8 @@
                     <Interaction.Behaviors>
                         <AttachedBehavior>
                             <NavigateAction
-                                Route="SkipNextButton"
                                 Context="{Binding $self}"
+                                Route="SkipNextButton"
                                 Scope="SpotifyComponent" />
                         </AttachedBehavior>
                     </Interaction.Behaviors>

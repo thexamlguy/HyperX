@@ -14,7 +14,7 @@ public class NavigationScope(IPublisher publisher,
         object? context, object[]? parameters = null, 
         CancellationToken cancellationToken = default)
     {
-        string[] segments = route.Split("\\");
+        string[] segments = route.Split('/');      
         foreach (object segment in segments)
         {
             if (contentTemplateDescriptorProvider.Get(segment)

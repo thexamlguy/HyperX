@@ -27,6 +27,7 @@ public partial class ObservableCollectionViewModel<TViewModel> :
 {
     private readonly ObservableCollection<TViewModel> collection = [];
 
+    [ObservableProperty]
     private bool isInitialized;
 
     public ObservableCollectionViewModel(IServiceProvider serviceProvider,
