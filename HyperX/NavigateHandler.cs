@@ -14,7 +14,7 @@ public class NavigateHandler(IComponentScopeProvider provider) :
             if (scope.GetService<INavigationScope>() is INavigationScope navigationScope)
             {
                 await navigationScope.NavigateAsync(args.Route, args.Sender,
-                    args.Context, args.Parameters, cancellationToken);
+                    args.Context, args.Navigated, args.Parameters, cancellationToken);
             }
         }
     }

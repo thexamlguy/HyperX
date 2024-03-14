@@ -4,6 +4,7 @@ public record Navigate(string Route,
     object? Context = null, 
     string? Scope = null, 
     object? Sender = null,
+    EventHandler? Navigated = null,
     object[]? Parameters = null) :
     INotification;
 

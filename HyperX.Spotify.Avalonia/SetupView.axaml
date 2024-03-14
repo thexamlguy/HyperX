@@ -4,11 +4,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
     <Border Background="#FF1DB954">
-        <Image
-            x:Name="Image"
-            Margin="48"
-            RenderOptions.BitmapInterpolationMode="MediumQuality"
-            Source="avares://HyperX.Spotify.Avalonia/Assets/Spotify.png"
-            Stretch="Uniform" />
+        <Grid Margin="48" RowDefinitions="*,12,Auto">
+            <Image
+                Grid.Row="0"
+                HorizontalAlignment="Center"
+                RenderOptions.BitmapInterpolationMode="MediumQuality"
+                Source="avares://HyperX.Spotify.Avalonia/Assets/Spotify.png"
+                Stretch="Uniform" />
+            <Button
+                Grid.Row="2"
+                MinWidth="132"
+                HorizontalAlignment="Center"
+                Content="Connect">
+                <Interaction.Behaviors>
+                    <EventTriggerBehavior EventName="Click">
+                        <NavigateAction Route="AddConnection" Scope="SpotifyComponent" />
+                    </EventTriggerBehavior>
+                </Interaction.Behaviors>
+            </Button>
+        </Grid>
     </Border>
 </UserControl>

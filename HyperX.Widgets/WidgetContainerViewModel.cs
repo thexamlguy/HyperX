@@ -26,6 +26,9 @@ public partial class WidgetContainerViewModel :
     [ObservableProperty]
     private string name;
 
+    [ObservableProperty]
+    private bool isRouted;
+
     public WidgetContainerViewModel(IServiceProvider serviceProvider,
         IServiceFactory serviceFactory,
         IPublisher publisher,

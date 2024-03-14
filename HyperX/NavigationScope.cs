@@ -10,13 +10,17 @@ public class NavigationScope(IPublisher publisher,
     IContentTemplateDescriptorProvider contentTemplateDescriptorProvider) : 
     INavigationScope
 {
-    public async Task NavigateAsync(string route, object? sender, 
-        object? context, object[]? parameters = null, 
-        CancellationToken cancellationToken = default)
+    public async Task NavigateAsync(string route, object? sender = null, object? context = null, 
+        EventHandler? navigated = null, object[]? parameters = null, CancellationToken cancellationToken = default)
     {
-        string[] segments = route.Split('/');      
+        string[] segments = route.Split('/');
+        int segmentCount = segments.Length;
+        int currentSegmentIndex = 0;
+        
         foreach (object segment in segments)
         {
+            currentSegmentIndex++;
+
             if (contentTemplateDescriptorProvider.Get(segment)
                 is IContentTemplateDescriptor descriptor)
             {
@@ -62,6 +66,10 @@ public class NavigationScope(IPublisher publisher,
                                 if (Activator.CreateInstance(navigateType, [context, view, viewModel, sender, parameters]) is object navigate)
                                 {
                                     await publisher.Publish(navigate, cancellationToken);
+                                    if (currentSegmentIndex == segmentCount)
+                                    {
+                                        navigated?.Invoke(this, EventArgs.Empty);
+                                    }
                                 }
                             }
                         }
@@ -69,8 +77,6 @@ public class NavigationScope(IPublisher publisher,
                 }
             }
         }
-
-
     }
 
     public async Task NavigateBackAsync(object? context, 

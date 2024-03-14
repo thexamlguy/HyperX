@@ -2,8 +2,6 @@
 using Avalonia.Controls.Primitives;
 using Avalonia.Metadata;
 using Avalonia.Xaml.Interactivity;
-using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
 
 namespace HyperX.UI.Avalonia;
 
@@ -28,6 +26,8 @@ public class NavigateAction :
         AvaloniaProperty.Register<NavigateAction, string>(nameof(Scope));
 
     private ParameterBindingCollection parameterCollection = [];
+
+    public event EventHandler? Navigated;
 
     public object Context
     {
@@ -73,7 +73,7 @@ public class NavigateAction :
                     Enumerable.Empty<KeyValuePair<string, object>>()];
 
                 observableViewModel.Publisher.Publish(new Navigate(Route, Context
-                    ?? null, Scope ?? null, control.DataContext, parameters));
+                    ?? null, Scope ?? null, control.DataContext, Navigated, parameters));
             }
         }
 

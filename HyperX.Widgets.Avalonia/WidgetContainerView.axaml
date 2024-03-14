@@ -1,7 +1,8 @@
 <UserControl
     x:Class="HyperX.Widgets.Avalonia.WidgetContainerView"
     xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Name="Container">
     <Border ClipToBounds="True" CornerRadius="{DynamicResource OverlayCornerRadius}">
         <ContentControl>
             <Interaction.Behaviors>
@@ -9,18 +10,27 @@
                     <ConditionAction>
                         <ConditionAction.Condition>
                             <ConditionalExpression>
-                                <ComparisonCondition LeftOperand="{Binding IsInitialized}" RightOperand="False" />
+                                <ComparisonCondition LeftOperand="{Binding IsRouted}" RightOperand="False" />
                             </ConditionalExpression>
                         </ConditionAction.Condition>
                         <NavigateAction
                             Context="{Binding $self}"
                             Route="{Binding Route}"
-                            Scope="{Binding Component}" />
+                            Scope="{Binding Component}">
+                            <Interaction.Behaviors>
+                                <EventTriggerBehavior EventName="Navigated">
+                                    <ChangePropertyAction
+                                        PropertyName="IsRouted"
+                                        TargetObject="{Binding #Container.DataContext}"
+                                        Value="True" />
+                                </EventTriggerBehavior>
+                            </Interaction.Behaviors>
+                        </NavigateAction>
                     </ConditionAction>
                     <ConditionAction>
                         <ConditionAction.Condition>
                             <ConditionalExpression>
-                                <ComparisonCondition LeftOperand="{Binding IsInitialized}" RightOperand="True" />
+                                <ComparisonCondition LeftOperand="{Binding IsRouted}" RightOperand="True" />
                             </ConditionalExpression>
                         </ConditionAction.Condition>
                         <NavigateAction
